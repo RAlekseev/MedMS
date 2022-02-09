@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('users/change_pass/{id}', [UserController::class, 'change_pass']);
 Route::apiResource('/users', UserController::class);

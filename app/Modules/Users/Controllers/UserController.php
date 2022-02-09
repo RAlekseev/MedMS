@@ -6,6 +6,7 @@ namespace App\Modules\Users\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -28,7 +29,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $random_pass = strtolower(Str::random(4));
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($random_pass),
+        ]);
+
+        return ['user' => $user,
+            'message' => "Пользователь успешно добавлен login: {$user->email}  pass: {$random_pass}"];
     }
 
     /**
@@ -37,9 +46,9 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(int $id)
     {
-        //
+        return User::findOrFail($id);
     }
 
 
@@ -52,19 +61,32 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->fill($request->all())->save();
+
+        return ['user' => $user,
+            'message' => "Пользователь {$user->name} успешно изменен"];
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $user
+     * @param int $id
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(User $user)
+    public function destroy(int $id)
     {
-        //
+        User::findOrFail($id)->delete();
     }
 
+    public function change_pass($id)
+    {
+        $random_pass = strtolower(Str::random(4));
+        $user = User::findOrFail($id);
+        $result = $user->update(['password' => bcrypt($random_pass)]);
+
+        return json_encode("Login: {$user->email}
+        Password: {$random_pass} \n Сохраните пароль! При обновленнии страницы он станет недоступен");
+    }
 }
