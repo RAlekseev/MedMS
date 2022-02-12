@@ -3,11 +3,6 @@
 
         <div class="col-xl-10 col-lg-12 col-md-9">
             <div class="card o-hidden border-0 shadow-lg my-5">
-                <div v-for="error in errors">
-                    <error :error="error[0]"></error>
-                </div>
-
-                <message :message="message"></message>
                 <loading :loading="loading"></loading>
 
                 <div class="card-body p-0">
@@ -78,8 +73,6 @@
         data() {
             return {
                 loading: false,
-                errors: [],
-                message: null,
 
                 form: {
                     email: null,
@@ -97,11 +90,12 @@
                     .post(`api/registration`, this.form)
                     .then(response => {
                         this.errors = [];
-                        this.message = "Вы успешно зарегистрировали аккаунт!";
+                        this.$store.dispatch('pushMessage', "Вы успешно зарегистрировали аккаунт!");
                     })
                     .catch(error => {
-                        console.log(error);
-                        this.errors = error.response.data.errors || error.message;
+                        for(let item of Object.values(error.response.data.errors)){
+                            this.$store.dispatch('pushError', item[0]);
+                        }
                     })
                     .finally(() => this.loading = false);
             }

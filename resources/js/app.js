@@ -24,8 +24,8 @@ import axios from 'axios';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('error', require('./core/components/Error').default);
-Vue.component('message', require('./core/components/Message').default);
+// Vue.component('error', require('./core/components/Error').default);
+// Vue.component('message', require('./core/components/Message').default);
 Vue.component('loading', require('./core/components/Loading').default);
 
 // window.axios.defaults.withCredentials = true;

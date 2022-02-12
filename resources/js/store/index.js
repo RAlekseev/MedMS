@@ -9,7 +9,9 @@ axios.defaults.baseURL = 'http://localhost:8085';
 
 export default new Vuex.Store({
     state: {
-        user: null
+        user: null,
+        errors: [],
+        messages: [],
     },
 
     mutations: {
@@ -22,6 +24,13 @@ export default new Vuex.Store({
         clearUserData () {
             localStorage.removeItem('user')
             location.reload()
+        },
+
+        addError (state, error) {
+            state.errors.push(error)
+        },
+        addMessage (state, message) {
+            state.messages.push(message)
         }
     },
 
@@ -35,12 +44,23 @@ export default new Vuex.Store({
                 })
         },
 
+        pushError({ commit }, error) {
+            commit('addError', error)
+        },
+
+        pushMessage({ commit }, message) {
+            commit('addMessage', message)
+        },
+
         logout ({ commit }) {
             commit('clearUserData')
         }
     },
 
     getters : {
-        isLogged: state => !!state.user
+        isLogged: state => !!state.user,
+        authUser: state => state.user.user,
+        errors: state => state.errors,
+        messages: state => state.messages,
     }
 })

@@ -1,8 +1,6 @@
 <template>
 
     <div class="card shadow mb-4">
-        <error :error="error"></error>
-        <message :message="message"></message>
         <loading :loading="loading"></loading>
 
         <div class="card-header py-3">
@@ -73,8 +71,6 @@
             return {
                 loading: true,
                 users: null,
-                error: null,
-                message: null,
             };
         },
         components: {
@@ -83,7 +79,6 @@
         },
         mounted() {
             this.getUsers();
-            console.log(this.users);
         },
         methods: {
             getUsers() {
@@ -92,7 +87,7 @@
                     .then(response => {
                         this.users = response.data;
                     }).catch(error => {
-                    this.error = error.response.data.message || error.message;
+                    this.$store.dispatch('pushError', error.response.data.message || error.message)
                 }).finally(() => this.loading = false);
             },
             deleteUser(id) {
@@ -103,7 +98,7 @@
                         let index = this.users.findIndex(user => user.id === id);
                         this.users.splice(index, 1);
                     }).catch(error => {
-                    this.error = error.response.data.message || error.message;
+                    this.$store.dispatch('pushError', error.response.data.message || error.message);
                 }).finally(() => this.loading = false);
             },
             changePass(id) {
@@ -111,9 +106,9 @@
                 axios
                     .get(`/api/users/change_pass/${id}`)
                     .then(response => {
-                        this.message = response.data;
+                        this.$store.dispatch('pushMessage', response.data);
                     }).catch(error => {
-                    this.error = error.response.data.message || error.message;
+                    this.$store.dispatch('pushError', error.response.data.message || error.message);
                 }).finally(() => this.loading = false);
             },
             onCreateUser(user) {
@@ -121,10 +116,11 @@
                 axios
                     .post('api/users', user)
                     .then(response => {
-                        this.message = response.data.message;
+                        console.log(response);
+                        this.$store.dispatch('pushMessage', response.data.message);
                         this.users.push(response.data.user);
                     }).catch(error => {
-                    this.error = error.response.data.message || error.message;
+                    this.$store.dispatch('pushError', error.response.data.message || error.message)
                 }).finally(() => this.loading = false);
             },
             onUpdateUser(user) {
@@ -132,10 +128,10 @@
                 axios
                     .patch(`api/users/${user.id}`, user)
                     .then(response => {
-                        this.message = response.data.message;
+                        this.$store.dispatch('pushMessage', response.data.message);
                     }).catch(error => {
                     this.getUsers();
-                    this.error = error.response.data.message || error.message;
+                    this.$store.dispatch('pushError', error.response.data.message || error.message)
                 }).finally(() => this.loading = false);
             }
         }

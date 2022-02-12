@@ -4,12 +4,6 @@
         <div class="col-xl-10 col-lg-12 col-md-9">
 
             <div class="card o-hidden border-0 shadow-lg my-5">
-
-                <div v-for="error in errors">
-                    <error :error="error"></error>
-                </div>
-
-                <message :message="message"></message>
                 <loading :loading="loading"></loading>
 
                 <div class="card-body p-0">
@@ -73,8 +67,6 @@
         data() {
             return {
                 loading: false,
-                errors: [],
-                message: null,
 
                 form: {
                     email: null,
@@ -94,7 +86,7 @@
                         this.$router.push({ name: 'home' })
                     })
                     .catch(error => {
-                        this.errors.push(error.response.data.message || error.message);
+                        this.$store.dispatch('pushError', error.response.data.message || error.message)
                     });
                 this.loading = false;
             },
