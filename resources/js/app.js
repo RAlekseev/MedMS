@@ -4,12 +4,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+// require('./bootstrap');
 
 window.Vue = require('vue').default;
 
 import router from './core/router';
-import App from './core/App'
+import App from './core/App';
+import store from './store';
+import axios from 'axios';
 
 /**
  * The following block of code may be used to automatically register your
@@ -22,7 +24,11 @@ import App from './core/App'
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-// Vue.component('app', require('./core/App.vue').default);
+Vue.component('error', require('./core/components/Error').default);
+Vue.component('message', require('./core/components/Message').default);
+Vue.component('loading', require('./core/components/Loading').default);
+
+// window.axios.defaults.withCredentials = true;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32,7 +38,24 @@ import App from './core/App'
 
 const app = new Vue({
     // el: '#app',
-    // components: { App },
+    store:store,
     router,
+    created () {
+        const userInfo = localStorage.getItem('user');
+        if (userInfo) {
+            const userData = JSON.parse(userInfo);
+            this.$store.commit('setUserData', userData);
+        }
+        axios.interceptors.response.use(
+            response => response,
+            error => {
+                // console.log(error);
+                if (error.response.status === 401) {
+                    this.$store.dispatch('logout')
+                }
+                return Promise.reject(error)
+            }
+        )
+    },
     render: h => h(App)
 }).$mount('#app');

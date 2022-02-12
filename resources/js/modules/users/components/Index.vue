@@ -1,27 +1,19 @@
 <template>
 
     <div class="card shadow mb-4">
-        <div class="alert alert-success" role="alert" v-if="message">
-            {{ message }}
-        </div>
-        <div class="alert alert-danger" role="alert" v-if="error">
-            {{ error }}
-        </div>
-        <div class="text-center" v-if="loading">
-            <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
+        <error :error="error"></error>
+        <message :message="message"></message>
+        <loading :loading="loading"></loading>
+
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
                 Пользователи
                 <Create @create="onCreateUser($event)"></Create>
             </h6>
-
         </div>
+
         <div class="card-body">
             <div class="table-responsive">
-
                 <table id="data_table" class="display table-bordered" style="width:100%;">
                     <thead>
                     <tr>
@@ -32,7 +24,6 @@
                     </tr>
                     </thead>
                     <tbody v-if="users">
-
                     <tr v-for="user in users">
                         <td class="text-center">{{user.id}}</td>
                         <td>
@@ -42,7 +33,6 @@
                         </td>
                         <td>{{user.email}}</td>
 
-
                         <td class="text-right">
                             <div>
                                 <router-link :to="{ name: 'usersShow', params: { id: user.id } }">
@@ -51,8 +41,7 @@
                                     </button>
                                 </router-link>
 
-                                <button @click="changePass(user.id)"
-                                        class="btn btn-warning btn-round">
+                                <button @click="changePass(user.id)" class="btn btn-warning btn-round">
                                     <i class="fa fa-key"></i>
                                 </button>
 
@@ -94,6 +83,7 @@
         },
         mounted() {
             this.getUsers();
+            console.log(this.users);
         },
         methods: {
             getUsers() {
