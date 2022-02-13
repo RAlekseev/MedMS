@@ -62,5 +62,6 @@ export default new Vuex.Store({
         authUser: state => state.user.user,
         errors: state => state.errors,
         messages: state => state.messages,
+        can: state => perm => state.user.user && state.user.user.permissions.includes(perm),
     }
 })

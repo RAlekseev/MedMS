@@ -12,7 +12,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table id="data_table" class="display table-bordered" style="width:100%;">
+                <table id="data_table" class="display table-bordered" style="width:100%;" v-if="can('super-admin')">
                     <thead>
                     <tr>
                         <th>Id</th>
@@ -62,6 +62,7 @@
 <script>
     import axios from 'axios';
     require('promise.prototype.finally').shim();
+    import {mapGetters} from 'vuex'
 
     import Create from "./Create";
     import Edit from "./Edit";
@@ -134,6 +135,11 @@
                     this.$store.dispatch('pushError', error.response.data.message || error.message)
                 }).finally(() => this.loading = false);
             }
-        }
+        },
+        computed: {
+            ...mapGetters([
+                'can',
+            ])
+        },
     }
 </script>

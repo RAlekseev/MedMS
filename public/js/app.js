@@ -2849,8 +2849,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _Create__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Create */ "./resources/js/modules/users/components/Create.vue");
 /* harmony import */ var _Edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Edit */ "./resources/js/modules/users/components/Edit.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2915,6 +2922,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 (__webpack_require__(/*! promise.prototype.finally */ "./node_modules/promise.prototype.finally/index.js").shim)();
+
 
 
 
@@ -3002,7 +3010,8 @@ __webpack_require__.r(__webpack_exports__);
         return _this5.loading = false;
       });
     }
-  }
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)(['can']))
 });
 
 /***/ }),
@@ -3338,6 +3347,11 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
     },
     messages: function messages(state) {
       return state.messages;
+    },
+    can: function can(state) {
+      return function (perm) {
+        return state.user.user && state.user.user.permissions.includes(perm);
+      };
     }
   }
 }));
@@ -7884,107 +7898,110 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "table-responsive" }, [
-          _c(
-            "table",
-            {
-              staticClass: "display table-bordered",
-              staticStyle: { width: "100%" },
-              attrs: { id: "data_table" },
-            },
-            [
-              _vm._m(0),
-              _vm._v(" "),
-              _vm.users
-                ? _c(
-                    "tbody",
-                    _vm._l(_vm.users, function (user) {
-                      return _c("tr", [
-                        _c("td", { staticClass: "text-center" }, [
-                          _vm._v(_vm._s(user.id)),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c("a", { attrs: { href: "#" } }, [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(user.name) +
-                                "\n                        "
-                            ),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(user.email))]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-right" }, [
-                          _c(
-                            "div",
-                            [
+          _vm.can("super-admin")
+            ? _c(
+                "table",
+                {
+                  staticClass: "display table-bordered",
+                  staticStyle: { width: "100%" },
+                  attrs: { id: "data_table" },
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm.users
+                    ? _c(
+                        "tbody",
+                        _vm._l(_vm.users, function (user) {
+                          return _c("tr", [
+                            _c("td", { staticClass: "text-center" }, [
+                              _vm._v(_vm._s(user.id)),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("a", { attrs: { href: "#" } }, [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(user.name) +
+                                    "\n                        "
+                                ),
+                              ]),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(user.email))]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-right" }, [
                               _c(
-                                "router-link",
-                                {
-                                  attrs: {
-                                    to: {
-                                      name: "usersShow",
-                                      params: { id: user.id },
-                                    },
-                                  },
-                                },
+                                "div",
                                 [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      attrs: {
+                                        to: {
+                                          name: "usersShow",
+                                          params: { id: user.id },
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-success btn-round",
+                                        },
+                                        [_c("i", { staticClass: "fa fa-eye" })]
+                                      ),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
                                   _c(
                                     "button",
                                     {
-                                      staticClass: "btn btn-success btn-round",
+                                      staticClass: "btn btn-warning btn-round",
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.changePass(user.id)
+                                        },
+                                      },
                                     },
-                                    [_c("i", { staticClass: "fa fa-eye" })]
+                                    [_c("i", { staticClass: "fa fa-key" })]
                                   ),
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-warning btn-round",
-                                  on: {
-                                    click: function ($event) {
-                                      return _vm.changePass(user.id)
+                                  _vm._v(" "),
+                                  _c("Edit", {
+                                    attrs: { initialUser: user },
+                                    on: {
+                                      update: function ($event) {
+                                        return _vm.onUpdateUser($event)
+                                      },
                                     },
-                                  },
-                                },
-                                [_c("i", { staticClass: "fa fa-key" })]
-                              ),
-                              _vm._v(" "),
-                              _c("Edit", {
-                                attrs: { initialUser: user },
-                                on: {
-                                  update: function ($event) {
-                                    return _vm.onUpdateUser($event)
-                                  },
-                                },
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-danger btn-round",
-                                  on: {
-                                    click: function ($event) {
-                                      return _vm.deleteUser(user.id)
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger btn-round",
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.deleteUser(user.id)
+                                        },
+                                      },
                                     },
-                                  },
-                                },
-                                [_c("i", { staticClass: "fa fa-trash" })]
+                                    [_c("i", { staticClass: "fa fa-trash" })]
+                                  ),
+                                ],
+                                1
                               ),
-                            ],
-                            1
-                          ),
-                        ]),
-                      ])
-                    }),
-                    0
-                  )
-                : _vm._e(),
-            ]
-          ),
+                            ]),
+                          ])
+                        }),
+                        0
+                      )
+                    : _vm._e(),
+                ]
+              )
+            : _vm._e(),
         ]),
       ]),
     ],
