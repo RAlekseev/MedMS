@@ -3,13 +3,13 @@ import Show from './components/Show'
 
 export default [
     {
-        path: 'users',
+        path: 'roles',
         component: Index,
-        name: 'usersIndex',
+        name: 'rolesIndex',
     },
     {
-        path: 'users/show/:id',
+        path: 'roles/show/:id',
         component: Show,
-        name: 'usersShow',
+        name: 'roleShow',
     },
 ]

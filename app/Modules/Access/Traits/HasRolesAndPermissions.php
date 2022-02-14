@@ -22,7 +22,7 @@ Trait HasRolesAndPermissions
         return $permissions;
     }
 
-    public function permissionsArray()
+    public function getPermissionsArrayAttribute()
     {
         $roles = $this->roles;
         $permissions = [];

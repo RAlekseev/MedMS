@@ -1,4 +1,3 @@
-
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -15,49 +14,49 @@ export default new Vuex.Store({
     },
 
     mutations: {
-        setUserData (state, userData) {
+        setUserData(state, userData) {
             state.user = userData
             localStorage.setItem('user', JSON.stringify(userData))
             axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`
         },
 
-        clearUserData () {
+        clearUserData() {
             localStorage.removeItem('user')
             location.reload()
         },
 
-        addError (state, error) {
+        addError(state, error) {
             state.errors.push(error)
         },
-        addMessage (state, message) {
+        addMessage(state, message) {
             state.messages.push(message)
-        }
+        },
     },
 
     actions: {
-        login ({ commit }, credentials) {
+        login({commit}, credentials) {
             return axios
                 .post('/api/login', credentials)
-                .then(({ data }) => {
+                .then(({data}) => {
                     console.log('store/error');
                     commit('setUserData', data)
                 })
         },
 
-        pushError({ commit }, error) {
+        pushError({commit}, error) {
             commit('addError', error)
         },
 
-        pushMessage({ commit }, message) {
+        pushMessage({commit}, message) {
             commit('addMessage', message)
         },
 
-        logout ({ commit }) {
+        logout({commit}) {
             commit('clearUserData')
         }
     },
 
-    getters : {
+    getters: {
         isLogged: state => !!state.user,
         authUser: state => state.user.user,
         errors: state => state.errors,

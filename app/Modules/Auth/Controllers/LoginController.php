@@ -38,8 +38,7 @@ class LoginController
         }
 
         if (Auth::attempt($request->validated())) {
-            $user = Auth::user();
-            $user->permissions = $user->permissionsArray();
+            $user = Auth::user()->append('permissions_array');
             $token = $user->createToken('api');
             return response()->json([
                 'user' => $user,

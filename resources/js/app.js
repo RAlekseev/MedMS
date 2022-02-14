@@ -21,14 +21,7 @@ import axios from 'axios';
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-// Vue.component('error', require('./core/components/Error').default);
-// Vue.component('message', require('./core/components/Message').default);
 Vue.component('loading', require('./core/components/Loading').default);
-
-// window.axios.defaults.withCredentials = true;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -37,8 +30,7 @@ Vue.component('loading', require('./core/components/Loading').default);
  */
 
 const app = new Vue({
-    // el: '#app',
-    store:store,
+    store,
     router,
     created () {
         const userInfo = localStorage.getItem('user');

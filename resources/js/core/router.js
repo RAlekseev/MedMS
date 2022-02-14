@@ -6,6 +6,8 @@ import Login from './components/Login'
 import Registration from './components/Registration'
 
 import usersRouter from '../modules/users/routes'
+import rolesRouter from '../modules/roles/routes'
+import permissionsRouter from '../modules/permissions/routes'
 
 Vue.use(VueRouter);
 
@@ -17,7 +19,7 @@ const router = new VueRouter({
             path: '/',
             name: 'home',
             component: Home,
-            children: usersRouter,
+            children: [...usersRouter, ...rolesRouter, ...permissionsRouter],
 
         },
         {
