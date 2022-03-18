@@ -4,25 +4,21 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-
 window.Vue = require('vue').default;
 
+window.$ = window.jquery = require('jquery');
+require('datatables.net');
+
 import router from './core/router';
-import App from './core/App'
+import App from './core/App';
+import {store} from './core/store';
+import axios from 'axios';
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+import VueMeta from 'vue-meta';
+Vue.use(VueMeta);
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-// Vue.component('app', require('./core/App.vue').default);
+import VueMask from 'v-mask'
+Vue.use(VueMask);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,8 +27,22 @@ import App from './core/App'
  */
 
 const app = new Vue({
-    // el: '#app',
-    // components: { App },
+    store,
     router,
+    created () {
+        const userInfo = localStorage.getItem('user');
+        if (userInfo) {
+            this.$store.commit('setUserData', JSON.parse(userInfo));
+        }
+        axios.interceptors.response.use(
+            response => response,
+            error => {
+                if (error.response.status === 401) {
+                    this.$store.dispatch('logout')
+                }
+                return Promise.reject(error)
+            }
+        )
+    },
     render: h => h(App)
 }).$mount('#app');

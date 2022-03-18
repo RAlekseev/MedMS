@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return User::with('roles')->get();
     }
 
 
@@ -31,10 +31,16 @@ class UserController extends Controller
     {
         $random_pass = strtolower(Str::random(4));
         $user = User::create([
-            'name' => $request['name'],
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'middle_name' => $request['middle_name'],
             'email' => $request['email'],
+            'phone' => $request['phone'],
             'password' => bcrypt($random_pass),
+            'birthday' => $request['birthday'],
         ]);
+
+        $user->roles()->attach($request['roles']);
 
         return ['user' => $user,
             'message' => "Пользователь успешно добавлен login: {$user->email}  pass: {$random_pass}"];
@@ -62,6 +68,13 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
+
+        if ($user->roles->toArray() != $request['roles']) {
+            $user->roles()->detach();
+            $user->roles()->attach(array_column($request['roles'], 'id'));
+            $user->tokens()->delete();
+        }
+
         $user->fill($request->all())->save();
 
         return ['user' => $user,
