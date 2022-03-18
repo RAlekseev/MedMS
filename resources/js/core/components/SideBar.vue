@@ -7,7 +7,7 @@
             <div class="sidebar-brand-icon">
                 <i class="fas fa-heartbeat"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">MED SPA<sup>1</sup></div>
+            <div class="sidebar-brand-text mx-3">MedMS<sup>1</sup></div>
         </router-link>
 
 
@@ -50,7 +50,28 @@
         <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'usersIndex' }">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Users</span>
+                <span>Пользователи</span>
+            </router-link>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Услуги
+        </div>
+
+        <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'usersIndex' }">
+                <i class="fas fa-fw fa-medkit"></i>
+                <span>Список услуг</span>
+            </router-link>
+        </li>
+        <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'schedulesIndex' }">
+                <i class="fas fa-fw fa-calendar"></i>
+                <span>Расписание</span>
             </router-link>
         </li>
 
@@ -67,3 +88,8 @@
     </ul>
 </template>
 
+<style scoped>
+    .sidebar .sidebar-brand {
+        text-transform: none;
+    }
+</style>

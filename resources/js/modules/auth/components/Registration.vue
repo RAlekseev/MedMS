@@ -1,10 +1,8 @@
 <template>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-lg-5">
 
         <div class="col-xl-10 col-lg-12 col-md-9">
             <div class="card o-hidden border-0 shadow-lg my-5">
-                <loading :loading="loading"></loading>
-
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
@@ -38,15 +36,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button :disabled="this.loading" type="submit"
+                                    <button :disabled="loading" type="submit"
                                             class="btn btn-primary btn-user btn-block">
                                         Создать
                                     </button>
                                 </form>
                                 <hr>
-                                <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Забыли пароль?</a>
-                                </div>
                                 <div class="text-center">
                                     <router-link class="small" :to="{name: 'login'}">Уже есть аккаунт!</router-link>
                                 </div>
@@ -64,16 +59,15 @@
 </template>
 
 <script>
-    import axios from 'axios';
-
-    require('promise.prototype.finally').shim();
+    import {mapGetters} from "vuex";
 
     export default {
-        name: 'Login',
+        name: 'Registration',
+        metaInfo: {
+            title: 'Регистрация'
+        },
         data() {
             return {
-                loading: false,
-
                 form: {
                     email: null,
                     password: null,
@@ -82,22 +76,14 @@
                 }
             }
         },
+        computed: {
+            ...mapGetters([
+                'loading',
+            ])
+        },
         methods: {
             sendForm() {
-                this.loading = true;
-
-                axios
-                    .post(`api/registration`, this.form)
-                    .then(response => {
-                        this.errors = [];
-                        this.$store.dispatch('pushMessage', "Вы успешно зарегистрировали аккаунт!");
-                    })
-                    .catch(error => {
-                        for(let item of Object.values(error.response.data.errors)){
-                            this.$store.dispatch('pushError', item[0]);
-                        }
-                    })
-                    .finally(() => this.loading = false);
+                this.$store.dispatch('registration', this.form);
             }
         }
     }

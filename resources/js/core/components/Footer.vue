@@ -3,7 +3,21 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
+                    <span>
+                        Copyright &copy; Med SPA 2022
+                         <router-link :to="{name: 'cookies'}">
+                            Использование Cookies
+                        </router-link>
+                        <br>
+                        <router-link :to="{name: 'login'}">
+                            Политика
+                        </router-link>
+                        и
+                        <router-link :to="{name: 'login'}">
+                            соглашение
+                        </router-link>
+                        об использовании персон. данных
+                    </span>
                 </div>
             </div>
         </footer>

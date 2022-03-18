@@ -15,20 +15,64 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form @submit.prevent="addUser()" method="post">
+                        <form @submit.prevent="createUser()" method="post">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Имя</label>
-                                        <input type="text" class="form-control" name="name" v-model="user.name" required>
+                                        <input type="text" class="form-control" v-model="user.first_name"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Фамилия</label>
+                                        <input type="text" class="form-control" v-model="user.last_name"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Отчество</label>
+                                        <input type="text" class="form-control" v-model="user.middle_name">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Почта</label>
-                                        <input type="email" class="form-control" name="email" v-model="user.email" required>
+                                        <input placeholder="example@mail.ru" type="email" class="form-control" v-model="user.email"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Номер телефона</label>
+                                        <input placeholder="+996(XXX)XXX-XXXX" type="tel" class="phone form-control"
+                                               required v-model="user.phone" v-mask="'+996(###)###-####'">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                            <label class="bmd-label-static">Группа(ы)</label>
+                                            <select class="custom-select" data-style="select-with-transition"
+                                                    title="Выбрать группы пользователя" v-model="user.roles" multiple>
+                                                <option v-for="role in roles" :value="role.id"
+                                                        :key="role.id">
+                                                    {{role.name}}
+                                                </option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Дата рождения</label>
+                                        <input type="date" class="form-control"
+                                               required v-model="user.birthday">
                                     </div>
                                 </div>
                             </div>
@@ -48,17 +92,29 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
+
     export default {
         data() {
             return {
-                user: {}
+                user: {
+                    roles: []
+                }
             }
         },
+        computed: {
+            ...mapGetters([
+                'roles',
+            ])
+        },
+        mounted() {
+            this.$store.dispatch('getRoles');
+        },
         methods: {
-            addUser() {
+            createUser() {
                 document.getElementById('close').click();
-                this.$emit('create', this.user);
-            }
+                this.$store.dispatch('createUser', this.user)
+            },
         }
     }
 </script>

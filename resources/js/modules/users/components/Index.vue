@@ -1,54 +1,47 @@
 <template>
 
     <div class="card shadow mb-4">
-        <loading :loading="loading"></loading>
-
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
                 Пользователи
-                <Create @create="onCreateUser($event)"></Create>
+                <Create v-if="can('users-create')"></Create>
             </h6>
         </div>
 
         <div class="card-body">
+
+
             <div class="table-responsive">
-                <table id="data_table" class="display table-bordered" style="width:100%;" v-if="can('super-admin')">
+                <table id="data_table" class="display table-bordered" style="width:100%;" >
                     <thead>
                     <tr>
                         <th>Id</th>
                         <th>Имя</th>
                         <th>Почта</th>
-                        <th class="text-right">Действия</th>
+                        <th>Телефон</th>
+                        <th>Дата рождения</th>
+                        <th class="text-right" v-if="is_available_actions()">Действия</th>
                     </tr>
                     </thead>
                     <tbody v-if="users">
-                    <tr v-for="user in users">
+                    <tr v-for="user in users" :key="user.id">
                         <td class="text-center">{{user.id}}</td>
                         <td>
-                            <a href="#">
-                                {{user.name}}
-                            </a>
+                            <router-link :to="{name: 'usersShow', params: {id: user.id}}" v-if="can('users-show')">
+                                {{user.full_name}}
+                            </router-link>
+                            <span v-else>
+                                {{user.full_name}}
+                            </span>
                         </td>
                         <td>{{user.email}}</td>
+                        <td>{{user.phone}}</td>
+                        <td>{{user.birthday}}</td>
 
-                        <td class="text-right">
+                        <td class="text-right" v-if="is_available_actions()">
                             <div>
-                                <router-link :to="{ name: 'usersShow', params: { id: user.id } }">
-                                    <button class="btn btn-success btn-round">
-                                        <i class="fa fa-eye"></i>
-                                    </button>
-                                </router-link>
-
-                                <button @click="changePass(user.id)" class="btn btn-warning btn-round">
-                                    <i class="fa fa-key"></i>
-                                </button>
-
-                                <Edit @update="onUpdateUser($event)" :initialUser="user"></Edit>
-
-                                <button @click="deleteUser(user.id)"
-                                        class="btn btn-danger btn-round">
-                                    <i class="fa fa-trash"></i>
-                                </button>
+                                <Edit :user="user" v-if="can('users-update')"></Edit>
+                                <Delete :user="user" v-if="can('users-delete')"></Delete>
                             </div>
                         </td>
                     </tr>
@@ -60,86 +53,37 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    require('promise.prototype.finally').shim();
     import {mapGetters} from 'vuex'
 
     import Create from "./Create";
     import Edit from "./Edit";
+    import Delete from "./Delete";
+    import dataTableConfig from "../../../core/utils/DataTablesConfig";
 
     export default {
-        data() {
-            return {
-                loading: true,
-                users: null,
-            };
+        metaInfo: {
+            title: 'Пользователи'
+        },
+        computed: {
+            ...mapGetters([
+                'users',
+                'can',
+            ])
         },
         components: {
             Create,
             Edit,
+            Delete
         },
         mounted() {
-            this.getUsers();
+            this.$store.dispatch('getUsers').then( () => {
+                window.$('#data_table').DataTable(dataTableConfig);
+            });
         },
         methods: {
-            getUsers() {
-                axios
-                    .get('/api/users')
-                    .then(response => {
-                        this.users = response.data;
-                    }).catch(error => {
-                    this.$store.dispatch('pushError', error.response.data.message || error.message)
-                }).finally(() => this.loading = false);
-            },
-            deleteUser(id) {
-                this.loading = true;
-                axios
-                    .delete(`/api/users/${id}`)
-                    .then(response => {
-                        let index = this.users.findIndex(user => user.id === id);
-                        this.users.splice(index, 1);
-                    }).catch(error => {
-                    this.$store.dispatch('pushError', error.response.data.message || error.message);
-                }).finally(() => this.loading = false);
-            },
-            changePass(id) {
-                this.loading = true;
-                axios
-                    .get(`/api/users/change_pass/${id}`)
-                    .then(response => {
-                        this.$store.dispatch('pushMessage', response.data);
-                    }).catch(error => {
-                    this.$store.dispatch('pushError', error.response.data.message || error.message);
-                }).finally(() => this.loading = false);
-            },
-            onCreateUser(user) {
-                this.loading = true;
-                axios
-                    .post('api/users', user)
-                    .then(response => {
-                        console.log(response);
-                        this.$store.dispatch('pushMessage', response.data.message);
-                        this.users.push(response.data.user);
-                    }).catch(error => {
-                    this.$store.dispatch('pushError', error.response.data.message || error.message)
-                }).finally(() => this.loading = false);
-            },
-            onUpdateUser(user) {
-                this.loading = true;
-                axios
-                    .patch(`api/users/${user.id}`, user)
-                    .then(response => {
-                        this.$store.dispatch('pushMessage', response.data.message);
-                    }).catch(error => {
-                    this.getUsers();
-                    this.$store.dispatch('pushError', error.response.data.message || error.message)
-                }).finally(() => this.loading = false);
+            is_available_actions() {
+                return this.can('users-update') || this.can('users-delete');
             }
-        },
-        computed: {
-            ...mapGetters([
-                'can',
-            ])
-        },
+        }
     }
 </script>

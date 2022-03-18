@@ -15,7 +15,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form @submit.prevent="addRole()" method="post">
+                        <form @submit.prevent="createRole()" method="post">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -39,7 +39,10 @@
                                             <label class="bmd-label-static">Права роли</label>
                                             <select class="custom-select" data-style="select-with-transition"
                                                     title="Выбрать права роли" v-model="role.permissions" multiple>
-                                                <option v-for="permission in allPermissions" :value="permission.id">{{permission.name}}</option>
+                                                <option v-for="permission in permissions" :value="permission.id"
+                                                        :key="permission.id">
+                                                    {{permission.name}}
+                                                </option>
                                             </select>
                                     </div>
                                 </div>
@@ -62,22 +65,23 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
+
     export default {
+        computed: {
+            ...mapGetters([
+                'permissions',
+            ])
+        },
         data() {
             return {
-                role: {
-                    name: null,
-                    slug: null,
-                    permissions: [],
-                },
-                permissions: null
+                role: {},
             }
         },
-        props: ['allPermissions'],
         methods: {
-            addRole() {
+            createRole() {
                 document.getElementById('close').click();
-                this.$emit('create', this.role);
+                this.$store.dispatch('createRole', this.role)
             },
         }
     }

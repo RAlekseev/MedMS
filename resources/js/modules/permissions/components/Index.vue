@@ -1,12 +1,8 @@
 <template>
-
     <div class="card shadow mb-4">
-        <loading v-if="loading"></loading>
-
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
                 Права доступа
-                <Create @create="onCreate($event)"></Create>
             </h6>
         </div>
 
@@ -18,11 +14,11 @@
                         <th>Id</th>
                         <th>Имя</th>
                         <th>Код</th>
-                        <th class="text-right">Действия</th>
+                        <th>Описание</th>
                     </tr>
                     </thead>
                     <tbody v-if="permissions">
-                    <tr v-for="permission in permissions">
+                    <tr v-for="permission in permissions" :key="permission.id">
                         <td class="text-center">{{permission.id}}</td>
                         <td>
                             <a href="#">
@@ -30,15 +26,7 @@
                             </a>
                         </td>
                         <td>{{permission.slug}}</td>
-
-                        <td class="text-right">
-                            <div>
-                                <button @click="deletePermission(permission.id)"
-                                        class="btn btn-danger btn-round">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
+                        <td>{{permission.description}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -48,73 +36,20 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    require('promise.prototype.finally').shim();
-    import {mapGetters} from 'vuex'
-
-    import Create from "./Create";
+    import {mapGetters} from "vuex";
 
     export default {
-        data() {
-            return {
-                loading: true,
-                permissions: null,
-            };
-        },
-        components: {
-            Create,
-        },
-        mounted() {
-            this.getPermissions();
-        },
-        methods: {
-            getPermissions() {
-                axios
-                    .get('/api/permissions')
-                    .then(response => {
-                        this.permissions = response.data;
-                    }).catch(error => {
-                    this.$store.dispatch('pushError', error.response.data.message || error.message)
-                }).finally(() => this.loading = false);
-            },
-            deletePermission(id) {
-                this.loading = true;
-                axios
-                    .delete(`/api/permissions/${id}`)
-                    .then(response => {
-                        let index = this.roles.findIndex(permission => permission.id === id);
-                        this.permissions.splice(index, 1);
-                    }).catch(error => {
-                    this.$store.dispatch('pushError', error.response.data.message || error.message);
-                }).finally(() => this.loading = false);
-            },
-            onCreate(permission) {
-                this.loading = true;
-                axios
-                    .post('api/permissions', permission)
-                    .then(response => {
-                        this.$store.dispatch('pushMessage', response.data.message);
-                        this.permissions.push(response.data.permission);
-                    }).catch(error => {
-                    this.$store.dispatch('pushError', error.response.data.message || error.message)
-                }).finally(() => this.loading = false);
-            },
-            onUpdate(permission) {
-                this.loading = true;
-                axios
-                    .patch(`api/permissions/${permission.id}`, permission)
-                    .then(response => {
-                        this.$store.dispatch('pushMessage', response.data.message);
-                    }).catch(error => {
-                    this.getUsers();
-                    this.$store.dispatch('pushError', error.response.data.message || error.message)
-                }).finally(() => this.loading = false);
-            }
+        name: 'PermissionsIndex',
+        metaInfo: {
+            title: 'Права доступа'
         },
         computed: {
             ...mapGetters([
-                'can',
+                'permissions',
             ])
+        },
+        mounted() {
+            this.$store.dispatch('getPermissions');
         },
     }
 </script>

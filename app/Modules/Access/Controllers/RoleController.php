@@ -36,6 +36,8 @@ class RoleController extends Controller
 
         $role->permissions()->attach($request['permissions']);
 
+        $role->users;
+        $role->permissions;
         return response()->json([
             'role' => $role,
             'message' => "Роль успешно добавлена"
@@ -65,8 +67,14 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
 
-        $role->permissions()->detach();
-        $role->permissions()->attach(array_column($request['permissions'], 'id'));
+        if ($role->permissions->toArray() != $request['permissions']) {
+            $role->permissions()->detach();
+            $role->permissions()->attach(array_column($request['permissions'], 'id'));
+            $role->users->map( function ($user) {
+                $user->tokens()->delete();
+            });
+        }
+
         $role->fill($request->all())->save();
 
         return ['user' => $role,

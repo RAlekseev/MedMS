@@ -1,16 +1,9 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 import axios from 'axios'
+import router from '../../core/router';
 
-Vue.use(Vuex);
-
-axios.defaults.baseURL = 'http://localhost:8085';
-
-export default new Vuex.Store({
+export default {
     state: {
         user: null,
-        errors: [],
-        messages: [],
     },
 
     mutations: {
@@ -24,33 +17,34 @@ export default new Vuex.Store({
             localStorage.removeItem('user')
             location.reload()
         },
-
-        addError(state, error) {
-            state.errors.push(error)
-        },
-        addMessage(state, message) {
-            state.messages.push(message)
-        },
     },
 
     actions: {
         login({commit}, credentials) {
+            let redirect_to = router.currentRoute.query?.redirect || '/home';
             return axios
                 .post('/api/login', credentials)
                 .then(({data}) => {
-                    console.log('store/error');
                     commit('setUserData', data)
+                    router.push({path: redirect_to})
                 })
+                .catch(error => {
+                    commit('addError', error.response.data.message || error.message)
+                });
         },
-
-        pushError({commit}, error) {
-            commit('addError', error)
+        registration({commit}, credentials) {
+            axios
+                .post(`api/registration`, credentials)
+                .then(response => {
+                    commit('addMessage', "Вы успешно зарегистрировали аккаунт!");
+                    router.push({ name: 'login' })
+                })
+                .catch(error => {
+                    for(let item of Object.values(error.response.data.errors)){
+                        commit('addError', item[0]);
+                    }
+                });
         },
-
-        pushMessage({commit}, message) {
-            commit('addMessage', message)
-        },
-
         logout({commit}) {
             commit('clearUserData')
         }
@@ -59,8 +53,6 @@ export default new Vuex.Store({
     getters: {
         isLogged: state => !!state.user,
         authUser: state => state.user.user,
-        errors: state => state.errors,
-        messages: state => state.messages,
         can: state => perm => state.user.user && state.user.user.permissions.includes(perm),
     }
-})
+}

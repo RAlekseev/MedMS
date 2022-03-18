@@ -8,29 +8,73 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Редактирование пользователя:<br> {{user.name}}</h4>
+                    <h4 class="modal-title">Редактирование пользователя:<br> {{user.full_name}}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="fa fa-times"></i>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form @submit.prevent="editUser()" method="post">
+                    <form @submit.prevent="updateUser()" method="post">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Имя</label>
-                                    <input type="text" class="form-control" name="name" v-model="user.name" required>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Имя</label>
+                                        <input type="text" class="form-control" v-model="user.first_name"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Фамилия</label>
+                                        <input type="text" class="form-control" v-model="user.last_name"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Отчество</label>
+                                        <input type="text" class="form-control" v-model="user.middle_name">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Почта</label>
-                                    <input type="email" class="form-control" name="email" v-model="user.email" required>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Почта</label>
+                                        <input placeholder="example@mail.ru" type="email" class="form-control" v-model="user.email"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Номер телефона</label>
+                                        <input placeholder="+996(XXX)XXX-XXXX" type="tel" class="phone form-control"
+                                               required v-model="user.phone" v-mask="'+996(###)###-####'">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                            <label class="bmd-label-static">Группа(ы)</label>
+                                            <select class="custom-select" data-style="select-with-transition"
+                                                    title="Выбрать группы пользователя" v-model="user.roles" multiple>
+                                                <option v-for="role in roles" :value="role"
+                                                        :key="role.id">
+                                                    {{role.name}}
+                                                </option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Дата рождения</label>
+                                        <input type="date" class="form-control"
+                                               required v-model="user.birthday">
+                                    </div>
+                                </div>
+                            </div>
 
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Изменить</button>
@@ -48,18 +92,20 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
+
     export default {
-        data() {
-            return {
-                user: this.initialUser
-            }
+        props: ['user'],
+        computed: {
+            ...mapGetters([
+                'roles',
+            ])
         },
-        props: ['initialUser'],
         methods: {
-            editUser() {
-                document.getElementById('close' + this.user.id).click();
-                this.$emit('update', this.user);
-            }
+            updateUser() {
+                    document.getElementById('close' + this.user.id).click();
+                    this.$store.dispatch('updateUser', this.user)
+            },
         }
     }
 </script>

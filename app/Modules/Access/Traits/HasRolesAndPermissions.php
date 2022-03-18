@@ -14,22 +14,11 @@ Trait HasRolesAndPermissions
 
     public function permissions()
     {
-        $roles = $this->roles;
+        $user = clone $this;
+        $roles = $user->roles;
         $permissions = collect();
         foreach ($roles as $role) {
             $permissions = $role->permissions->merge($permissions);
-        }
-        return $permissions;
-    }
-
-    public function getPermissionsArrayAttribute()
-    {
-        $roles = $this->roles;
-        $permissions = [];
-        foreach ($roles as $role) {
-            foreach ($role->permissions as $permission) {
-                $permissions[] = $permission->slug;
-            }
         }
         return $permissions;
     }
@@ -39,5 +28,12 @@ Trait HasRolesAndPermissions
         return !!$this->permissions()->where('slug', $permission)->count();
     }
 
+
+    public function getPermissionsAttribute()
+    {
+        return $this->permissions()->map(function ($permission) {
+            return $permission->slug;
+        });
+    }
 
 }

@@ -1,11 +1,9 @@
 <template>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-lg-5">
 
         <div class="col-xl-10 col-lg-12 col-md-9">
 
             <div class="card o-hidden border-0 shadow-lg my-5">
-                <loading :loading="loading"></loading>
-
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
@@ -35,13 +33,6 @@
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Войти
                                     </button>
-<!--                                    <hr>-->
-<!--                                    <a href="index.html" class="btn btn-google btn-user btn-block">-->
-<!--                                        <i class="fab fa-google fa-fw"></i> Login with Google-->
-<!--                                    </a>-->
-<!--                                    <a href="index.html" class="btn btn-facebook btn-user btn-block">-->
-<!--                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook-->
-<!--                                    </a>-->
                                 </form>
                                 <hr>
                                 <div class="text-center">
@@ -64,10 +55,11 @@
 <script>
     export default {
         name: 'Login',
+        metaInfo: {
+            title: 'Авторизация'
+        },
         data() {
             return {
-                loading: false,
-
                 form: {
                     email: null,
                     password: null,
@@ -76,19 +68,7 @@
         },
         methods: {
             sendForm() {
-                this.loading = true;
-                this.$store
-                    .dispatch('login', {
-                        email: this.form.email,
-                        password: this.form.password
-                    })
-                    .then(() => {
-                        this.$router.push({ name: 'home' })
-                    })
-                    .catch(error => {
-                        this.$store.dispatch('pushError', error.response.data.message || error.message)
-                    });
-                this.loading = false;
+                this.$store.dispatch('login', this.form);
             },
         }
     }

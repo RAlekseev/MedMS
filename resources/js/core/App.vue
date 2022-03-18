@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="wrapper">
-            <SideBar></SideBar>
+            <SideBar v-if="isLogged"></SideBar>
 
             <div id="content-wrapper" class="d-flex flex-column">
                 <div id="content">
@@ -11,6 +11,7 @@
                         <div v-for="message in messages"><Message  :message="message"></Message></div>
                         <div v-for="error in errors"><Error  :error="error"></Error></div>
 
+                        <Loading v-if="loading"></Loading>
                         <router-view></router-view>
                     </div>
                 </div>
@@ -30,6 +31,7 @@
         import Footer from './components/Footer';
         import Message from './components/Message';
         import Error from './components/Error';
+        import Loading from './components/Loading';
 
         import { mapGetters } from 'vuex'
 
@@ -37,8 +39,10 @@
         export default {
             computed: {
                 ...mapGetters([
+                    'isLogged',
                     'errors',
-                    'messages'
+                    'messages',
+                    'loading',
                 ])
             },
             components: {
@@ -46,7 +50,8 @@
                 SideBar,
                 Footer,
                 Message,
-                Error
-            }
+                Error,
+                Loading,
+            },
         }
     </script>

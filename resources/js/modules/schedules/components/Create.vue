@@ -9,18 +9,18 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Создание Права доступа</h4>
+                        <h4 class="modal-title">Создание Роли</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             <i class="fa fa-times"></i>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form @submit.prevent="addPermission()" method="post">
+                        <form @submit.prevent="createRole()" method="post">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Название</label>
-                                        <input type="text" class="form-control" name="name" v-model="permission.name" required>
+                                        <input type="text" class="form-control" v-model="role.name" required>
                                     </div>
                                 </div>
                             </div>
@@ -28,10 +28,25 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Код</label>
-                                        <input type="text" class="form-control" name="slug" v-model="permission.slug" required>
+                                        <input type="text" class="form-control" v-model="role.slug" required>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                            <label class="bmd-label-static">Права роли</label>
+                                            <select class="custom-select" data-style="select-with-transition"
+                                                    title="Выбрать права роли" v-model="role.permissions" multiple>
+                                                <option v-for="permission in permissions" :value="permission.id" :key="permission.id">
+                                                    {{permission.name}}
+                                                </option>
+                                            </select>
+                                    </div>
+                                </div>
+                            </div>
+
 
 
                             <div class="modal-footer">
@@ -49,18 +64,30 @@
 </template>
 
 <script>
-    import axios from "axios";
+    import {mapGetters} from "vuex";
 
     export default {
+        computed: {
+            ...mapGetters([
+                'can',
+                'permissions',
+            ])
+        },
         data() {
             return {
-                permission: {},
+                role: {
+                    name: null,
+                    slug: null,
+                    permissions: [],
+                },
             }
         },
         methods: {
-            addPermission() {
-                document.getElementById('close').click();
-                this.$emit('create', this.permission);
+            createRole() {
+                if (this.can('roles-create')) {
+                    document.getElementById('close').click();
+                    this.$store.dispatch('createRole', this.role)
+                }
             },
         }
     }
