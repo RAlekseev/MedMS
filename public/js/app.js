@@ -17661,6 +17661,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['isLogged', 'authUser'])),
@@ -20099,7 +20131,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.sidebar .sidebar-brand[data-v-4efb7e37] {\n    text-transform: none;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.sidebar .sidebar-brand[data-v-4efb7e37] {\r\n  text-transform: none;\n}\n.menu-top[data-v-4efb7e37] {\r\n  height: 36px;\r\n  max-width: 1360px;\r\n  margin: 0 auto;\r\n  display: flex;\r\n  align-items: center;\r\n  padding: 0 30px\n}\n.menu-button[data-v-4efb7e37] {\r\n  flex-grow: 1;\r\n  /*font-size: 0;*/\n}\n.menu-button[data-v-4efb7e37] {\r\n  display: inline-block;\n}\n.menu-button-item[data-v-4efb7e37] {\r\n  display: inline-block;\n}\n.container-top a[data-v-4efb7e37] {\r\n  background: transparent;\r\n  z-index: 1;\n}\n.phone[data-v-4efb7e37] {\r\n  font-size: 14px;\r\n  display: flex;\r\n  align-items: center;\r\n  height: 36px;\r\n  padding: 0 20px 0 44px;\r\n  position: relative;\r\n  text-decoration: none;\n}\n.dropdown-menu[data-v-4efb7e37] {\r\n  width: 60px;\r\n  min-width: 80px;\n}\nspan[data-v-4efb7e37] {\r\n  font-size: 16px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -50702,210 +50734,309 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "nav",
-    {
-      staticClass:
-        "navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow",
-    },
-    [
-      _vm.isLogged
-        ? _c(
-            "button",
-            {
-              staticClass: "btn btn-link d-md-none rounded-circle mr-3",
-              attrs: { id: "sidebarToggleTop" },
-            },
-            [_c("i", { staticClass: "fa fa-bars" })]
-          )
-        : _c(
-            "router-link",
-            {
-              staticClass:
-                "ml-1 sidebar-brand d-flex align-items-center justify-content-center",
-              attrs: { to: { name: "home" } },
-            },
-            [
-              _c("div", { staticClass: "sidebar-brand-icon" }, [
-                _c("i", { staticClass: "fas fa-heartbeat fa-2x" }),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "sidebar-brand-text mx-3" }, [
-                _vm._v("MedMS"),
-                _c("sup", [_vm._v("1")]),
-              ]),
-            ]
-          ),
-      _vm._v(" "),
-      _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-        _c(
-          "li",
-          { staticClass: "nav-item dropdown no-arrow mx-1" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "nav-link",
-                attrs: { to: { name: "services" }, role: "button" },
-              },
-              [_vm._v("\n                    Услуги\n                ")]
-            ),
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "li",
-          { staticClass: "nav-item dropdown no-arrow mx-1" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "nav-link",
-                attrs: { to: { name: "about" }, role: "button" },
-              },
-              [_vm._v("\n                    О нас\n                ")]
-            ),
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "li",
-          { staticClass: "nav-item dropdown no-arrow mx-1" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "nav-link",
-                attrs: { to: { name: "basket" }, role: "button" },
-              },
-              [_vm._v("\n                    Корзина\n                ")]
-            ),
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "topbar-divider d-none d-sm-block" }),
-        _vm._v(" "),
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "nav",
+      {
+        staticClass:
+          "navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow",
+      },
+      [
         _vm.isLogged
-          ? _c("li", { staticClass: "nav-item dropdown no-arrow" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link dropdown-toggle",
-                  attrs: {
-                    href: "#",
-                    id: "userDropdown",
-                    role: "button",
-                    "data-toggle": "dropdown",
-                    "aria-haspopup": "true",
-                    "aria-expanded": "false",
-                  },
-                },
-                [
-                  _c(
-                    "span",
-                    {
-                      staticClass:
-                        "mr-2 d-none d-lg-inline text-gray-600 small",
-                    },
-                    [_vm._v(_vm._s(_vm.authUser.full_name))]
-                  ),
-                  _vm._v(" "),
-                  _c("img", {
-                    staticClass: "img-profile rounded-circle",
-                    attrs: { src: "/assets/img/undraw_profile.svg" },
-                  }),
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "dropdown-menu dropdown-menu-right shadow animated--grow-in",
-                  attrs: { "aria-labelledby": "userDropdown" },
-                },
-                [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "dropdown-divider" }),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    { staticClass: "dropdown-item", on: { click: _vm.logout } },
-                    [
-                      _c("i", {
-                        staticClass:
-                          "fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400",
-                      }),
-                      _vm._v(
-                        "\n                        Logout\n                    "
-                      ),
-                    ]
-                  ),
-                ]
-              ),
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.isLogged
           ? _c(
-              "li",
-              { staticClass: "nav-item dropdown no-arrow mx-1" },
-              [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "nav-link",
-                    attrs: { to: { name: "login" }, role: "button" },
-                  },
-                  [_vm._v("\n                    Войти\n                ")]
-                ),
-              ],
-              1
+              "button",
+              {
+                staticClass: "btn btn-link d-md-none rounded-circle mr-3",
+                attrs: { id: "sidebarToggleTop" },
+              },
+              [_c("i", { staticClass: "fa fa-bars" })]
             )
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.isLogged
-          ? _c(
-              "li",
-              { staticClass: "nav-item dropdown no-arrow mx-1" },
+          : _c(
+              "router-link",
+              {
+                staticClass:
+                  "ml-1 sidebar-brand d-flex align-items-center justify-content-center",
+                attrs: { to: { name: "home" } },
+              },
               [
+                _c("div", { staticClass: "sidebar-brand-icon" }, [
+                  _c("i", { staticClass: "fas fa-heartbeat fa-2x" }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "sidebar-brand-text mx-3" }, [
+                  _vm._v("MedMS"),
+                  _c("sup", [_vm._v("1")]),
+                ]),
+              ]
+            ),
+        _vm._v(" "),
+        _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+          _c(
+            "li",
+            { staticClass: "nav-item dropdown no-arrow mx-1" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "nav-link",
+                  attrs: { to: { name: "services" }, role: "button" },
+                },
+                [_vm._v("\n          Услуги\n        ")]
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            { staticClass: "nav-item dropdown no-arrow mx-1" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "nav-link",
+                  attrs: { to: { name: "about" }, role: "button" },
+                },
+                [_vm._v("\n          О нас\n        ")]
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            { staticClass: "nav-item dropdown no-arrow mx-1" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "nav-link",
+                  attrs: { to: { name: "basket" }, role: "button" },
+                },
+                [_vm._v("\n          Корзина\n        ")]
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "topbar-divider d-none d-sm-block" }),
+          _vm._v(" "),
+          _vm.isLogged
+            ? _c("li", { staticClass: "nav-item dropdown no-arrow" }, [
                 _c(
-                  "router-link",
+                  "a",
                   {
-                    staticClass: "nav-link",
-                    attrs: { to: { name: "registration" }, role: "button" },
+                    staticClass: "nav-link dropdown-toggle",
+                    attrs: {
+                      href: "#",
+                      id: "userDropdown",
+                      role: "button",
+                      "data-toggle": "dropdown",
+                      "aria-haspopup": "true",
+                      "aria-expanded": "false",
+                    },
                   },
                   [
-                    _vm._v(
-                      "\n                    Регистрация\n                "
+                    _c(
+                      "span",
+                      {
+                        staticClass:
+                          "mr-2 d-none d-lg-inline text-gray-600 small",
+                      },
+                      [_vm._v(_vm._s(_vm.authUser.full_name))]
+                    ),
+                    _vm._v(" "),
+                    _c("img", {
+                      staticClass: "img-profile rounded-circle",
+                      attrs: { src: "/assets/img/undraw_profile.svg" },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "dropdown-menu dropdown-menu-right shadow animated--grow-in",
+                    attrs: { "aria-labelledby": "userDropdown" },
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "dropdown-divider" }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "dropdown-item",
+                        on: { click: _vm.logout },
+                      },
+                      [
+                        _c("i", {
+                          staticClass:
+                            "fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400",
+                        }),
+                        _vm._v("\n            Logout\n          "),
+                      ]
                     ),
                   ]
                 ),
-              ],
-              1
-            )
-          : _vm._e(),
-      ]),
-    ],
-    1
-  )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isLogged
+            ? _c(
+                "li",
+                { staticClass: "nav-item dropdown no-arrow mx-1" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { to: { name: "login" }, role: "button" },
+                    },
+                    [_vm._v("\n          Войти\n        ")]
+                  ),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isLogged
+            ? _c(
+                "li",
+                { staticClass: "nav-item dropdown no-arrow mx-1" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { to: { name: "registration" }, role: "button" },
+                    },
+                    [_vm._v("\n          Регистрация\n        ")]
+                  ),
+                ],
+                1
+              )
+            : _vm._e(),
+        ]),
+      ],
+      1
+    ),
+  ])
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container-top bg-light" }, [
+      _c("div", { staticClass: "menu-top" }, [
+        _c("div", { staticClass: "menu-button" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-rounded btn-amber bg-primary text-white",
+              attrs: { type: "button" },
+            },
+            [
+              _c("i", {
+                staticClass: "fas fa-calendar pr-2",
+                attrs: { "aria-hidden": "true" },
+              }),
+              _vm._v("Записаться\n          на прием\n        "),
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "menu-button-item" }, [
+            _c(
+              "a",
+              { staticClass: "phone", attrs: { href: "tel:+996123456" } },
+              [
+                _c("div", [
+                  _c("i", {
+                    staticClass: "fa fa-phone-alt pr-2",
+                    attrs: { "aria-hidden": "true" },
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("+996123456")]),
+                ]),
+              ]
+            ),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "lang-dropdown show" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-outline-light dropdown",
+              attrs: {
+                href: "#",
+                role: "button",
+                id: "dropdownMenuLink",
+                "data-toggle": "dropdown",
+                "aria-haspopup": "true",
+                "aria-expanded": "false",
+              },
+            },
+            [
+              _c("img", {
+                attrs: {
+                  src: "/assets/img/flags/ru.png",
+                  width: "25px",
+                  height: "25px",
+                },
+              }),
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "dropdown-menu",
+              staticStyle: { width: "60px" },
+              attrs: { "aria-labelledby": "dropdownMenuLink" },
+            },
+            [
+              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+                _c("img", {
+                  attrs: {
+                    src: "/assets/img/flags/en.png",
+                    width: "25px",
+                    height: "25px",
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+                _c("img", {
+                  attrs: {
+                    src: "/assets/img/flags/kg.png",
+                    width: "25px",
+                    height: "25px",
+                  },
+                }),
+              ]),
+            ]
+          ),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
       _c("i", { staticClass: "fas fa-user fa-sm fa-fw mr-2 text-gray-400" }),
-      _vm._v("\n                        Profile\n                    "),
+      _vm._v("\n            Profile\n          "),
     ])
   },
   function () {
@@ -50914,7 +51045,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
       _c("i", { staticClass: "fas fa-cogs fa-sm fa-fw mr-2 text-gray-400" }),
-      _vm._v("\n                        Settings\n                    "),
+      _vm._v("\n            Settings\n          "),
     ])
   },
   function () {
@@ -50923,7 +51054,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
       _c("i", { staticClass: "fas fa-list fa-sm fa-fw mr-2 text-gray-400" }),
-      _vm._v("\n                        Activity Log\n                    "),
+      _vm._v("\n            Activity Log\n          "),
     ])
   },
 ]
@@ -51784,9 +51915,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "main" }, [
         _c("div", { staticClass: "section sec-about" }, [
           _c("h1", { staticClass: "hc-title text-primary" }, [
-            _vm._v(
-              "\n                Клиника «Avicenna-medical»\n            "
-            ),
+            _vm._v("\n                 «Avicenna-medical»\n            "),
           ]),
           _vm._v(" "),
           _c("p", [

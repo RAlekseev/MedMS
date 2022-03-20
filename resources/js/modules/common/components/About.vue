@@ -27,7 +27,7 @@
         <div class="main">
             <div class="section sec-about">
                 <h1 class="hc-title text-primary">
-                    Клиника «Avicenna-medical»
+                     «Avicenna-medical»
                 </h1>
                 <p>
                     Ведущий коммерческий многопрофильный клинический центр, осуществляющий оперативное лечение с
