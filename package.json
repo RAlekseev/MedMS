@@ -36,6 +36,7 @@
         "v-mask": "^2.3.0",
         "vue-axios": "^3.4.0",
         "vue-meta": "^2.4.0",
+        "vue-multiselect": "^2.1.6",
         "vue-router": "^3.5.3",
         "vuex": "^3.6.2",
         "vuex-persistedstate": "^4.1.0"

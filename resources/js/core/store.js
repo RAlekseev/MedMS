@@ -4,6 +4,7 @@ import auth from '../modules/auth/store';
 import permissions from '../modules/permissions/store';
 import roles from '../modules/roles/store';
 import users from '../modules/users/store';
+import services from '../modules/services/store';
 
 Vue.use(Vuex);
 
@@ -63,5 +64,6 @@ export const store = new Vuex.Store({
         permissions,
         roles,
         users,
+        services,
     },
 });

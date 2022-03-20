@@ -3,10 +3,10 @@ import Show from './components/Show'
 
 export default [
     {
-        path: 'services',
+        path: 'services/index',
         component: Index,
         name: 'servicesIndex',
-        meta: {permission: 'roles-index'},
+        meta: {permission: 'services-index'},
     },
     {
         path: 'services/show/:id',

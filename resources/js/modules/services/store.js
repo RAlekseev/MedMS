@@ -2,77 +2,94 @@ import axios from 'axios';
 
 export default {
     state: {
-        roles: null,
-        role: null,
+        services: [],
+        service: null,
+        categories: [],
     },
 
     mutations: {
-        setRoles(state, roles) {
-            state.roles = roles;
+        setServices(state, services) {
+            state.services = services;
         },
-        addRole(state, role) {
-            state.roles.push(role);
+        addService(state, service) {
+            state.services.push(service);
         },
-        getRole(state, role) {
-            state.role = role;
+        getService(state, service) {
+            state.service = service;
         },
-        updateRole(state, new_role) {
-            let index = state.roles.findIndex(role => role.id === new_role.id);
-            state.roles[index] = new_role;
+        updateService(state, new_service) {
+            let index = state.services.findIndex(service => service.id === new_service.id);
+            state.services[index] = new_service;
         },
-        deleteRole(state, id) {
-            let index = state.roles.findIndex(role => role.id === id);
-            state.roles.splice(index, 1);
-        }
+        deleteService(state, id) {
+            let index = state.services.findIndex(service => service.id === id);
+            state.services.splice(index, 1);
+        },
+
+        setCategories(state, categories) {
+            state.categories = categories;
+        },
     },
 
     actions: {
-        getRoles({commit}) {
+        getServices({commit}) {
             commit('startLoading');
             return axios
-                .get('/api/roles')
+                .get('/api/services')
                 .then(response => {
-                    commit('setRoles', response.data);
+                    commit('setServices', response.data);
                 }).catch(error => {
-                commit('addError', error.response.data.message || error.message)
-            }).finally(() => commit('stopLoading'));
-        },
-        createRole({commit}, credential) {
-            commit('startLoading');
-            return axios
-                .post('/api/roles',  credential)
-                .then(response => {
-                    commit('addRole', response.data);
-                }).catch(error => {
-                    commit('addError', error.response.data.message || error.message)
+                    commit('addError', error.response.data.message || error.message);
                 }).finally(() => commit('stopLoading'));
         },
-        getRole({commit}, id) {
+        getCategories({commit}) {
+            commit('startLoading');
+            return axios
+                .get('/api/categories')
+                .then(response => {
+                    commit('setCategories', response.data);
+                }).catch(error => {
+                    commit('addError', error.response.data.message || error.message);
+                }).finally(() => commit('stopLoading'));
+        },
+        createService({commit}, credential) {
+            commit('startLoading');
+            return axios
+                .post('/api/services', credential)
+                .then(response => {
+                    commit('addService', response.data.service);
+                    commit('addMessage', response.data.message);
+                }).catch(error => {
+                    commit('addError', error.response.data.message || error.message);
+                }).finally(() => commit('stopLoading'));
+        },
+        getService({commit}, id) {
             commit('startLoading');
             axios
-                .get(`/api/roles/${id}`)
+                .get(`/api/services/${id}`)
                 .then(response => {
-                    commit('getRole', response.data);
+                    commit('getService', response.data);
                 }).catch(error => {
-                    commit('addError', error.response.data.message || error.message)
+                commit('addError', error.response.data.message || error.message);
             }).finally(() => commit('stopLoading'));
         },
-        updateRole({commit}, credential) {
+        updateService({commit}, credential) {
             commit('startLoading');
             return axios
-                .patch(`/api/roles/${credential.id}`, credential)
+                .patch(`/api/services/${credential.id}`, credential)
                 .then(response => {
-                    commit('updateRole', response.data);
+                    commit('updateService', response.data.service);
+                    commit('addMessage', response.data.message);
                 }).catch(error => {
                     commit('addError', error.response.data.message || error.message)
                 }).finally(() => commit('stopLoading'));
         },
-        deleteRole({commit}, id) {
+        deleteService({commit}, id) {
             commit('startLoading');
             return axios
-                .delete(`/api/roles/${id}`)
+                .delete(`/api/services/${id}`)
                 .then(() => {
-                    commit('deleteRole', id);
+                    commit('deleteService', id);
                 }).catch(error => {
                     commit('addError', error.response.data.message || error.message)
                 }).finally(() => commit('stopLoading'));
@@ -80,7 +97,8 @@ export default {
     },
 
     getters: {
-        roles: state => state.roles,
-        role: state => state.role,
+        services: state => state.services,
+        service: state => state.service,
+        categories: state => state.categories,
     }
 };

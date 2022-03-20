@@ -63,7 +63,7 @@
         </div>
 
         <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'usersIndex' }">
+            <router-link class="nav-link" :to="{ name: 'servicesIndex' }">
                 <i class="fas fa-fw fa-medkit"></i>
                 <span>Список услуг</span>
             </router-link>
