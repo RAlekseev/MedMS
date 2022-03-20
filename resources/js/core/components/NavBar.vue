@@ -3,9 +3,9 @@
     <div class="container-top bg-light">
       <div class="menu-top">
         <div class="menu-button">
-          <button type="button" class="btn btn-rounded btn-amber bg-primary text-white"><i class="fas fa-calendar pr-2"
-                                                                                           aria-hidden="true"></i>Записаться
-            на прием
+          <button type="button" class="btn btn-rounded btn-amber bg-primary text-white">
+            <i class="fas fa-calendar pr-2" aria-hidden="true"></i>
+            Записаться на прием
           </button>
           <div class="menu-button-item">
             <a href="tel:+996123456" class="phone">
