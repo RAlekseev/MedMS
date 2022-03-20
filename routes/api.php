@@ -1,5 +1,7 @@
 <?php
 
+use App\Modules\Services\Controllers\CategoryController;
+use App\Modules\Services\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Modules\Users\Controllers\UserController;
@@ -24,11 +26,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Route::middleware(['auth'])->group(function () {
-    Route::apiResource('/permissions', PermissionController::class);
-    Route::apiResource('/roles', RoleController::class);
+Route::apiResource('/permissions', PermissionController::class);
+Route::apiResource('/roles', RoleController::class);
 
-    Route::get('users/change_pass/{id}', [UserController::class, 'change_pass']);
-    Route::apiResource('/users', UserController::class);
+Route::get('users/change_pass/{id}', [UserController::class, 'change_pass']);
+Route::apiResource('/users', UserController::class);
+
+Route::apiResource('/categories', CategoryController::class);
+Route::apiResource('/services', ServiceController::class);
 //});
 
 Route::post('login', [LoginController::class, 'login']);

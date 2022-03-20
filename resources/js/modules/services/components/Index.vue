@@ -16,28 +16,33 @@
                         <th>Id</th>
                         <th>Название</th>
                         <th>Цена</th>
-                        <th>Входящие услуги</th>
+                        <th>Категория</th>
+                        <th>Входит</th>
+                        <th>Описание</th>
                         <th class="text-right">Действия</th>
                     </tr>
                     </thead>
-                    <tbody v-if="services">
+                    <tbody>
                     <tr v-for="service in services" :key="service.id">
                         <td class="text-center">{{service.id}}</td>
                         <td>
-                            <router-link :to="{name: 'servicesShow', params: {id: service.id}}" v-if="can('services-show')">
+                            <router-link :to="{name: 'serviceShow', params: {id: service.id}}" v-if="can('service-show')">
                                 {{service.name}}
                             </router-link>
                             <span v-else>
                                 {{service.name}}
                             </span>
                         </td>
+                        <td>{{service.price}}</td>
+                        <td>{{service.category.name}}</td>
                         <td>
-                            <b>{{service.price}}</b>
+                            <ol>
+                                <li v-for="child_service in service.child_services" :key="child_service.id">
+                                    {{child_service.name}}
+                                </li>
+                            </ol>
                         </td>
-                        <td>
-<!--                            <span v-for="permission in role.permissions">{{permission.slug}} </span>-->
-                        </td>
-
+                        <td>{{service.description}}</td>
                         <td class="text-right">
                             <div>
                                 <Edit :service="service" v-if="can('services-update')"></Edit>
@@ -61,12 +66,13 @@
 
     export default {
         metaInfo: {
-            title: 'Услуги'
+            title: 'Управление услугами'
         },
         computed: {
             ...mapGetters([
                 'can',
                 'services',
+                'categories',
             ])
         },
         components: {
@@ -76,7 +82,7 @@
         },
         mounted() {
             this.$store.dispatch('getServices');
+            this.$store.dispatch('getCategories');
         },
-
     }
 </script>

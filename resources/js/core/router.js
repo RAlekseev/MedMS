@@ -10,6 +10,7 @@ import common from '../modules/common/routes'
 import usersRouter from '../modules/users/routes'
 import rolesRouter from '../modules/roles/routes'
 import permissionsRouter from '../modules/permissions/routes'
+import servicesRouter from '../modules/services/routes'
 import schedulesRouter from '../modules/schedules/routes'
 
 Vue.use(VueRouter);
@@ -33,6 +34,7 @@ const router = new VueRouter({
                 ...rolesRouter,
                 ...permissionsRouter,
                 ...schedulesRouter,
+                ...servicesRouter,
             ],
 
         },
@@ -44,7 +46,6 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     let user = JSON.parse(localStorage.getItem('user'))?.user;
 
-    // console.log(user.permissions);
     //Auth check
     if (to.matched.some(record => record.meta.requiresAuth) && !user) {
         next({

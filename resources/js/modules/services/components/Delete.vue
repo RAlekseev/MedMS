@@ -1,15 +1,15 @@
 <template>
-    <button @click="deleteRole(role.id)" class="btn btn-danger btn-round">
+    <button @click="deleteService(service.id)" class="btn btn-danger btn-round">
         <i class="fa fa-trash"></i>
     </button>
 </template>
 
 <script>
     export default {
-        props: ['role'],
+        props: ['service'],
         methods: {
-            deleteRole(id) {
-                this.$store.dispatch('deleteRole', id)
+            deleteService(id) {
+                this.$store.dispatch('deleteService', id)
             },
         },
     }
