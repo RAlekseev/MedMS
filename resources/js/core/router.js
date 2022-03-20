@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import Layout from './components/Layout'
 import Home from './components/Home'
 
 import auth from '../modules/auth/routes'
@@ -25,7 +26,7 @@ const router = new VueRouter({
 
         {
             path: '/',
-            component: Home,
+            component: Layout,
             meta: { requiresAuth: true },
             children: [
                 ...usersRouter,
