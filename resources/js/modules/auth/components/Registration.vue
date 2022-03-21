@@ -13,14 +13,36 @@
                                 </div>
                                 <form @submit.prevent="sendForm" class="user">
                                     <div class="form-group">
-                                        <input type="text" v-model="form.name" class="form-control form-control-user"
+                                        <div class="row">
+                                        <div class="col-sm-4">
+                                        <input type="text" v-model="form.last_name" class="form-control form-control-user"
                                                aria-describedby="emailHelp"
-                                               placeholder="Введите ваши ФИО..." required>
+                                               placeholder="Фамилия..." required>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" v-model="form.first_name" class="form-control form-control-user"
+                                                   aria-describedby="emailHelp"
+                                                   placeholder="Имя..." required>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" v-model="form.middle_name" class="form-control form-control-user"
+                                                   aria-describedby="emailHelp"
+                                                   placeholder="Отчество...">
+                                        </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
+                                        <div class="row">
+                                        <div class="col-sm-6">
                                         <input type="email" v-model="form.email" class="form-control form-control-user"
                                                aria-describedby="emailHelp"
-                                               placeholder="Enter Email Address..." required>
+                                               placeholder="Email Address..." required>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input placeholder="+996(XXX)XXX-XXXX" type="tel" class="form-control form-control-user"
+                                                   required v-model="form.phone" v-mask="'+996(###)###-####'">
+                                        </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="row">

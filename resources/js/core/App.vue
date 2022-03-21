@@ -6,14 +6,11 @@
             <div id="content-wrapper" class="d-flex flex-column">
                 <div id="content">
                     <NavBar></NavBar>
+                    <div v-for="message in messages"><Message  :message="message"></Message></div>
+                    <div v-for="error in errors"><Error  :error="error"></Error></div>
+                    <Loading v-if="loading"></Loading>
 
-                    <div class="container-fluid">
-                        <div v-for="message in messages"><Message  :message="message"></Message></div>
-                        <div v-for="error in errors"><Error  :error="error"></Error></div>
-
-                        <Loading v-if="loading"></Loading>
                         <router-view></router-view>
-                    </div>
                 </div>
 
                 <Footer></Footer>

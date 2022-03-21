@@ -23,7 +23,7 @@
 
 </script>
 
-<style>
+<style scoped>
 .container-fluid{
   padding: 0;
 }
@@ -34,7 +34,7 @@
 }
 .main-photo img{
   width: 100%;
-  position: absolute;
+  /*position: absolute;*/
   left: 0;
   right: 0;
 }
@@ -50,7 +50,6 @@
   margin: 0 auto;
   max-width: 1360px;
   position: absolute;
-  z-index: 99999;
   top: 0;
   bottom: 0;
   right: 0;

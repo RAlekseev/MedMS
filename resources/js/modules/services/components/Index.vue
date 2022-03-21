@@ -19,14 +19,14 @@
                         <th>Категория</th>
                         <th>Входит</th>
                         <th>Описание</th>
-                        <th class="text-right">Действия</th>
+                        <th class="text-right" style="min-width: 100px">Действия</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="service in services" :key="service.id">
                         <td class="text-center">{{service.id}}</td>
                         <td>
-                            <router-link :to="{name: 'serviceShow', params: {id: service.id}}" v-if="can('service-show')">
+                            <router-link :to="{name: 'serviceShow', params: {id: service.id}}" v-if="can('services-show')">
                                 {{service.name}}
                             </router-link>
                             <span v-else>
@@ -42,7 +42,7 @@
                                 </li>
                             </ol>
                         </td>
-                        <td>{{service.description}}</td>
+                        <td>{{limitStr(service.description, 30)}}</td>
                         <td class="text-right">
                             <div>
                                 <Edit :service="service" v-if="can('services-update')"></Edit>
@@ -63,6 +63,7 @@
     import Create from "./Create";
     import Edit from "./Edit";
     import Delete from "./Delete";
+    import dataTableConfig from "../../../core/utils/DataTablesConfig";
 
     export default {
         metaInfo: {
@@ -81,8 +82,17 @@
             Delete,
         },
         mounted() {
-            this.$store.dispatch('getServices');
-            this.$store.dispatch('getCategories');
+            this.$store.dispatch('getServices').then( () => {
+                this.$store.dispatch('getCategories').then( () => {
+                    window.$('#data_table').DataTable(dataTableConfig);
+                });
+            });
+
         },
+        methods: {
+            limitStr(str, n) {
+                return str.substr(0, n) + (str.length > n ? "..." : "");
+            },
+        }
     }
 </script>

@@ -8,20 +8,21 @@ export default {
 
     mutations: {
         setUserData(state, userData) {
-            state.user = userData
-            localStorage.setItem('user', JSON.stringify(userData))
+            state.user = userData;
+            localStorage.setItem('user', JSON.stringify(userData));
             axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`
         },
 
-        clearUserData() {
-            localStorage.removeItem('user')
+        clearUserData(state) {
+            state.user = null;
+            localStorage.removeItem('user');
             location.reload()
         },
     },
 
     actions: {
         login({commit}, credentials) {
-            let redirect_to = router.currentRoute.query?.redirect || '/home';
+            let redirect_to = router.currentRoute.query?.redirect || '/';
             return axios
                 .post('/api/login', credentials)
                 .then(({data}) => {

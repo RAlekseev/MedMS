@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('middle_name')->nullable();
-            $table->date('birthday');
+            $table->date('birthday')->nullable();
             $table->string('phone', 20);
 //            $table->unsignedBigInteger('bonus_card_id')->nullable();
 //            $table->foreign('bonus_card_id')->references('id')->on('bonus_cards')->onDelete('cascade');
