@@ -15,8 +15,11 @@ class RegistrationController
     {
         try {
             $user = User::create([
-                'name' => $request->name,
+                'last_name' => $request->last_name,
+                'first_name' => $request->first_name,
+                'middle_name' => $request->middle_name,
                 'email' => $request->email,
+                'phone' => $request->phone,
                 'password' => bcrypt($request->password)
             ]);
             return response()->json([], Response::HTTP_OK);

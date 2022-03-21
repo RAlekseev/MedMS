@@ -1,5 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from "vuex-persistedstate"
+
+
+import common from '../modules/common/store';
 import auth from '../modules/auth/store';
 import permissions from '../modules/permissions/store';
 import roles from '../modules/roles/store';
@@ -60,10 +64,12 @@ export const store = new Vuex.Store({
         }
     },
     modules: {
+        common,
         auth,
         permissions,
         roles,
         users,
         services,
     },
+    plugins: [createPersistedState()],
 });

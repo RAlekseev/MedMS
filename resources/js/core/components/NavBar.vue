@@ -3,10 +3,10 @@
     <div class="container-top bg-light">
       <div class="menu-top">
         <div class="menu-button">
-          <button type="button" class="btn btn-rounded btn-amber bg-primary text-white">
-            <i class="fas fa-calendar pr-2" aria-hidden="true"></i>
-            Записаться на прием
-          </button>
+<!--          <button type="button" class="btn btn-rounded btn-amber bg-primary text-white">-->
+<!--            <i class="fas fa-calendar pr-2" aria-hidden="true"></i>-->
+<!--            Записаться на прием-->
+<!--          </button>-->
           <div class="menu-button-item">
             <a href="tel:+996123456" class="phone">
               <div>
@@ -35,19 +35,6 @@
         <i class="fa fa-bars"></i>
       </button>
 
-      <!-- Topbar Search -->
-      <!--        <form-->
-      <!--            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
-      <!--            <div class="input-group">-->
-      <!--                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."-->
-      <!--                       aria-label="Search" aria-describedby="basic-addon2">-->
-      <!--                <div class="input-group-append">-->
-      <!--                    <button class="btn btn-primary" type="button">-->
-      <!--                        <i class="fas fa-search fa-sm"></i>-->
-      <!--                    </button>-->
-      <!--                </div>-->
-      <!--            </div>-->
-      <!--        </form>-->
 
       <router-link class="ml-1 sidebar-brand d-flex align-items-center justify-content-center" :to="{ name: 'home' }"
                    v-else>
@@ -58,28 +45,38 @@
         <div class="sidebar-brand-text mx-3">MedMS<sup>1</sup></div>
       </router-link>
 
-      <!--        <div class="sidebar-brand-icon text-primary ml-2">-->
-      <!--            <i class="fas fa-heartbeat fa-2x"></i>-->
-      <!--        </div>-->
+      <!-- Topbar Search -->
+      <form
+              class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <div class="input-group">
+          <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                 aria-label="Search" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button">
+              <i class="fas fa-search fa-sm"></i>
+            </button>
+          </div>
+        </div>
+      </form>
 
       <!-- Topbar Navbar -->
       <ul class="navbar-nav ml-auto">
 
         <li class="nav-item dropdown no-arrow mx-1">
-          <router-link :to="{name: 'services'}" class="nav-link" role="button">
+          <router-link :to="{name: 'services'}" class="nav-link text-gray-500" role="button">
             Услуги
           </router-link>
         </li>
 
         <li class="nav-item dropdown no-arrow mx-1">
-          <router-link :to="{name: 'about'}" class="nav-link" role="button">
+          <router-link :to="{name: 'about'}" class="nav-link text-gray-500" role="button">
             О нас
           </router-link>
         </li>
 
         <li class="nav-item dropdown no-arrow mx-1">
-          <router-link :to="{name: 'basket'}" class="nav-link" role="button">
-            Корзина
+          <router-link :to="{name: 'basket'}" class="nav-link text-gray-500" role="button">
+            Корзина ({{basketSum}})
           </router-link>
         </li>
 
@@ -141,7 +138,8 @@ export default {
   computed: {
     ...mapGetters([
       'isLogged',
-      'authUser'
+      'authUser',
+      'basketSum',
     ])
   },
   methods: {

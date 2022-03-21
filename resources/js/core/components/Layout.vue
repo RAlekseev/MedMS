@@ -1,4 +1,6 @@
 <template>
-    <div><router-view :key="$route.fullPath" /></div>
+    <div class="container-fluid">
+        <router-view :key="$route.fullPath" />
+    </div>
 </template>
 

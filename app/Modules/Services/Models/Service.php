@@ -19,6 +19,10 @@ class Service extends Model
         'category_id',
     ];
 
+    protected $casts = [
+        'created_at'  => 'date:d.m.Y',
+    ];
+
     public function childServices()
     {
         return $this->belongsToMany(Service::class, 'service_service',
