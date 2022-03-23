@@ -15,6 +15,9 @@ export default {
             let index = state.basketServices.findIndex(service => service.id === id);
             state.basketServices.splice(index, 1);
         },
+        cleanBasket(state) {
+            state.basketServices = [];
+        }
     },
 
     actions: {
@@ -23,6 +26,21 @@ export default {
         },
         deleteFromBasket({commit}, service_id) {
             commit('deleteFromBasket', service_id);
+        },
+        cleanBasket({commit}) {
+            commit('cleanBasket');
+        },
+        createContract({commit}, basket) {
+            commit('startLoading');
+            console.log(basket)
+            return axios
+                .post('/api/patient/contracts', basket)
+                .then(response => {
+                    commit('cleanBasket');
+                    commit('addMessage', response.data.message);
+                }).catch(error => {
+                    commit('addError', error.response.data.message || error.message)
+                }).finally(() => commit('stopLoading'));
         }
     },
 

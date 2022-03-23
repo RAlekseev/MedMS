@@ -6,6 +6,7 @@ import Home from './components/Home'
 
 import auth from '../modules/auth/routes'
 import common from '../modules/common/routes'
+import profile from '../modules/profile/routes'
 
 import usersRouter from '../modules/users/routes'
 import rolesRouter from '../modules/roles/routes'
@@ -35,6 +36,7 @@ const router = new VueRouter({
                 ...permissionsRouter,
                 ...schedulesRouter,
                 ...servicesRouter,
+                ...profile,
             ],
 
         },

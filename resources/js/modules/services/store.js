@@ -33,24 +33,22 @@ export default {
 
     actions: {
         getServices({commit}) {
-            commit('startLoading');
             return axios
                 .get('/api/services')
                 .then(response => {
                     commit('setServices', response.data);
                 }).catch(error => {
                     commit('addError', error.response.data.message || error.message);
-                }).finally(() => commit('stopLoading'));
+                });
         },
         getCategories({commit}) {
-            commit('startLoading');
             return axios
                 .get('/api/categories')
                 .then(response => {
                     commit('setCategories', response.data);
                 }).catch(error => {
                     commit('addError', error.response.data.message || error.message);
-                }).finally(() => commit('stopLoading'));
+                });
         },
         createService({commit}, credential) {
             commit('startLoading');

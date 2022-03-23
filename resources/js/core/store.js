@@ -5,6 +5,8 @@ import createPersistedState from "vuex-persistedstate"
 
 import common from '../modules/common/store';
 import auth from '../modules/auth/store';
+import profile from '../modules/profile/store';
+
 import permissions from '../modules/permissions/store';
 import roles from '../modules/roles/store';
 import users from '../modules/users/store';
@@ -27,9 +29,18 @@ export const store = new Vuex.Store({
         addError(state, error) {
             state.errors.push(error)
         },
+        deleteError(state, error) {
+            let index = state.errors.findIndex(index_error => index_error === error);
+            state.errors.splice(index, 1);
+        },
         addMessage(state, message) {
             state.messages.push(message)
         },
+        deleteMessage(state, message) {
+            let index = state.messages.findIndex(index_messages => index_messages === message);
+            state.messages.splice(index, 1);
+        },
+
         startLoading(state) {
             state.loading = true
         },
@@ -42,10 +53,17 @@ export const store = new Vuex.Store({
         pushError({commit}, error) {
             commit('addError', error)
         },
+        removeError({commit}, error) {
+            commit('deleteError', error)
+        },
 
         pushMessage({commit}, message) {
             commit('addMessage', message)
         },
+        removeMessage({commit}, message) {
+            commit('deleteMessage', message)
+        },
+
         startLoading({commit}) {
             commit('startLoading')
         },
@@ -70,6 +88,7 @@ export const store = new Vuex.Store({
         roles,
         users,
         services,
+        profile,
     },
     plugins: [createPersistedState()],
 });
