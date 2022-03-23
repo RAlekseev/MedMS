@@ -14,8 +14,8 @@ Trait HasRolesAndPermissions
 
     public function permissions()
     {
-        $user = clone $this;
-        $roles = $user->roles;
+//        $user = clone $this;
+        $roles = $this->roles;
         $permissions = collect();
         foreach ($roles as $role) {
             $permissions = $role->permissions->merge($permissions);

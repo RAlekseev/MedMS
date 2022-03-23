@@ -75,10 +75,31 @@
             </router-link>
         </li>
 
-
-
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
+
+        <div class="sidebar-heading">
+            Личный кабинет
+        </div>
+
+        <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'profile' }">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Профиль</span>
+            </router-link>
+        </li>
+        <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'profileContracts' }">
+                <i class="fas fa-fw fa-shopping-basket"></i>
+                <span>Мои заказы</span>
+            </router-link>
+        </li>
+        <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'profileBonusCard' }">
+                <i class="fas fa-fw  fa-credit-card"></i>
+                <span>Мои бонусы</span>
+            </router-link>
+        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">

@@ -1,6 +1,8 @@
 <?php
 
 use App\Modules\Services\Controllers\CategoryController;
+use App\Modules\Contracts\Controllers\ContractController;
+use App\Modules\Contracts\Controllers\PatientContractController;
 use App\Modules\Services\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +36,10 @@ Route::apiResource('/users', UserController::class);
 
 Route::apiResource('/categories', CategoryController::class);
 Route::apiResource('/services', ServiceController::class);
+
+Route::apiResource('/contracts', ContractController::class);
+
+Route::apiResource('/patient/contracts', PatientContractController::class)->except(['destroy']);
 //});
 
 Route::post('login', [LoginController::class, 'login']);

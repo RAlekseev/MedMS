@@ -61,6 +61,9 @@
     import Service from "./Service";
 
     export default {
+        metaInfo: {
+            title: 'Услуги'
+        },
         data() {
             return {
                 selected_category: {
