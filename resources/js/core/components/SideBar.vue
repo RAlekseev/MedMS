@@ -61,13 +61,27 @@
         <div class="sidebar-heading">
             Услуги
         </div>
-
         <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'servicesIndex' }">
                 <i class="fas fa-fw fa-medkit"></i>
                 <span>Список услуг</span>
             </router-link>
         </li>
+
+        <li class="nav-item">
+            <router-link class="nav-link" to="/contracts/create">
+                <i class="fas fa-fw fa-check-square"></i>
+                <span>Корзина клиента</span>
+            </router-link>
+        </li>
+
+        <li class="nav-item">
+            <router-link class="nav-link" to="/contracts">
+                <i class="fas fa-fw fa-list"></i>
+                <span>Оформленные услуги</span>
+            </router-link>
+        </li>
+
         <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'schedulesIndex' }">
                 <i class="fas fa-fw fa-calendar"></i>

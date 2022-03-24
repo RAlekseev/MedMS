@@ -11,6 +11,7 @@ import permissions from '../modules/permissions/store';
 import roles from '../modules/roles/store';
 import users from '../modules/users/store';
 import services from '../modules/services/store';
+import contracts from '../modules/contracts/store';
 
 Vue.use(Vuex);
 
@@ -89,6 +90,7 @@ export const store = new Vuex.Store({
         users,
         services,
         profile,
+        contracts,
     },
     plugins: [createPersistedState()],
 });

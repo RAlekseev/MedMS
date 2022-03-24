@@ -1,6 +1,13 @@
 <template>
     <div>
-        <section class="h-100 bg-gradient-light">
+        <section class="">
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><router-link to="/">Главная</router-link></li>
+                    <li class="breadcrumb-item"><router-link to="/services/index">Услуги</router-link></li>
+                    <li class="breadcrumb-item active" aria-current="page">Корзина клиента</li>
+                </ol>
+            </nav>
             <div class="container py-5">
                 <div class="row d-flex justify-content-center my-4">
                     <div class="col-lg-8">
@@ -20,21 +27,6 @@
                                 </div>
                             </div>
                         </div>
-
-<!--                        <div class="card mb-4 mb-lg-0">-->
-<!--                            <div class="card-body">-->
-<!--                                <p><strong>Мы принимаем</strong></p>-->
-<!--                                <img class="me-2" width="45px"-->
-<!--                                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"-->
-<!--                                     alt="Visa"/>-->
-<!--                                <img class="me-2" width="45px"-->
-<!--                                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"-->
-<!--                                     alt="American Express"/>-->
-<!--                                <img class="me-2" width="45px"-->
-<!--                                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"-->
-
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
                     <div class="col-lg-4">
                         <div class="card mb-4">
@@ -70,6 +62,21 @@
                                         Нет аккаунта?
                                     </router-link>
                                 </p>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="typo__label">Пациент</label>
+                                            <multiselect v-model="user" :options="users"
+                                                         :close-on-select="false"
+                                                         placeholder="Type to search" track-by="full_name" label="full_name">
+                                                <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                                            </multiselect>
+
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <button type="button" class="btn btn-primary btn-lg btn-block" :disabled="!isEnabled()" @click="createContract()">
                                     Оформить заказ
                                 </button>
@@ -84,29 +91,45 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import Service from "./Service";
+    import Service from "../../common/components/Service";
+    import Multiselect from "vue-multiselect";
 
     export default {
         metaInfo: {
-            title: 'Корзина'
+            title: 'Корзина Пациента'
+        },
+        data() {
+            return {
+                user: null,
+            }
+        },
+        mounted() {
+            this.$store.dispatch('getUsers');
+
+            if (this.$route.params.id) {
+                this.user = this.users.find(user => user.id === this.$route.params.id)
+            }
         },
         computed: {
             ...mapGetters([
                 'basketServices',
                 'basketSum',
                 'isLogged',
+                'users',
             ])
         },
         components: {
-            Service
+            Service,
+            Multiselect
         },
         methods: {
             createContract() {
                 if (this.isLogged) {
                     let basket = {
                         services: this.basketServices,
+                        user_id: this.user.id
                     };
-                    this.$store.dispatch('createMyContract', basket);
+                    this.$store.dispatch('createContract', basket);
                 }
             },
             isEnabled() {

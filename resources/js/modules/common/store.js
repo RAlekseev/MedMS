@@ -34,7 +34,7 @@ export default {
         cleanBasket({commit}) {
             commit('cleanBasket');
         },
-        createContract({commit}, basket) {
+        createMyContract({commit}, basket) {
             commit('startLoading');
             return axios
                 .post('/api/patient/contracts', basket)

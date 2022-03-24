@@ -5,6 +5,7 @@ namespace App\Modules\Contracts\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use App\Modules\Contracts\Models\Contract;
 use App\Modules\Services\Models\Category;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-//        return Category::where('category_id', null)->with(['subCategories'])->get();
+        return Contract::with(['services', 'patient'])->get();
     }
 
 
@@ -29,7 +30,16 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $contract = Contract::create([
+            'patient_id' => $request['user_id'],
+        ]);
+
+        $contract->services()->attach(array_column($request['services'], 'id'));
+
+        return [
+            'contract' => $contract,
+            'message' => 'Услуги успешно оформлены',
+        ];
     }
 
     /**
