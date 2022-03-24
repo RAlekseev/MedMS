@@ -17822,13 +17822,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      query: null
+      query: null,
+      is_visible: false
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['searchResults'])),
@@ -17843,13 +17843,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     deleteQuery: function deleteQuery() {
       this.query = null;
+      this.is_visible = false;
     },
     more: function more() {
-      var query = this.query;
-      this.deleteQuery();
+      this.is_visible = false;
+      console.log(this.query);
       this.$router.push({
         path: '/services',
-        query: query
+        query: this.query
       });
     }
   }
@@ -18608,6 +18609,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('makeSearch', {
         query: this.query
       });
+    },
+    deleteQuery: function deleteQuery() {
+      this.query = null;
     }
   }
 });
@@ -21863,7 +21867,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.search-results[data-v-4c4738bf] {\n    border-radius: 0.35rem;\n    /*height: 100px;*/\n    width: 100%;\n    background-color: #fff;\n    position: absolute;\n    margin-top: 40px;\n    z-index: 9999;\n}\nform[data-v-4c4738bf] {\n    z-index: 10;\n}\n.ext_screen[data-v-4c4738bf] {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    z-index: 2;\n    background-color: #000;\n    opacity: 0.5;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.search-results[data-v-4c4738bf] {\n    border-radius: 0.35rem;\n    /*height: 100px;*/\n    width: 100%;\n    background-color: #fff;\n    position: absolute;\n    margin-top: 40px;\n    z-index: 9999;\n}\nform[data-v-4c4738bf] {\n    z-index: 9999;\n}\n.ext_screen[data-v-4c4738bf] {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    z-index: 2;\n    background-color: #000;\n    opacity: 0.5;\n}\ninput[data-v-4c4738bf] {\n    z-index: 9999;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -21983,7 +21987,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.search-results[data-v-ab2a797a] {\n    border-radius: 0.35rem;\n    /*height: 100px;*/\n    width: 100%;\n    background-color: #fff;\n    position: absolute;\n    margin-top: 40px;\n    z-index: 9999;\n}\nform[data-v-ab2a797a] {\n    z-index: 10;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.search-results[data-v-ab2a797a] {\n    border-radius: 0.35rem;\n    /*height: 100px;*/\n    width: 100%;\n    background-color: #fff;\n    position: absolute;\n    margin-top: 40px;\n    z-index: 9999;\n}\n.input-group[data-v-ab2a797a] {\n    z-index: 9999;\n}\n\n/*input {*/\n/*    z-index: 9999;*/\n/*}*/\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -54282,12 +54286,12 @@ var render = function () {
         "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search",
     },
     [
-      _vm.query
+      _vm.is_visible
         ? _c("div", {
             staticClass: "ext_screen",
             on: {
               click: function ($event) {
-                return _vm.deleteQuery()
+                _vm.is_visible = false
               },
             },
           })
@@ -54333,12 +54337,31 @@ var render = function () {
               $event.preventDefault()
               return _vm.getResult()
             },
+            focus: function ($event) {
+              _vm.is_visible = true
+            },
           },
         }),
         _vm._v(" "),
+        _vm.query
+          ? _c(
+              "div",
+              {
+                staticClass: "bg-light",
+                staticStyle: { padding: "10px", "z-index": "9999" },
+                on: {
+                  click: function ($event) {
+                    return _vm.deleteQuery()
+                  },
+                },
+              },
+              [_c("i", { staticClass: "fa fa-times" })]
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),
-        _vm.query
+        _vm.is_visible
           ? _c("div", { staticClass: "bg-light search-results" }, [
               _vm.searchResults.length
                 ? _c("div", [
@@ -54382,13 +54405,13 @@ var render = function () {
                               _c("div", { staticClass: "row p-1" }, [
                                 _c("div", { staticClass: "col-12" }, [
                                   _vm._v(
-                                    "\n                                    Показано 5 из "
+                                    "\n                                Показано 5 из "
                                   ),
                                   _c("b", [
                                     _vm._v(_vm._s(_vm.searchResults.length)),
                                   ]),
                                   _vm._v(
-                                    " результатов\n                                    "
+                                    " результатов\n                                "
                                   ),
                                   _c(
                                     "a",
@@ -54403,7 +54426,7 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        Подробнее\n                                    "
+                                        "\n                                    Подробнее\n                                "
                                       ),
                                     ]
                                   ),
@@ -56057,6 +56080,22 @@ var render = function () {
             },
           },
         }),
+        _vm._v(" "),
+        _vm.query
+          ? _c(
+              "div",
+              {
+                staticClass: "bg-light",
+                staticStyle: { padding: "7px" },
+                on: {
+                  click: function ($event) {
+                    return _vm.deleteQuery()
+                  },
+                },
+              },
+              [_c("i", { staticClass: "fa fa-times" })]
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),

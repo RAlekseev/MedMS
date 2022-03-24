@@ -1,21 +1,20 @@
 <template>
     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="ext_screen" @click="deleteQuery()" v-if="query">
+        <div class="ext_screen" v-if="is_visible" @click="is_visible = false"></div>
 
-            </div>
         <div class="input-group">
             <input type="text" class="form-control bg-light border-0 small" placeholder="Поиск..."
                    aria-label="Search" aria-describedby="basic-addon2" v-model="query"
-                   @input="getResult()" @keypress.enter.prevent="getResult()">
-<!--            <div class="bg-light" style="padding: 10px;" @onclic="deleteQuery()">-->
-<!--                <i class="fa fa-times"></i>-->
-<!--            </div>-->
+                   @input="getResult()" @keypress.enter.prevent="getResult()" @focus="is_visible = true">
+            <div class="bg-light" style="padding: 10px; z-index:9999" @click="deleteQuery()" v-if="query">
+                <i class="fa fa-times"></i>
+            </div>
             <div class="input-group-append">
                 <button class="btn btn-primary" type="button">
                     <i class="fas fa-search fa-sm"></i>
                 </button>
             </div>
-            <div class="bg-light search-results" v-if="query">
+            <div class="bg-light search-results" v-if="is_visible">
                 <div v-if="searchResults.length">
 
                     <div v-if="searchResults.length < 6">
@@ -61,6 +60,7 @@
         data() {
             return {
                 query: null,
+                is_visible: false,
             }
         },
         computed: {
@@ -77,11 +77,12 @@
             },
             deleteQuery() {
                 this.query = null;
+                this.is_visible = false;
             },
             more() {
-                let query = this.query;
-                this.deleteQuery();
-                this.$router.push({path: '/services', query: query});
+                this.is_visible = false;
+                console.log(this.query)
+                this.$router.push({path: '/services', query: this.query});
             }
         }
     }
@@ -99,7 +100,7 @@
     }
 
     form {
-        z-index: 10;
+        z-index: 9999;
     }
 
     .ext_screen {
@@ -111,5 +112,9 @@
         z-index: 2;
         background-color: #000;
         opacity: 0.5;
+    }
+
+    input {
+        z-index: 9999;
     }
 </style>

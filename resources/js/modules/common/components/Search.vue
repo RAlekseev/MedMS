@@ -4,9 +4,9 @@
             <input type="text" class="form-control bg-light border-0 small" placeholder="Поиск..."
                    aria-label="Search" aria-describedby="basic-addon2" v-model="query"
                    @input="getResult()" @keypress.enter.prevent="getResult()">
-            <!--            <div class="bg-light" style="padding: 10px;" @onclic="deleteQuery()">-->
-            <!--                <i class="fa fa-times"></i>-->
-            <!--            </div>-->
+            <div class="bg-light" style="padding: 7px" @click="deleteQuery()" v-if="query">
+                <i class="fa fa-times"></i>
+            </div>
             <div class="input-group-append">
                 <button class="btn btn-primary" type="button">
                     <i class="fas fa-search fa-sm"></i>
@@ -14,9 +14,9 @@
             </div>
             <div class="bg-light search-results" v-if="query">
                 <div v-if="searchResults.length">
-                        <div class="px-4" v-for="searchResult in searchResults" :key="searchResult.id">
-                            <Service :service="searchResult"></Service>
-                        </div>
+                    <div class="px-4" v-for="searchResult in searchResults" :key="searchResult.id">
+                        <Service :service="searchResult"></Service>
+                    </div>
 
                 </div>
                 <div v-else>
@@ -59,6 +59,9 @@
             getResult() {
                 this.$store.dispatch('makeSearch', {query: this.query});
             },
+            deleteQuery() {
+                this.query = null;
+            },
         }
     }
 </script>
@@ -74,8 +77,13 @@
         z-index: 9999;
     }
 
-    form {
-        z-index: 10;
+    .input-group {
+        z-index: 9999;
     }
+
+    /*input {*/
+    /*    z-index: 9999;*/
+    /*}*/
+
 
 </style>
