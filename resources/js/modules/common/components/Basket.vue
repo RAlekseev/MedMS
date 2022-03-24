@@ -10,8 +10,13 @@
                             </div>
                             <div class="card-body">
                                 <!-- Single item -->
+                                <div  v-if="basketServices.length">
                                 <div v-for="service in basketServices" :key="service.id">
                                     <Service :service="service"></Service>
+                                </div>
+                                </div>
+                                <div class="m-auto" v-else>
+                                    <h3>Корзина пуста...</h3>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +70,7 @@
                                         Нет аккаунта?
                                     </router-link>
                                 </p>
-                                <button type="button" class="btn btn-primary btn-lg btn-block" :disabled="!isLogged" @click="createContract()">
+                                <button type="button" class="btn btn-primary btn-lg btn-block" :disabled="!isEnabled()" @click="createContract()">
                                     Оформить заказ
                                 </button>
                             </div>
@@ -103,6 +108,9 @@
                     };
                     this.$store.dispatch('createContract', basket);
                 }
+            },
+            isEnabled() {
+                return this.isLogged && this.basketServices.length
             }
         }
     }

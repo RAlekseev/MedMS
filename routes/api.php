@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Common\Controllers\SearchController;
 use App\Modules\Services\Controllers\CategoryController;
 use App\Modules\Contracts\Controllers\ContractController;
 use App\Modules\Contracts\Controllers\PatientContractController;
@@ -27,7 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 Route::apiResource('/permissions', PermissionController::class);
 Route::apiResource('/roles', RoleController::class);
 
@@ -40,8 +41,10 @@ Route::apiResource('/services', ServiceController::class);
 Route::apiResource('/contracts', ContractController::class);
 
 Route::apiResource('/patient/contracts', PatientContractController::class)->except(['destroy']);
-//});
+});
 
+
+Route::post('search', [SearchController::class, 'index']);
 Route::post('login', [LoginController::class, 'login']);
 Route::post('registration', [RegistrationController::class, 'register']);
 

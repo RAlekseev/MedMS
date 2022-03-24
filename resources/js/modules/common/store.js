@@ -4,6 +4,7 @@ import router from '../../core/router';
 export default {
     state: {
         basketServices: [],
+        searchResults: [],
     },
 
     mutations: {
@@ -17,6 +18,9 @@ export default {
         },
         cleanBasket(state) {
             state.basketServices = [];
+        },
+        setSearchResults(state, results) {
+            state.searchResults = results;
         }
     },
 
@@ -32,16 +36,25 @@ export default {
         },
         createContract({commit}, basket) {
             commit('startLoading');
-            console.log(basket)
             return axios
                 .post('/api/patient/contracts', basket)
                 .then(response => {
                     commit('cleanBasket');
                     commit('addMessage', response.data.message);
+                    router.push({path: '/profile/contracts'})
                 }).catch(error => {
                     commit('addError', error.response.data.message || error.message)
                 }).finally(() => commit('stopLoading'));
-        }
+        },
+        makeSearch({commit}, query) {
+            return axios
+                .post('/api/search', query)
+                .then(response => {
+                    commit('setSearchResults', response.data.result);
+                }).catch(error => {
+                    commit('addError', error.response.data.message || error.message)
+                });
+        },
     },
 
     getters: {
@@ -50,5 +63,6 @@ export default {
         basketSum: state => state.basketServices.reduce((sum, service) => {
             return sum + service.price
         }, 0),
+        searchResults: state => state.searchResults,
     }
 }
