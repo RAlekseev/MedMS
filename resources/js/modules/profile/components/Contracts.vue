@@ -11,8 +11,54 @@
         <!-- /Breadcrumb -->
 
         <div class="row gutters-sm">
-            <ProfileCard :user="authUser"></ProfileCard>
-            <LastContracts :user="authUser"></LastContracts>
+
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Мои заказы
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div v-for="contract in myContracts" :key="contract.id" v-if="myContracts.length">
+                            <div class="row">
+                                <div class="col-sm-3 pl-4">
+                                    <h6 class="mb-0">
+                                        № {{contract.id}}
+                                    </h6>
+                                </div>
+                                <div class="col-sm-3 text-secondary">
+                                    {{contract.created_at}}
+                                </div>
+                                <div class="col-sm-3 text-secondary text-success">
+                                    Оплачено
+                                </div>
+                                <div class="col-sm-3 text-secondary">
+                                    {{price(contract)}}
+                                </div>
+                            </div>
+
+                            <div class="row" v-for="service in contract.services" :key="service.id" v-if="contract.services.length">
+                                <div class="col-sm-3 pl-4">
+
+                                </div>
+                                <div class="col-sm-3 text-secondary">
+                                    {{service.name}}
+                                </div>
+                                <div class="col-sm-3 text-secondary text-success">
+                                    Оплачено
+                                </div>
+                                <div class="col-sm-3 text-secondary">
+                                    {{service.price}}
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -20,21 +66,25 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import ProfileCard from "./ProfileCard";
-    import LastContracts from "./LastContracts";
 
     export default {
         metaInfo: {
             title: 'Мои заказы'
         },
+        mounted() {
+            this.$store.dispatch('getMyContracts')
+        },
         computed: {
             ...mapGetters([
-                'authUser'
+                'myContracts'
             ])
         },
-        components: {
-            ProfileCard,
-            LastContracts,
+        methods: {
+            price(contract) {
+                return contract.services.reduce(function (sum, service) {
+                    return sum + service.price;
+                }, 0);
+            }
         }
     }
 </script>

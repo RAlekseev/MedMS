@@ -10,7 +10,7 @@
                         <p class="text-secondary mb-1">
                             <span v-for="role in user.roles" :key="role.id">{{role.name}} </span>
                         </p>
-                        <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+<!--                        <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>-->
                         <router-link to="/profile/contracts">
                             <button class="btn btn-primary">Заказы</button>
                         </router-link>
