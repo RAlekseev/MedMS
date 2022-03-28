@@ -18760,8 +18760,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   mounted: function mounted() {
-    this.$store.dispatch('getServices');
-    this.$store.dispatch('getCategories');
+    this.$store.dispatch('getGuestServicesCategories');
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['services', 'categories'])),
   components: {
@@ -21340,20 +21339,29 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   actions: {
-    putInBasket: function putInBasket(_ref, service) {
+    getGuestServicesCategories: function getGuestServicesCategories(_ref) {
       var commit = _ref.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/guest_services').then(function (response) {
+        commit('setServices', response.data.services);
+        commit('setCategories', response.data.categories);
+      })["catch"](function (error) {
+        commit('addError', error.response.data.message || error.message);
+      });
+    },
+    putInBasket: function putInBasket(_ref2, service) {
+      var commit = _ref2.commit;
       commit('putInBasket', service);
     },
-    deleteFromBasket: function deleteFromBasket(_ref2, service_id) {
-      var commit = _ref2.commit;
+    deleteFromBasket: function deleteFromBasket(_ref3, service_id) {
+      var commit = _ref3.commit;
       commit('deleteFromBasket', service_id);
     },
-    cleanBasket: function cleanBasket(_ref3) {
-      var commit = _ref3.commit;
+    cleanBasket: function cleanBasket(_ref4) {
+      var commit = _ref4.commit;
       commit('cleanBasket');
     },
-    createMyContract: function createMyContract(_ref4, basket) {
-      var commit = _ref4.commit;
+    createMyContract: function createMyContract(_ref5, basket) {
+      var commit = _ref5.commit;
       commit('startLoading');
       return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/patient/contracts', basket).then(function (response) {
         commit('cleanBasket');
@@ -21367,8 +21375,8 @@ __webpack_require__.r(__webpack_exports__);
         return commit('stopLoading');
       });
     },
-    makeSearch: function makeSearch(_ref5, query) {
-      var commit = _ref5.commit;
+    makeSearch: function makeSearch(_ref6, query) {
+      var commit = _ref6.commit;
       return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/search', query).then(function (response) {
         commit('setSearchResults', response.data.result);
       })["catch"](function (error) {

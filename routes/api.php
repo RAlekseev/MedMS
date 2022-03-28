@@ -4,6 +4,7 @@ use App\Modules\Common\Controllers\SearchController;
 use App\Modules\Services\Controllers\CategoryController;
 use App\Modules\Contracts\Controllers\ContractController;
 use App\Modules\Contracts\Controllers\PatientContractController;
+use App\Modules\Services\Controllers\GuestServiceController;
 use App\Modules\Services\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,22 +30,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth'])->group(function () {
-Route::apiResource('/permissions', PermissionController::class);
-Route::apiResource('/roles', RoleController::class);
+    Route::apiResource('/permissions', PermissionController::class);
+    Route::apiResource('/roles', RoleController::class);
 
-Route::get('users/change_pass/{id}', [UserController::class, 'change_pass']);
-Route::apiResource('/users', UserController::class);
+    Route::get('users/change_pass/{id}', [UserController::class, 'change_pass']);
+    Route::apiResource('/users', UserController::class);
 
-Route::apiResource('/categories', CategoryController::class);
-Route::apiResource('/services', ServiceController::class);
+    Route::apiResource('/categories', CategoryController::class);
+    Route::apiResource('/services', ServiceController::class);
 
-Route::apiResource('/contracts', ContractController::class);
+    Route::apiResource('/contracts', ContractController::class);
 
-Route::apiResource('/patient/contracts', PatientContractController::class)->except(['destroy']);
+    Route::apiResource('/patient/contracts', PatientContractController::class)->except(['destroy']);
 });
 
-
+Route::apiResource('/guest_services', GuestServiceController::class)->except(['store', 'update', 'destroy']);
 Route::post('search', [SearchController::class, 'index']);
+
 Route::post('login', [LoginController::class, 'login']);
 Route::post('registration', [RegistrationController::class, 'register']);
 
