@@ -1,5 +1,6 @@
 <template>
-    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+          :style="searchStyle">
         <div class="ext_screen" v-if="is_visible" @click="is_visible = false"></div>
 
         <div class="input-group">
@@ -68,6 +69,7 @@
                 'searchResults'
             ])
         },
+        props: ['searchStyle'],
         components: {
             Service
         },
@@ -100,7 +102,8 @@
     }
 
     form {
-        z-index: 9999;
+        z-index: 10;
+        /*margin-left: 16px;*/
     }
 
     .ext_screen {
@@ -115,6 +118,6 @@
     }
 
     input {
-        z-index: 9999;
+        z-index: 8;
     }
 </style>
