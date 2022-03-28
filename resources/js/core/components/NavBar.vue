@@ -8,22 +8,21 @@
                     <!--            Записаться на прием-->
                     <!--          </button>-->
                     <div class="menu-button-item">
-                        <a href="tel:+996123456" class="phone px-3">
+                        <a href="tel:+996123456" class="phone">
                             <div>
                                 <i class="fa fa-phone-alt pr-2" aria-hidden="true"></i>
-                                <span>+996123456</span>
+                                <span class="phone-desktop">+996123456</span>
                             </div>
                         </a>
                     </div>
                 </div>
 
-                <div class="menu-button">
-                    <router-link :to="{name: 'login'}" class="px-0 mobile-auth-link" role="button" v-if="!isLogged">
+                <div class="menu-button mobile-auth-link">
+                    <router-link :to="{name: 'login'}" class="px-0" role="button" v-if="!isLogged">
                         Вход
                     </router-link>
-                </div>
-                <div class="menu-button">
-                    <router-link :to="{name: 'registration'}" class="px-0 mobile-auth-link" role="button"
+                    <span v-if="!isLogged">|</span>
+                    <router-link :to="{name: 'registration'}" class="px-0" role="button"
                                  v-if="!isLogged">
                         Регистрация
                     </router-link>
@@ -62,11 +61,16 @@
             </router-link>
 
             <!-- Topbar Search -->
-            <NavBarSearch></NavBarSearch>
+            <span class="search-form" >
+            <NavBarSearch :searchStyle="searchStyle"></NavBarSearch>
+            </span>
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown no-arrow mx-1">
+                <li class="nav-item no-arrow mx-1 my-auto mobile-search-icon" @click="toggleSearch">
+                    <i class="fa fa-search"></i>
+                </li>
+                <li class="nav-item no-arrow mx-1">
                     <router-link :to="{name: 'services'}" class="nav-link text-gray-500" role="button">
                         Услуги
                     </router-link>
@@ -84,7 +88,7 @@
                     </router-link>
                 </li>
 
-                <div class="topbar-divider d-none d-sm-block"></div>
+                <div class="topbar-divider d-none d-sm-block navbar-auth-link"></div>
 
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow" v-if="isLogged">
@@ -141,6 +145,11 @@
     import NavBarSearch from './NavBarSearch'
 
     export default {
+        data() {
+            return {
+                searchStyle: null
+            }
+        },
         components: {
             NavBarSearch
         },
@@ -154,6 +163,9 @@
         methods: {
             logout() {
                 this.$store.dispatch('logout');
+            },
+            toggleSearch() {
+                this.searchStyle = this.searchStyle ? null : {display: 'block!important', width: '250px'}
             }
         },
     }
@@ -161,7 +173,7 @@
 
 <style scoped>
 
-    @media screen and (min-width: 500px) {
+    @media screen and (min-width: 880px) {
         .mobile-auth-link {
             visibility: hidden;
             display: none;
@@ -172,7 +184,7 @@
 
     }
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 1025px) {
         .sidebar-brand-text {
             visibility: hidden;
             display: none;
@@ -180,14 +192,32 @@
     }
 
     @media screen and (max-width: 500px) {
-        .navbar-auth-link {
+        .phone-desktop {
             visibility: hidden;
             display: none;
         }
     }
 
+    @media screen and (min-width: 576px) {
+        .mobile-search-icon {
+            visibility: hidden;
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 950px) {
+        .navbar-auth-link {
+            visibility: hidden;
+            display: none!important;
+        }
+    }
+
     .sidebar .sidebar-brand {
         text-transform: none;
+    }
+
+    .sidebar-brand-icon {
+        padding-right: 12px;
     }
 
     .menu-top {
@@ -203,7 +233,6 @@
     .menu-button {
         -webkit-box-flex: 1;
         flex-grow: 1;
-        /*font-size: 0;*/
     }
 
     .menu-button {
@@ -225,9 +254,10 @@
         -webkit-box-align: center;
         align-items: center;
         height: 36px;
-        padding: 0 20px 0 44px;
+        /*padding: 0 20px 0 44px;*/
         position: relative;
         text-decoration: none;
+        padding: .375rem .75rem;
     }
 
     .dropdown-menu {

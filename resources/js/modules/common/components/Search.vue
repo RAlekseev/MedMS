@@ -50,11 +50,6 @@
         components: {
             Service
         },
-        mounted() {
-            // console.log(this.$route.query.reduce(function (sum, char) {
-            //     return sum + char;
-            // }), '');
-        },
         methods: {
             getResult() {
                 this.$store.dispatch('makeSearch', {query: this.query});
@@ -69,21 +64,12 @@
 <style scoped>
     .search-results {
         border-radius: 0.35rem;
-        /*height: 100px;*/
         width: 100%;
         background-color: #fff;
-        position: absolute;
-        margin-top: 40px;
-        z-index: 9999;
+        z-index: 8;
     }
 
     .input-group {
-        z-index: 9999;
+        z-index: 8;
     }
-
-    /*input {*/
-    /*    z-index: 9999;*/
-    /*}*/
-
-
 </style>
