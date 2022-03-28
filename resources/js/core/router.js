@@ -8,11 +8,12 @@ import auth from '../modules/auth/routes'
 import common from '../modules/common/routes'
 import profile from '../modules/profile/routes'
 
-import usersRouter from '../modules/users/routes'
-import rolesRouter from '../modules/roles/routes'
-import permissionsRouter from '../modules/permissions/routes'
-import servicesRouter from '../modules/services/routes'
-import schedulesRouter from '../modules/schedules/routes'
+import users from '../modules/users/routes'
+import roles from '../modules/roles/routes'
+import permissions from '../modules/permissions/routes'
+import services from '../modules/services/routes'
+import schedules from '../modules/schedules/routes'
+import contracts from '../modules/contracts/routes'
 
 Vue.use(VueRouter);
 
@@ -31,12 +32,13 @@ const router = new VueRouter({
             component: Layout,
             meta: { requiresAuth: true },
             children: [
-                ...usersRouter,
-                ...rolesRouter,
-                ...permissionsRouter,
-                ...schedulesRouter,
-                ...servicesRouter,
+                ...users,
+                ...roles,
+                ...permissions,
+                ...schedules,
+                ...services,
                 ...profile,
+                ...contracts,
             ],
 
         },

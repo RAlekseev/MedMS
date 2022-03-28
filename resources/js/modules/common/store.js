@@ -25,6 +25,16 @@ export default {
     },
 
     actions: {
+        getGuestServicesCategories({commit}) {
+            return axios
+                .get('/api/guest_services')
+                .then(response => {
+                    commit('setServices', response.data.services);
+                    commit('setCategories', response.data.categories);
+                }).catch(error => {
+                    commit('addError', error.response.data.message || error.message);
+                });
+        },
         putInBasket({commit}, service) {
             commit('putInBasket', service);
         },
@@ -34,7 +44,7 @@ export default {
         cleanBasket({commit}) {
             commit('cleanBasket');
         },
-        createContract({commit}, basket) {
+        createMyContract({commit}, basket) {
             commit('startLoading');
             return axios
                 .post('/api/patient/contracts', basket)

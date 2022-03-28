@@ -59,8 +59,7 @@
             }
         },
         mounted() {
-            this.$store.dispatch('getServices');
-            this.$store.dispatch('getCategories');
+            this.$store.dispatch('getGuestServicesCategories');
         },
         computed: {
             ...mapGetters([

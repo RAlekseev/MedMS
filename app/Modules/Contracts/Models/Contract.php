@@ -2,6 +2,7 @@
 
 namespace App\Modules\Contracts\Models;
 
+use App\Models\User;
 use App\Modules\Services\Models\Service;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,6 +25,11 @@ class Contract extends Model
     public function services()
     {
         return $this->belongsToMany(Service::class, 'contract_service')->withTimestamps();
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo(User::class, 'patient_id');
     }
 
 }

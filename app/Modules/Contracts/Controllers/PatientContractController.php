@@ -32,7 +32,6 @@ class PatientContractController extends Controller
      */
     public function store(Request $request)
     {
-
         $contract = Contract::create([
             'patient_id' => Auth::user()->id,
         ]);

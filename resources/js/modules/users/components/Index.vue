@@ -10,7 +10,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table id="data_table" class="display table-bordered" style="width:100%;" >
+                <table id="data_table" class="display table-bordered" style="width:100%;">
                     <thead>
                     <tr>
                         <th>Id</th>
@@ -38,6 +38,11 @@
 
                         <td class="text-right" v-if="is_available_actions()">
                             <div>
+                                <router-link :to="{name: `contractsCreate`, params: {id: user.id}}" v-if="can('contracts-create')">
+                                    <button class="btn btn-success btn-round"  title="Оформить заказ">
+                                        <i class="fa fa-check-square"></i>
+                                    </button>
+                                </router-link>
                                 <Edit :user="user" v-if="can('users-update')"></Edit>
                                 <Delete :user="user" v-if="can('users-delete')"></Delete>
                             </div>
@@ -74,7 +79,7 @@
             Delete
         },
         mounted() {
-            this.$store.dispatch('getUsers').then( () => {
+            this.$store.dispatch('getUsers').then(() => {
                 window.$('#data_table').DataTable(dataTableConfig);
             });
         },
