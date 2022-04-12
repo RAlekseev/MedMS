@@ -82,10 +82,9 @@
             Delete,
         },
         mounted() {
+            this.$store.dispatch('getCategories');
             this.$store.dispatch('getServices').then( () => {
-                this.$store.dispatch('getCategories').then( () => {
                     window.$('#data_table').DataTable(dataTableConfig);
-                });
             });
 
         },
