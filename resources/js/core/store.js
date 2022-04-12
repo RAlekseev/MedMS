@@ -13,6 +13,8 @@ import users from '../modules/users/store';
 import services from '../modules/services/store';
 import contracts from '../modules/contracts/store';
 
+import configs from '../modules/configs/store';
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -91,6 +93,7 @@ export const store = new Vuex.Store({
         services,
         profile,
         contracts,
+        configs,
     },
     plugins: [createPersistedState()],
 });

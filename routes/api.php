@@ -1,6 +1,7 @@
 <?php
 
 use App\Modules\Common\Controllers\SearchController;
+use App\Modules\Configs\Controllers\ConfigController;
 use App\Modules\Services\Controllers\CategoryController;
 use App\Modules\Contracts\Controllers\ContractController;
 use App\Modules\Contracts\Controllers\PatientContractController;
@@ -42,8 +43,10 @@ Route::middleware(['auth'])->group(function () {
     Route::apiResource('/contracts', ContractController::class);
 
     Route::apiResource('/patient/contracts', PatientContractController::class)->except(['destroy']);
+    Route::patch('/configs/{config}', [ConfigController::class, 'update']);
 });
 
+Route::get('/configs', [ConfigController::class, 'index']);
 Route::apiResource('/guest_services', GuestServiceController::class)->except(['store', 'update', 'destroy']);
 Route::post('search', [SearchController::class, 'index']);
 
