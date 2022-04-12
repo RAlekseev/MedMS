@@ -111,10 +111,13 @@
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 200vh;
         z-index: 2;
-        background-color: #000;
-        opacity: 0.5;
+        background-color: #00000040;
+        backdrop-filter: blur(1px);
+        -webkit-backdrop-filter: blur(1px);
+        /*background-color: #000;*/
+        /*opacity: 0.5;*/
     }
 
     input {

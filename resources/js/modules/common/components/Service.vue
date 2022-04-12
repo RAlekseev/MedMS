@@ -13,11 +13,11 @@
         </div>
 
         <div class="col-2 text-right m-auto p-0 mr-1">
-            <button class="btn btn-danger" v-if="isServiceInBasket(service)" @click="deleteServiceFromBasket(service)">
+            <button class="btn btn-danger" v-if="isServiceInBasket(service)" @click.prevent="deleteServiceFromBasket(service)">
                 {{service.price}}
                 <i class="fa fa-shopping-bag"></i>
             </button>
-            <button class="btn btn-success" v-else @click="addServiceInBasket(service)">
+            <button class="btn btn-success" v-else @click.prevent="addServiceInBasket(service)">
                 {{service.price}}
                 <i class="fa fa-shopping-bag"></i>
             </button>
