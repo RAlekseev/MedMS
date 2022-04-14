@@ -8,10 +8,10 @@
                     <!--            Записаться на прием-->
                     <!--          </button>-->
                     <div class="menu-button-item">
-                        <a href="tel:+996123456" class="phone">
+                        <a :href="'tel:'+config_value('org_phone')" class="phone">
                             <div>
                                 <i class="fa fa-phone-alt pr-2" aria-hidden="true"></i>
-                                <span class="phone-desktop">+996123456</span>
+                                <span class="phone-desktop">{{config_value('org_phone')}}</span>
                             </div>
                         </a>
                     </div>
@@ -158,7 +158,11 @@
                 'isLogged',
                 'authUser',
                 'basketSum',
+                'config_value',
             ])
+        },
+        mounted() {
+            this.$store.dispatch('getConfigs')
         },
         methods: {
             logout() {
@@ -166,7 +170,7 @@
             },
             toggleSearch() {
                 this.searchStyle = this.searchStyle ? null : {display: 'block!important', width: '250px'}
-            }
+            },
         },
     }
 </script>

@@ -27,7 +27,7 @@
         <div class="main">
             <div class="section sec-about">
                 <h1 class="hc-title text-primary">
-                     «Avicenna-medical»
+                     «{{config_value('org_name')}}»
                 </h1>
                 <p>
                     Ведущий коммерческий многопрофильный клинический центр, осуществляющий оперативное лечение с
@@ -121,11 +121,11 @@
                             <p class="contacts-title hc-title text-primary">Контакты</p>
                         </div>
                         <div class="contacts-header-item-left">
-                            <a class="contacts-phone" href="tel:+12345678" title="Нажмите, чтобы позыонить по указанному номеру">
-                                <span>+12345678</span>
+                            <a class="contacts-phone" :href="'tel:'+config_value('org_phone')" title="Нажмите, чтобы позыонить по указанному номеру">
+                                <span>{{config_value('org_phone')}}</span>
                             </a>
                             <ul class="contacts-address">
-                                <li>Адрес, адрес</li>
+                                <li>{{config_value('org_address')}}</li>
                             </ul>
                         </div>
                     </div>
@@ -140,12 +140,18 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
+
     export default {
         metaInfo: {
             title: 'О нас'
         },
+        computed: {
+            ...mapGetters([
+                'config_value',
+            ])
+        },
     };
-
 </script>
 
 <style scoped>

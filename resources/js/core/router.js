@@ -14,6 +14,7 @@ import permissions from '../modules/permissions/routes'
 import services from '../modules/services/routes'
 import schedules from '../modules/schedules/routes'
 import contracts from '../modules/contracts/routes'
+import configs from '../modules/configs/routes'
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,7 @@ const router = new VueRouter({
                 ...services,
                 ...profile,
                 ...contracts,
+                ...configs,
             ],
 
         },

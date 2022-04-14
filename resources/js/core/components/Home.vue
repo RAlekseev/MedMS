@@ -3,7 +3,7 @@
       <div class="main-section shadow">
         <div class="image"><img src="assets/img/home-page/doc.png"></div>
         <div class="textBox">
-          <h2>«Авиценна-Медикал»</h2>
+          <h2>«{{config_value('org_name')}}»</h2>
           <span>Многопрофильная клиника</span>
           <br/>
           <span>Индивидуальный подход к лечению</span>
@@ -15,7 +15,15 @@
 </template>
 
 <script>
+  import {mapGetters} from "vuex";
 
+  export default {
+    computed: {
+      ...mapGetters([
+        'config_value',
+      ])
+    },
+  }
 </script>
 
 <style scoped>
