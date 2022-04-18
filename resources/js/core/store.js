@@ -14,6 +14,8 @@ import services from '../modules/services/store';
 import contracts from '../modules/contracts/store';
 
 import configs from '../modules/configs/store';
+import employees from '../modules/employees/store';
+import schedules from '../modules/schedules/store';
 
 Vue.use(Vuex);
 
@@ -73,16 +75,16 @@ export const store = new Vuex.Store({
         stopLoading({commit}) {
             commit('stopLoading')
         },
-        request({commit}, request) {
-            commit('startLoading');
-            return axios
-                .get('/api/roles')
-                .then(response => {
-                    commit('setRoles', response.data);
-                }).catch(error => {
-                    commit('addError', error.response.data.message || error.message)
-                }).finally(() => commit('stopLoading'));
-        }
+        // request({commit}, request) {
+        //     commit('startLoading');
+        //     return axios
+        //         .get('/api/roles')
+        //         .then(response => {
+        //             commit('setRoles', response.data);
+        //         }).catch(error => {
+        //             commit('addError', error.response.data.message || error.message)
+        //         }).finally(() => commit('stopLoading'));
+        // }
     },
     modules: {
         common,
@@ -94,6 +96,8 @@ export const store = new Vuex.Store({
         profile,
         contracts,
         configs,
+        employees,
+        schedules,
     },
     plugins: [createPersistedState()],
 });

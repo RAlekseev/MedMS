@@ -2,7 +2,6 @@
 
 namespace App\Modules\Access\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -25,4 +24,12 @@ class Permission extends Model
         return $this->belongsToMany(Role::class, 'role_permission');
     }
 
+    public function users()
+    {
+        $result = collect();
+        foreach ($this->roles()->with('users')->get() as $role) {
+            $result = $role->users()->with('working_hours')->get()->merge($result);
+        }
+        return $result;
+    }
 }
