@@ -7,7 +7,6 @@
             >
                 <template v-slot:eventContent='arg'>
                     <b>{{ arg.timeText }}</b>
-<!--                    <i>{{ arg.event.title }}</i>-->
                 </template>
             </FullCalendar>
             <div hidden>{{eventSources}}</div>
@@ -22,6 +21,7 @@
     import timeGridPlugin from "@fullcalendar/timegrid";
     import interactionPlugin from "@fullcalendar/interaction";
     import ruLocale from '@fullcalendar/core/locales/ru';
+    import {mapGetters} from "vuex";
 
     export default {
         components: {
@@ -68,7 +68,6 @@
                 calendarApi.unselect() // clear date selection
                 if (title) {
                     this.calendarOptions.events.push({
-                        // id: createEventId(),
                         title,
                         start: selectInfo.startStr,
                         end: selectInfo.endStr,
@@ -88,14 +87,19 @@
                 event.color = 'green';
                 event.start = changeInfo.event.startStr;
                 event.end = changeInfo.event.endStr;
-                console.log(changeInfo);
             },
             handleUpdate() {
                 this.$store.dispatch('updateWorkingHours', {events: this.calendarOptions.events})
-            }
+                .then(this.$emit('updateUser'))
+            },
+
         },
         computed: {
+            ...mapGetters([
+                'employees'
+            ]),
             eventSources() {
+                this.user = this.parent_user
                 if (this.user?.working_hours) {
                     this.calendarOptions.events = this.user.working_hours;
                 } else {
