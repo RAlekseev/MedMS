@@ -7,6 +7,7 @@ use App\Modules\Contracts\Controllers\ContractController;
 use App\Modules\Contracts\Controllers\PatientContractController;
 use App\Modules\Services\Controllers\GuestServiceController;
 use App\Modules\Services\Controllers\ServiceController;
+use App\Modules\WorkingHour\Controllers\WorkingHourController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Modules\Users\Controllers\UserController;
@@ -34,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::apiResource('/permissions', PermissionController::class);
     Route::apiResource('/roles', RoleController::class);
 
+    Route::get('users/employees', [UserController::class, 'employees']);
     Route::get('users/change_pass/{id}', [UserController::class, 'change_pass']);
     Route::apiResource('/users', UserController::class);
 
@@ -42,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::apiResource('/contracts', ContractController::class);
 
+    Route::apiResource('/working_hours', WorkingHourController::class);
     Route::apiResource('/patient/contracts', PatientContractController::class)->except(['destroy']);
     Route::patch('/configs/{config}', [ConfigController::class, 'update']);
 });

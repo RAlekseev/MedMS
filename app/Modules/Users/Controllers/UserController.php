@@ -93,6 +93,11 @@ class UserController extends Controller
         User::findOrFail($id)->delete();
     }
 
+    public function employees()
+    {
+        return User::employees();
+    }
+
     public function change_pass($id)
     {
         $random_pass = strtolower(Str::random(4));

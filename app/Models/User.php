@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Modules\Contracts\Traits\HasContracts;
 use App\Modules\Access\Traits\HasRolesAndPermissions;
+use App\Modules\WorkingHour\Models\WorkingHour;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Modules\Access\Models\Permission;
 
 class User extends Authenticatable
 {
@@ -63,5 +65,15 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return implode(' ', $this->name_array());
+    }
+
+    public static function employees()
+    {
+        return Permission::where('slug', 'employee')->get()->first()->users();
+    }
+
+    public function working_hours()
+    {
+        return $this->hasMany(WorkingHour::class, 'user_id');
     }
 }
