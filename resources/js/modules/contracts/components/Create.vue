@@ -8,7 +8,7 @@
                     <li class="breadcrumb-item active" aria-current="page">Корзина клиента</li>
                 </ol>
             </nav>
-            <div class="container py-5">
+            <div class="container">
                 <div class="row d-flex justify-content-center my-4">
                     <div class="col-lg-8">
                         <div class="card mb-4">
@@ -68,9 +68,9 @@
                                         <div class="form-group">
                                             <label class="typo__label">Пациент</label>
                                             <multiselect v-model="user" :options="users"
-                                                         :close-on-select="false"
-                                                         placeholder="Type to search" track-by="full_name" label="full_name">
-                                                <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                                                         :close-on-select="true"
+                                                         placeholder="Выберите клиента" track-by="full_name" label="full_name">
+                                                <span slot="noResult">Ни одного клиента не найдено</span>
                                             </multiselect>
 
                                         </div>
