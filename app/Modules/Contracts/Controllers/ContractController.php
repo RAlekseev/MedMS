@@ -50,7 +50,8 @@ class ContractController extends Controller
      */
     public function show(int $id)
     {
-        //
+        $contract = Contract::with('services')->findOrFail($id);
+        return $contract;
     }
 
 

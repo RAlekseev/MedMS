@@ -24,7 +24,9 @@
                             <div class="row">
                                 <div class="col-sm-3 pl-4">
                                     <h6 class="mb-0">
-                                        № {{contract.id}}
+                                        <router-link :to="'/contracts/show/' + contract.id">
+                                            № {{contract.id}}
+                                        </router-link>
                                     </h6>
                                 </div>
                                 <div class="col-sm-3 text-secondary">

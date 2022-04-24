@@ -15,7 +15,6 @@
     .preloader{
         height: 500%;
         width: 100%;
-        padding: 20px 0 20px;
         display: flex;
         flex-flow: column wrap;
         justify-content: center;
