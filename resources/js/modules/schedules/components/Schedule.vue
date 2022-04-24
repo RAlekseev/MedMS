@@ -41,6 +41,7 @@
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
+                    contentHeight:"auto",
                     initialView: 'timeGridWeek',
                     editable: true,
                     selectable: true,
@@ -124,13 +125,17 @@
 </style>
 
 <style>
-    @media screen and (max-width: 935px) {
+    @media screen and (max-width: 990px) {
         .fc-toolbar-title {
             font-size: 16px !important;
         }
 
         .fc-button {
             font-size: 10px !important;
+        }
+
+        .fc-save-button {
+            display: none!important;
         }
     }
 

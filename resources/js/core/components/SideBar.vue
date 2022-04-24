@@ -139,6 +139,12 @@
                 <span>Настройки</span>
             </router-link>
         </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/doc_templates">
+                <i class="fas fa-fw fa-file"></i>
+                <span>Шаблоны документов</span>
+            </router-link>
+        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
