@@ -3,8 +3,7 @@
         <div class='demo-app-main'>
             <FullCalendar
                     class='demo-app-calendar'
-                    :options='calendarOptions'
-            >
+                    :options='calendarOptions'>
                 <template v-slot:eventContent='arg'>
                     <b>{{ arg.timeText }}</b>
                 </template>
@@ -90,7 +89,7 @@
             },
             handleUpdate() {
                 this.$store.dispatch('updateWorkingHours', {events: this.calendarOptions.events})
-                .then(this.$emit('updateUser'))
+                    .then(this.$emit('updateUser'))
             },
 
         },
@@ -99,7 +98,6 @@
                 'employees'
             ]),
             eventSources() {
-                this.user = this.parent_user
                 if (this.user?.working_hours) {
                     this.calendarOptions.events = this.user.working_hours;
                 } else {
@@ -120,19 +118,21 @@
 <style>
     @media screen and (max-width: 935px) {
         .fc-toolbar-title {
-            font-size: 16px!important;
+            font-size: 16px !important;
         }
+
         .fc-button {
-            font-size: 10px!important;
+            font-size: 10px !important;
         }
     }
 
     @media screen and (max-width: 500px) {
         .fc-toolbar-title {
-            font-size: 10px!important;
+            font-size: 10px !important;
         }
+
         .fc-button {
-            font-size: 8px!important;
+            font-size: 8px !important;
         }
     }
 
@@ -141,16 +141,19 @@
         max-width: 1100px;
         margin: 0 auto;
     }
+
     .fc-button {
-        background: #4e73df!important;
-        border-color: #fff!important;
+        background: #4e73df !important;
+        border-color: #fff !important;
     }
-    .fc-save-button{
-        background: green!important;
+
+    .fc-save-button {
+        background: green !important;
     }
-    .fc-icon-fa{
-        font-family: "Font Awesome 5 Free"!important;
-        font-weight: 900!important
+
+    .fc-icon-fa {
+        font-family: "Font Awesome 5 Free" !important;
+        font-weight: 900 !important
     }
 </style>
 

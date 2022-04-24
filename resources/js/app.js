@@ -8,6 +8,7 @@ window.Vue = require('vue').default;
 
 window.$ = window.jquery = require('jquery');
 require('datatables.net');
+import "./core/utils/bootstrap.bundle.min";
 
 import router from './core/router';
 import App from './core/App';
