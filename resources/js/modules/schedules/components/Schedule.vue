@@ -1,5 +1,5 @@
 <template>
-    <div class='demo-app'>
+    <div class='demo-app' id="schedule">
         <div class='demo-app-main'>
             <FullCalendar
                     class='demo-app-calendar'
@@ -21,6 +21,7 @@
     import interactionPlugin from "@fullcalendar/interaction";
     import ruLocale from '@fullcalendar/core/locales/ru';
     import {mapGetters} from "vuex";
+    import Print from "../../../core/utils/print";
 
     export default {
         components: {
@@ -36,7 +37,7 @@
                         interactionPlugin // needed for dateClick
                     ],
                     headerToolbar: {
-                        left: 'save prev,next today',
+                        left: 'save print prev,next today',
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
@@ -55,6 +56,10 @@
                         save: {
                             icon: 'fa fa fa-save',
                             click: this.handleUpdate,
+                        },
+                        print: {
+                            icon: 'fa fa fa-print',
+                            click: this.print,
                         },
                     },
                 },
@@ -91,6 +96,9 @@
                 this.$store.dispatch('updateWorkingHours', {events: this.calendarOptions.events})
                     .then(this.$emit('updateUser'))
             },
+            print() {
+                Print.print('schedule')
+            }
 
         },
         computed: {
