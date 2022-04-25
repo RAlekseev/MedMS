@@ -1,5 +1,5 @@
 <template>
-    <div class='demo-app'>
+    <div class='demo-app' id="schedule">
         <div class='demo-app-main'>
             <FullCalendar
                     class='demo-app-calendar'
@@ -21,6 +21,7 @@
     import interactionPlugin from "@fullcalendar/interaction";
     import ruLocale from '@fullcalendar/core/locales/ru';
     import {mapGetters} from "vuex";
+    import Print from "../../../core/utils/print";
 
     export default {
         components: {
@@ -36,10 +37,11 @@
                         interactionPlugin // needed for dateClick
                     ],
                     headerToolbar: {
-                        left: 'save prev,next today',
+                        left: 'save print prev,next today',
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
+                    contentHeight:"auto",
                     initialView: 'timeGridWeek',
                     editable: true,
                     selectable: true,
@@ -55,6 +57,10 @@
                         save: {
                             icon: 'fa fa fa-save',
                             click: this.handleUpdate,
+                        },
+                        print: {
+                            icon: 'fa fa fa-print',
+                            click: this.print,
                         },
                     },
                 },
@@ -91,6 +97,9 @@
                 this.$store.dispatch('updateWorkingHours', {events: this.calendarOptions.events})
                     .then(this.$emit('updateUser'))
             },
+            print() {
+                Print.print('schedule')
+            }
 
         },
         computed: {
@@ -116,13 +125,17 @@
 </style>
 
 <style>
-    @media screen and (max-width: 935px) {
+    @media screen and (max-width: 990px) {
         .fc-toolbar-title {
             font-size: 16px !important;
         }
 
         .fc-button {
             font-size: 10px !important;
+        }
+
+        .fc-save-button {
+            display: none!important;
         }
     }
 

@@ -16,6 +16,7 @@ import contracts from '../modules/contracts/store';
 import configs from '../modules/configs/store';
 import employees from '../modules/employees/store';
 import schedules from '../modules/schedules/store';
+import docTemplates from '../modules/doc_templates/store';
 
 Vue.use(Vuex);
 
@@ -98,6 +99,7 @@ export const store = new Vuex.Store({
         configs,
         employees,
         schedules,
+        docTemplates,
     },
     plugins: [createPersistedState()],
 });

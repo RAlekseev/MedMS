@@ -4,7 +4,7 @@
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
                     <span>
-                        Copyright &copy; Med SPA 2022
+                        Copyright &copy; <b>MedMS</b> 2022
                          <router-link :to="{name: 'cookies'}">
                             Использование Cookies
                         </router-link>

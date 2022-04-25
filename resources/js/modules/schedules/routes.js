@@ -5,6 +5,6 @@ export default [
         path: 'schedules',
         component: Index,
         name: 'schedulesIndex',
-        // meta: {permission: 'schedules-index'},
+        meta: {permission: 'schedules-index'},
     },
 ]

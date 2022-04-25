@@ -18,7 +18,7 @@
         <li class="nav-item active">
             <a class="nav-link" href="index.html">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
+                <span>Панель управления</span></a>
         </li>
 
         <!-- Divider -->
@@ -137,6 +137,12 @@
             <router-link class="nav-link" to="/settings">
                 <i class="fas fa-fw fa-cogs"></i>
                 <span>Настройки</span>
+            </router-link>
+        </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/doc_templates">
+                <i class="fas fa-fw fa-file"></i>
+                <span>Шаблоны документов</span>
             </router-link>
         </li>
 
