@@ -18,7 +18,7 @@
         <li class="nav-item active">
             <a class="nav-link" href="index.html">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
+                <span>Панель управления</span></a>
         </li>
 
         <!-- Divider -->
