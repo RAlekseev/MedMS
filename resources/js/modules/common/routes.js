@@ -16,7 +16,7 @@ export default [
         component: Cookies,
     },
     {
-        path: '/services',
+        path: '/services/:id?',
         name: 'services',
         component: Services,
     },

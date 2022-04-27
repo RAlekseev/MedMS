@@ -83,7 +83,6 @@
             },
             more() {
                 this.is_visible = false;
-                console.log(this.query)
                 this.$router.push({path: '/services', query: this.query});
             }
         }
