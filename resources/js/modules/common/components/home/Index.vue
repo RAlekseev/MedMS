@@ -15,6 +15,7 @@
         </div>
         <Categories class="my-3"/>
         <Employees/>
+        <Gallery/>
     </div>
 </template>
 
@@ -22,6 +23,7 @@
     import {mapGetters} from "vuex";
     import Categories from "./Categories"
     import Employees from "./Employees";
+    import Gallery from "./Gallery";
 
     export default {
         computed: {
@@ -32,6 +34,7 @@
         components: {
             Categories,
             Employees,
+            Gallery,
         }
     }
 </script>

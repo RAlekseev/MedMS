@@ -21,6 +21,9 @@ Vue.use(VueMeta);
 import VueMask from 'v-mask'
 Vue.use(VueMask);
 
+import VueViewer from 'v-viewer'
+import 'viewerjs/dist/viewer.css'
+Vue.use(VueViewer);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
