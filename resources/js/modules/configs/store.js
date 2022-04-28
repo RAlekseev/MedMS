@@ -40,6 +40,6 @@ export default {
 
     getters: {
         configs: state => state.configs,
-        config_value: state => slug => state.configs.find(config => config.slug === slug).value
+        config_value: state => slug => state.configs.find(config => config.slug === slug)?.value
     }
 };

@@ -18,6 +18,7 @@
         <Gallery/>
         <Partners/>
         <ChiefDoctor/>
+        <Contacts/>
     </div>
 </template>
 
@@ -28,6 +29,7 @@
     import Gallery from "./Gallery";
     import Partners from "./Partners";
     import ChiefDoctor from "./ChiefDoctor";
+    import Contacts from "./Contacts";
 
     export default {
         computed: {
@@ -41,6 +43,7 @@
             Gallery,
             Partners,
             ChiefDoctor,
+            Contacts
         }
     }
 </script>
