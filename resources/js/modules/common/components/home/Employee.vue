@@ -14,3 +14,16 @@
         props: ['employee']
     }
 </script>
+
+<style scoped>
+    .card {
+        position: relative;
+        overflow:hidden;
+        width: 100%;
+        height: 600px;
+    }
+
+    .card img {
+        object-fit:cover;
+    }
+</style>

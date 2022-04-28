@@ -32,6 +32,9 @@
     import Contacts from "./Contacts";
 
     export default {
+        metaInfo: {
+            title: 'Главная'
+        },
         computed: {
             ...mapGetters([
                 'config_value',
