@@ -5,6 +5,12 @@
   */
 
 /*!
+ * Glide.js v3.4.1
+ * (c) 2013-2019 Jędrzej Chałubek <jedrzej.chalubek@gmail.com> (http://jedrzejchalubek.com/)
+ * Released under the MIT License.
+ */
+
+/*!
  * Sizzle CSS Selector Engine v2.3.6
  * https://sizzlejs.com/
  *
@@ -13,6 +19,16 @@
  * https://js.foundation/
  *
  * Date: 2021-02-16
+ */
+
+/*!
+ * Viewer.js v1.10.5
+ * https://fengyuanchen.github.io/viewerjs
+ *
+ * Copyright 2015-present Chen Fengyuan
+ * Released under the MIT license
+ *
+ * Date: 2022-04-05T08:21:02.491Z
  */
 
 /*!

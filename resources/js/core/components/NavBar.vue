@@ -7,11 +7,19 @@
                     <!--            <i class="fas fa-calendar pr-2" aria-hidden="true"></i>-->
                     <!--            Записаться на прием-->
                     <!--          </button>-->
-                    <div class="menu-button-item">
+                    <div class="menu-button-item" v-if="config_value('org_phone')">
                         <a :href="'tel:'+config_value('org_phone')" class="phone">
                             <div>
                                 <i class="fa fa-phone-alt pr-2" aria-hidden="true"></i>
                                 <span class="phone-desktop">{{config_value('org_phone')}}</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="menu-button-item" v-if="config_value('ambulance')">
+                        <a :href="'tel:'+config_value('ambulance')" class="phone">
+                            <div>
+                                <i class="fa fa-ambulance pr-2" aria-hidden="true"></i>
+                                <span class="phone-desktop">{{config_value('ambulance')}}</span>
                             </div>
                         </a>
                     </div>

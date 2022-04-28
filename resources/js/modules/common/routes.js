@@ -1,17 +1,22 @@
 import Cookies from "./components/Cookies";
-import NotFound from "./components/NotFound";
 import About from "./components/About";
 import Services from "./components/Services";
 import Basket from "./components/Basket";
+import Home from "./components/home/Index";
 
 export default [
+    {
+        path: '/',
+        name: 'home',
+        component: Home,
+    },
     {
         path: '/cookies',
         name: 'cookies',
         component: Cookies,
     },
     {
-        path: '/services',
+        path: '/services/:id?',
         name: 'services',
         component: Services,
     },
@@ -25,9 +30,4 @@ export default [
         name: 'basket',
         component: Basket,
     },
-    {
-        path: '*',
-        name: 'not_found',
-        component: NotFound,
-    }
 ]
