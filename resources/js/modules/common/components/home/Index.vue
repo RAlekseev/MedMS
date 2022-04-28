@@ -16,6 +16,7 @@
         <Categories class="my-3"/>
         <Employees/>
         <Gallery/>
+        <Partners/>
     </div>
 </template>
 
@@ -24,6 +25,7 @@
     import Categories from "./Categories"
     import Employees from "./Employees";
     import Gallery from "./Gallery";
+    import Partners from "./Partners";
 
     export default {
         computed: {
@@ -35,6 +37,7 @@
             Categories,
             Employees,
             Gallery,
+            Partners,
         }
     }
 </script>
