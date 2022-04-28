@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Layout from './components/Layout'
-import Home from './components/Home'
+import NotFound from './components/NotFound'
 
 import auth from '../modules/auth/routes'
 import common from '../modules/common/routes'
@@ -15,6 +15,7 @@ import services from '../modules/services/routes'
 import schedules from '../modules/schedules/routes'
 import contracts from '../modules/contracts/routes'
 import configs from '../modules/configs/routes'
+import doc_templates from '../modules/doc_templates/routes'
 
 Vue.use(VueRouter);
 
@@ -22,12 +23,8 @@ const router = new VueRouter({
     mode: 'history',
     linkExactActiveClass: 'active',
     routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: Home,
-        },
-
+        ...common,
+        ...auth,
         {
             path: '/',
             component: Layout,
@@ -41,11 +38,15 @@ const router = new VueRouter({
                 ...profile,
                 ...contracts,
                 ...configs,
+                ...doc_templates,
             ],
 
         },
-        ...auth,
-        ...common,
+        {
+            path: '*',
+            name: 'not_found',
+            component: NotFound,
+        }
     ]
 });
 

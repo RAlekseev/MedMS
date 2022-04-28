@@ -54,7 +54,7 @@
         data() {
             return {
                 selected_category: {
-                    id: 1
+                    id: this.$route.params.id ?? 1
                 },
             }
         },

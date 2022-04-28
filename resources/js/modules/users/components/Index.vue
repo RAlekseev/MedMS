@@ -90,3 +90,9 @@
         }
     }
 </script>
+
+<style scoped>
+    ::v-deep .row {
+        margin: 0;
+    }
+</style>

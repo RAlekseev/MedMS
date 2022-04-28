@@ -5,6 +5,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><router-link to="/">Главная</router-link></li>
                     <li class="breadcrumb-item"><router-link to="/services/index">Услуги</router-link></li>
+                    <li class="breadcrumb-item"><router-link to="/contracts">Оформленные Услуги</router-link></li>
                     <li class="breadcrumb-item active" aria-current="page">Заказ №{{contract.id}}</li>
                 </ol>
             </nav>

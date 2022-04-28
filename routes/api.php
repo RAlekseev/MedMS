@@ -15,6 +15,7 @@ use \App\Modules\Auth\Controllers\LoginController;
 use \App\Modules\Auth\Controllers\RegistrationController;
 use \App\Modules\Access\Controllers\RoleController;
 use \App\Modules\Access\Controllers\PermissionController;
+use \App\Modules\DocTemplates\Controllers\DocTemplateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::apiResource('/working_hours', WorkingHourController::class);
     Route::apiResource('/patient/contracts', PatientContractController::class)->except(['destroy']);
     Route::patch('/configs/{config}', [ConfigController::class, 'update']);
+    Route::apiResource('/doc_templates', DocTemplateController::class);
 });
 
 Route::get('/configs', [ConfigController::class, 'index']);
