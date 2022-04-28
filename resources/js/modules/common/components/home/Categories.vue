@@ -6,9 +6,7 @@
                     <i class="fa fa-heartbeat fa-2x"></i>
                 </div>
                 <div class="col-10 m-auto">
-                    <h4>
-                        <h2 class="">{{category.name}}</h2>
-                    </h4>
+                    <h2 class="">{{category.name}}</h2>
                 </div>
             </div>
 

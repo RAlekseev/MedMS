@@ -15,6 +15,14 @@
                             </div>
                         </a>
                     </div>
+                    <div class="menu-button-item">
+                        <a :href="'tel:'+1250" class="phone">
+                            <div>
+                                <i class="fa fa-ambulance pr-2" aria-hidden="true"></i>
+                                <span class="phone-desktop">1250</span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="menu-button mobile-auth-link">

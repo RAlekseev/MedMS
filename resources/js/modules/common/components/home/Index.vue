@@ -13,13 +13,15 @@
                 </router-link>
             </div>
         </div>
-        <Categories/>
+        <Categories class="my-3"/>
+        <Employees/>
     </div>
 </template>
 
 <script>
     import {mapGetters} from "vuex";
     import Categories from "./Categories"
+    import Employees from "./Employees";
 
     export default {
         computed: {
@@ -28,7 +30,8 @@
             ])
         },
         components: {
-            Categories
+            Categories,
+            Employees,
         }
     }
 </script>
