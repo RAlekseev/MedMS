@@ -16,6 +16,9 @@
         <Categories class="my-3"/>
         <Employees/>
         <Gallery/>
+        <Partners/>
+        <ChiefDoctor/>
+        <Contacts/>
     </div>
 </template>
 
@@ -24,8 +27,14 @@
     import Categories from "./Categories"
     import Employees from "./Employees";
     import Gallery from "./Gallery";
+    import Partners from "./Partners";
+    import ChiefDoctor from "./ChiefDoctor";
+    import Contacts from "./Contacts";
 
     export default {
+        metaInfo: {
+            title: 'Главная'
+        },
         computed: {
             ...mapGetters([
                 'config_value',
@@ -35,6 +44,9 @@
             Categories,
             Employees,
             Gallery,
+            Partners,
+            ChiefDoctor,
+            Contacts
         }
     }
 </script>
