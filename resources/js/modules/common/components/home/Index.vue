@@ -13,7 +13,7 @@
                 </router-link>
             </div>
         </div>
-        <Categories class="my-3"/>
+        <Categories/>
         <Employees/>
         <Gallery/>
         <Partners/>
