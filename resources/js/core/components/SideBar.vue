@@ -69,6 +69,14 @@
         </li>
 
         <li class="nav-item">
+            <router-link class="nav-link" to="/categories">
+<!--                <i class="fa-fw fa-duotone fa-layer-group"></i>-->
+                <i class="fas fa-fw fa-layer-group"></i>
+                <span>Категории услуг</span>
+            </router-link>
+        </li>
+
+        <li class="nav-item">
             <router-link class="nav-link" to="/contracts/create">
                 <i class="fas fa-fw fa-check-square"></i>
                 <span>Корзина клиента</span>

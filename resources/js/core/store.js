@@ -11,6 +11,7 @@ import permissions from '../modules/permissions/store';
 import roles from '../modules/roles/store';
 import users from '../modules/users/store';
 import services from '../modules/services/store';
+import categories from '../modules/categories/store';
 import contracts from '../modules/contracts/store';
 
 import configs from '../modules/configs/store';
@@ -100,6 +101,7 @@ export const store = new Vuex.Store({
         employees,
         schedules,
         docTemplates,
+        categories,
     },
     plugins: [createPersistedState()],
 });

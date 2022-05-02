@@ -12,6 +12,8 @@ import users from '../modules/users/routes'
 import roles from '../modules/roles/routes'
 import permissions from '../modules/permissions/routes'
 import services from '../modules/services/routes'
+import categories from '../modules/categories/routes'
+
 import schedules from '../modules/schedules/routes'
 import contracts from '../modules/contracts/routes'
 import configs from '../modules/configs/routes'
@@ -39,6 +41,7 @@ const router = new VueRouter({
                 ...contracts,
                 ...configs,
                 ...doc_templates,
+                ...categories,
             ],
 
         },
