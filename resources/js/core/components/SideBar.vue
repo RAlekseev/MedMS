@@ -153,6 +153,12 @@
                 <span>Шаблоны документов</span>
             </router-link>
         </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/icons">
+                <i class="fas fa-fw fa-image"></i>
+                <span>Иконки</span>
+            </router-link>
+        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">

@@ -18,6 +18,7 @@ import configs from '../modules/configs/store';
 import employees from '../modules/employees/store';
 import schedules from '../modules/schedules/store';
 import docTemplates from '../modules/doc_templates/store';
+import icons from '../modules/icons/store';
 
 Vue.use(Vuex);
 
@@ -102,6 +103,7 @@ export const store = new Vuex.Store({
         schedules,
         docTemplates,
         categories,
+        icons,
     },
     plugins: [createPersistedState()],
 });

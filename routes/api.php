@@ -2,6 +2,7 @@
 
 use App\Modules\Common\Controllers\SearchController;
 use App\Modules\Configs\Controllers\ConfigController;
+use App\Modules\Icon\Controllers\IconController;
 use App\Modules\Services\Controllers\CategoryController;
 use App\Modules\Contracts\Controllers\ContractController;
 use App\Modules\Contracts\Controllers\PatientContractController;
@@ -49,6 +50,8 @@ Route::middleware(['auth'])->group(function () {
     Route::apiResource('/patient/contracts', PatientContractController::class)->except(['destroy']);
     Route::patch('/configs/{config}', [ConfigController::class, 'update']);
     Route::apiResource('/doc_templates', DocTemplateController::class);
+
+    Route::apiResource('/icons', IconController::class);
 });
 
 Route::get('/configs', [ConfigController::class, 'index']);
