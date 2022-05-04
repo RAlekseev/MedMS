@@ -47,6 +47,9 @@
             Partners,
             ChiefDoctor,
             Contacts
+        },
+        mounted() {
+            this.$store.dispatch('getIconTypes');
         }
     }
 </script>

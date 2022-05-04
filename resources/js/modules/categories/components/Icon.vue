@@ -24,7 +24,7 @@
                 if (this.icon_id === undefined) {
                     return '';
                 }
-                return '<i class="text-primary fa fa-heartbeat"></i>';
+                return '<i class="icon text-primary fa fa-heartbeat"></i>';
             }
         }
     }

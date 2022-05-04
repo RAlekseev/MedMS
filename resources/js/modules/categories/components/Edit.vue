@@ -101,8 +101,9 @@
             }
         },
         mounted() {
-            console.log( this.categories);
-            this.parent_category = this.categories.find(category => category.id == this.category.category_id)
+            if (this.category.category_id) {
+                this.parent_category = this.categories.find(category => category.id == this.category.category_id)
+            }
         },
         props: ['category'],
         components: {
@@ -113,7 +114,7 @@
             updateCategory() {
                 this.category.icon_id = this.category.icon.id;
                 document.getElementById('close' + this.category.id).click();
-                this.category.category_id = this.parent_category.id;
+                this.category.category_id = this.parent_category?.id;
                 this.$store.dispatch('updateCategory', this.category);
             },
         },

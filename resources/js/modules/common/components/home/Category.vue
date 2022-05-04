@@ -4,13 +4,14 @@
                      class="col-xs-12 col-sm-6 col-lg-4 my-3">
             <div class="card p-3  h-100">
                 <div class="row h-100">
-                    <div class="col-2 m-auto">
-                        <i class="fa fa-heartbeat fa-3x text-primary"></i>
+                    <div class="col-3 m-auto">
+                        <Icon :icon_id="sub_category.icon_id"></Icon>
+<!--                        <i class="fa fa-heartbeat fa-3x text-primary"></i>-->
                     </div>
-                    <div class="col-10 m-auto">
-                        <h4>
+                    <div class="col-9 m-auto">
+                        <h5>
                             {{sub_category.name}}
-                        </h4>
+                        </h5>
                     </div>
                 </div>
             </div>
@@ -19,16 +20,16 @@
         <a href="#" class="col-xs-12 col-sm-6 col-lg-4 my-3" @click.prevent="toggleCategory">
             <div class="card p-3  h-100">
                 <div class="row h-100">
-                    <div class="col-2 m-auto">
-                        <i :class="'fa fa-3x text-primary ' + (opened ? 'fa-minus' : 'fa-plus')"></i>
+                    <div class="col-3 m-auto">
+                        <i :class="'icon fa text-primary ' + (opened ? 'fa-minus' : 'fa-plus')"></i>
                     </div>
-                    <div class="col-10 m-auto">
-                        <h4 v-if="opened">
+                    <div class="col-7 m-auto">
+                        <h5 v-if="opened">
                             Скрыть
-                        </h4>
-                        <h4 v-else>
+                        </h5>
+                        <h5 v-else>
                             Показать еще <b>{{category.sub_categories.length - 5}}</b>
-                        </h4>
+                        </h5>
                     </div>
                 </div>
             </div>
@@ -37,6 +38,8 @@
 </template>
 
 <script>
+    import Icon from "../../../categories/components/Icon";
+
     export default {
         data() {
             return {
@@ -54,7 +57,11 @@
             toggleCategory() {
                 this.opened = !this.opened
             }
+        },
+        components: {
+            Icon,
         }
 
     }
 </script>
+
