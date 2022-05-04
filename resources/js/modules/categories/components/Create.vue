@@ -36,15 +36,12 @@
                                                          label="name">
                                                 <span slot="noResult">Ни одной иконки не обнаружено</span>
 
-
                                                 <template slot="singleLabel" slot-scope="props">
-                                                    <span v-html="html(props)"></span>
-<!--                                                    <i :class="'fa ' + props.option.name"></i>-->
+                                                    <Icon :icon_id="props.option.id"></Icon>
                                                      <span class="option__title">{{ props.option.source }}</span>
                                                 </template>
                                                  <template slot="option" slot-scope="props">
-                                                     <span v-html="html(props)"></span>
-<!--                                                     <i :class="'fa ' + props.option.name"></i>-->
+                                                     <Icon :icon_id="props.option.id"></Icon>
                                                      <span class="option__title">{{ props.option.source ? props.option.source : props.option.$groupLabel}}</span>
                                                  </template>
                                             </multiselect>
@@ -56,7 +53,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="typo__label">Родительская категория</label>
-                                          <multiselect v-model="category.category_id" :options="categories"
+                                          <multiselect v-model="category.category" :options="categories"
                                                        group-values="sub_categories" group-label="name"
                                                        :close-on-select="false"
                                                        placeholder="Выберите рдительскую категорию" track-by="name" label="name">
@@ -84,6 +81,7 @@
 <script>
     import {mapGetters} from "vuex";
     import Multiselect from "vue-multiselect";
+    import Icon from "./Icon";
 
     export default {
         data() {
@@ -91,7 +89,7 @@
                 category: {
                     name: null,
                     icon: null,
-                    category_id: null,
+                    category: null,
                 },
             }
         },
@@ -105,19 +103,13 @@
             createCategory() {
                 document.getElementById('close').click();
                 this.category.icon_id = this.category.icon.id;
+                this.category.category_id = this.category.category.id;
                 this.$store.dispatch('createCategory', this.category)
-            },
-            html(props) {
-                let icon = props.option;
-                if (icon.icon_type_id) {
-                    let icon_type = this.icon_types.find(item => item.id == icon.icon_type_id);
-                    return icon_type.template.replace('$source', icon.source);
-                }
-                return '';
             },
         },
         components: {
             Multiselect,
+            Icon,
         }
     }
 </script>

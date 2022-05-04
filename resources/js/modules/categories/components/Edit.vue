@@ -35,13 +35,11 @@
 
 
                                                 <template slot="singleLabel" slot-scope="props">
-                                                    <span v-html="html(props)"></span>
-                                                    <!--                                                    <i :class="'fa ' + props.option.name"></i>-->
+                                                    <Icon :icon_id="props.option.id"></Icon>
                                                      <span class="option__title">{{ props.option.source }}</span>
                                                 </template>
                                                  <template slot="option" slot-scope="props">
-                                                     <span v-html="html(props)"></span>
-                                                     <!--                                                     <i :class="'fa ' + props.option.name"></i>-->
+                                                     <Icon :icon_id="props.option.id"></Icon>
                                                      <span class="option__title">{{ props.option.source ? props.option.source : props.option.$groupLabel}}</span>
                                                  </template>
                                             </multiselect>
@@ -53,11 +51,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="typo__label">Родительская категория</label>
-                                          <multiselect v-model="category.category_id" :options="categories"
-                                                       group-values="sub_categories" group-label="name"
-                                                       :close-on-select="false"
+                                          <multiselect v-model="parent_category" :options="categoriesList"
+                                                       :close-on-select="true"
                                                        placeholder="Выберите рдительскую категорию" track-by="name" label="name">
-                                              <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                                              <span slot="noResult">Ни одной категории не найдено</span>
+                                              <template slot="option" slot-scope="props">
+                                                     <span class="option__title" :class="props.option.category_id ? '' : 'h3'">{{ props.option.name }}</span>
+                                                 </template>
                                           </multiselect>
 
                                     </div>
@@ -82,37 +82,40 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import faIconsList from "../../../core/utils/FontAwesomIconsCodes";
     import Multiselect from 'vue-multiselect';
+    import Icon from "./Icon";
 
     export default {
         data() {
             return {
-                icons: faIconsList
+                parent_category: null
             }
         },
         computed: {
             ...mapGetters([
                 'categories',
                 'icon_types',
-            ])
+            ]),
+            categoriesList: function () {
+                return this.categories.map(parent => [parent, ...parent.sub_categories]).flat(2);
+            }
+        },
+        mounted() {
+            console.log( this.categories);
+            this.parent_category = this.categories.find(category => category.id == this.category.category_id)
         },
         props: ['category'],
-        components: {Multiselect},
+        components: {
+            Multiselect,
+            Icon,
+        },
         methods: {
             updateCategory() {
                 this.category.icon_id = this.category.icon.id;
                 document.getElementById('close' + this.category.id).click();
+                this.category.category_id = this.parent_category.id;
                 this.$store.dispatch('updateCategory', this.category);
             },
-            html(props) {
-                let icon = props.option;
-                if (icon.icon_type_id) {
-                    let icon_type = this.icon_types.find(item => item.id == icon.icon_type_id);
-                    return icon_type.template.replace('$source', icon.source);
-                }
-                return '';
-            },
-        }
+        },
     }
 </script>

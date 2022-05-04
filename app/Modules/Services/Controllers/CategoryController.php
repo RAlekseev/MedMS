@@ -17,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::where('category_id', null)->with(['subCategories'])->get();
+        return Category::where('category_id', null)->with(['subCategories', 'icon'])->get();
     }
 
 
@@ -29,7 +29,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = Category::create([
+            'name' => $request['name'],
+            'icon_id' => $request['icon_id'],
+            'category_id' => $request['category_id'],
+        ]);
+
+        return [
+            'message' => "Категоория создана успешно",
+            'category' =>  $category,
+        ];
     }
 
     /**
@@ -53,7 +62,17 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->update([
+            'name' => $request['name'],
+            'icon_id' => $request['icon_id'],
+            'category_id' => $request['category_id'],
+        ]);
+
+        return [
+            'message' => "Категоория изменена успешно",
+            'category' =>  $category,
+        ];
     }
 
     /**

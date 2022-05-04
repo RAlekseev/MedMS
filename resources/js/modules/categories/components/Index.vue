@@ -10,14 +10,24 @@
         <div class="card-body">
             <ul>
                 <li v-for="category in categories" :key="category.id">
-                    <i class="text-primary fa fa-heartbeat"></i> {{category.name}}
-                    <Edit :category="category"></Edit>
-                    <Delete :category="category"></Delete>
+                    <Icon :icon_id="category.icon_id"></Icon>
+                    {{category.name}}
+                    <Edit :category="category" v-if="can('categories-update')"></Edit>
+                    <Delete :category="category" v-if="can('categories-delete')"></Delete>
                     <ul>
                         <li v-for="sub_category in category.sub_categories" :key="sub_category.id">
-                            <i class="text-primary fa fa-heartbeat"></i> {{sub_category.name}}
-                            <Edit :category="category"></Edit>
-                            <Delete :category="category"></Delete>
+                            <Icon :icon_id="sub_category.icon_id"></Icon>
+                            {{sub_category.name}}
+                            <Edit :category="sub_category" v-if="can('categories-update')" ></Edit>
+                            <Delete :category="sub_category" v-if="can('categories-delete')"></Delete>
+                            <ul>
+                                <li v-for="sub_sub_category in sub_category.sub_categories" :key="sub_sub_category.id">
+                                    <Icon :icon_id="sub_sub_category.icon_id"></Icon>
+                                    {{sub_sub_category.name}}
+                                    <Edit :category="sub_sub_category" v-if="can('categories-update')"></Edit>
+                                    <Delete :category="sub_sub_category" v-if="can('categories-delete')"></Delete>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>
@@ -34,6 +44,7 @@
     import Edit from "./Edit";
     import Delete from "./Delete";
     import dataTableConfig from "../../../core/utils/DataTablesConfig";
+    import Icon from "./Icon";
 
     export default {
         metaInfo: {
@@ -43,12 +54,14 @@
             ...mapGetters([
                 'categories',
                 'can',
+                'icon_types'
             ])
         },
         components: {
             Create,
             Edit,
             Delete,
+            Icon,
         },
         mounted() {
             this.$store.dispatch('getCategories').then(() => {

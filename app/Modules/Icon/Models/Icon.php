@@ -39,5 +39,9 @@ class Icon extends Model
         return $filename;
     }
 
+    public function icon_type() {
+        return $this->belongsTo(IconType::class, 'icon_type_id');
+    }
+
     public $timestamps = false;
 }
