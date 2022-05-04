@@ -5,6 +5,7 @@ namespace App\Modules\Icon\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use App\Modules\Icon\Models\Icon;
 use App\Modules\Icon\Models\IconType;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,19 @@ class IconController extends Controller
      */
     public function store(Request $request)
     {
+        $icon = Icon::create([
+            'source' => $request['name'],
+            'icon_type_id' => $request['icon_type_id'],
+        ]);
 
+        if (count($request->files)) {
+            $icon->update(['source' => $icon->storeFile($request)]);
+        }
+
+        return [
+            'icon' => $icon,
+            'message' => 'Иконка успешно добавлена'
+        ];
     }
 
     /**

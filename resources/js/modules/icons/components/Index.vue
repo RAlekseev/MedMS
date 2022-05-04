@@ -3,7 +3,6 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
                 Иконки
-                <Create v-if="can('categories-create')"></Create>
             </h6>
         </div>
 

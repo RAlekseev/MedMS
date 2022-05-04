@@ -10,7 +10,10 @@ export default {
             state.icon_types = icons;
         },
         setIcon(state, icon) {
-            state.icon_types.find(icon_type => icon_type.id === icon.icon_type_id).icons.push(icon);
+            console.log(icon);
+            // console.log(state.icon_types[index]);
+            console.log(state.icon_types.find(item => item.id == icon.icon_type_id).icons);
+            state.icon_types.find(item => item.id == icon.icon_type_id).icons.push(icon);
         },
     },
 
@@ -24,11 +27,15 @@ export default {
                     commit('addError', error.response.data.message || error.message);
                 });
         },
-        storeIcon({commit}, image) {
+        storeIcon({commit}, formData) {
+
+
             return axios
-                .post('/api/icons')
+                .post('/api/icons', formData, {headers: {
+                        'content-type': 'multipart/form-data'
+                    }})
                 .then(response => {
-                    commit('setIcon', response.data);
+                    commit('setIcon', response.data.icon);
                 }).catch(error => {
                     commit('addError', error.response.data.message || error.message);
                 });

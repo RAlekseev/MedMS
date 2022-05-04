@@ -5,7 +5,7 @@
                 <div class="form-group">
                     <label class="typo__label">Добавленные иконки</label>
                     <div class="row">
-                        <div class="col-md-6" v-for="icon in icon_type.icons">
+                        <div class="col-md-12" v-for="icon in icon_type.icons">
                             <span v-html="icon_type.template.replace('$source', icon.source)"></span>
                             {{icon.source}}
                         </div>
@@ -14,24 +14,34 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <label class="typo__label">Иконки</label>
-                    <multiselect v-model="selected" :options="icon_type.icon_list"
-                                 :close-on-select="true"
-                                 placeholder="Выберите изображение" :aria-multiline="true">
-                        <span slot="noResult">Ни одной иконки не обнаружено</span>
-                        <template slot="singleLabel" slot-scope="props">
-                            <span v-html="icon_type.template.replace('$source', props.option)"></span>
-                            <span class="option__title">{{ props.option }}</span>
-                        </template>
-                        <template slot="option" slot-scope="props">
-                            <span v-html="icon_type.template.replace('$source', props.option)"></span>
-                            <span class="option__title">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+<!--                            <label class="typo__label">Иконки</label>-->
+                            <multiselect v-model="image.name" :options="icon_type.icon_list"
+                                         :close-on-select="true"
+                                         placeholder="Выберите изображение" :aria-multiline="true">
+                                <span slot="noResult">Ни одной иконки не обнаружено</span>
+                                <template slot="singleLabel" slot-scope="props">
+                                    <span v-html="icon_type.template.replace('$source', props.option)"></span>
+                                    <span class="option__title">{{ props.option }}</span>
+                                </template>
+                                <template slot="option" slot-scope="props">
+                                    <span v-html="icon_type.template.replace('$source', props.option)"></span>
+                                    <span class="option__title">
                                 {{ props.option }}
                             </span>
-                        </template>
-                    </multiselect>
+                                </template>
+                            </multiselect>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group my-auto">
+                            <button class="btn btn-success" @click.prevent="storeIcon" :disabled="!image.name">Добавить</button>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
         <div class="row" v-else>
@@ -39,12 +49,11 @@
                 <div class="form-group">
                     <label class="typo__label">Добавленные иконки</label>
                     <div class="row">
-                        <div class="col-md-6" v-for="icon in icon_type.icons">
-                            <span v-html="icon_type.template.replace('$source', icon.source)"></span>
-                            {{icon.source}}
+                        <div class="col-md-12" v-for="icon in icon_type.icons">
+                                <span v-html="icon_type.template.replace('$source', icon.source)"></span>
+                                {{icon.source}}
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="col-md-6">
@@ -54,7 +63,6 @@
                             ref="pictureInput"
                             width="600"
                             height="600"
-
                             accept="image/jpeg,image/png,image/svg+xml"
                             size="10"
                             :toggleAspectRatio="true"
@@ -74,11 +82,10 @@
                             @change="onChange">
                     </picture-input>
 
-                    <div class="row" v-if="image">
+                    <div class="row" v-if="image.file">
                         <div class="col">
                             <div class="form-group">
-<!--                                <label class="bmd-label-floating">Название иконки<span class="text-danger">*</span></label>-->
-                                <input type="text" class="form-control" v-model="image.name"
+                                <input type="text" class="form-control" v-model="image.name" title="Название иконки"
                                        required>
                             </div>
                         </div>
@@ -102,8 +109,11 @@
     export default {
         data() {
             return {
-                selected: [],
-                image: null,
+                image: {
+                    name: null,
+                    icon_type_id: this.icon_type.id,
+                    file: null,
+                },
             }
         },
         props: ['icon_type'],
@@ -114,16 +124,22 @@
         methods: {
             onChange(image) {
                 if (image) {
-                    this.image = {
-                        name: this.$refs.pictureInput.file.name.replace(/\.[^/.]+$/, ""),
-                        file: this.$refs.pictureInput.file
-                    }
+                    this.image.name = this.$refs.pictureInput.file.name.replace(/\.[^/.]+$/, "");
+                    this.image.file = this.$refs.pictureInput.file;
                 } else {
                     console.log('FileReader API not supported: use the <form>!')
                 }
             },
             storeIcon() {
-                this.$store.dispatch('storeIcon', this.image)
+                let formData = new FormData();
+                formData.append('name', this.image.name);
+                formData.append('icon_type_id', this.image.icon_type_id);
+
+                if (this.image.file) {
+                    formData.append('icon', this.image.file);
+                }
+
+                this.$store.dispatch('storeIcon', formData)
             }
         }
     }
