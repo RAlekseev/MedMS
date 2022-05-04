@@ -29,18 +29,23 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                             <label class="typo__label">Иконка <span class="text-danger">*</span></label>
-                                            <multiselect v-model="category.icon" :options="icons"
-                                                         :close-on-select="true"
-                                                         placeholder="Выберите изображение" track-by="name"
+                                            <multiselect v-model="category.icon" :options="icon_types"
+                                                         :close-on-select="true" group-values="icons"
+                                                         group-label="name"
+                                                         placeholder="Выберите изображение" track-by="id"
                                                          label="name">
                                                 <span slot="noResult">Ни одной иконки не обнаружено</span>
+
+
                                                 <template slot="singleLabel" slot-scope="props">
-                                                    <i :class="'fa ' + props.option.name"></i>
-                                                     <span class="option__title">{{ props.option.name }}</span>
+                                                    <span v-html="html(props)"></span>
+<!--                                                    <i :class="'fa ' + props.option.name"></i>-->
+                                                     <span class="option__title">{{ props.option.source }}</span>
                                                 </template>
                                                  <template slot="option" slot-scope="props">
-                                                     <i :class="'fa ' + props.option.name"></i>
-                                                     <span class="option__title">{{ props.option.name }}</span>
+                                                     <span v-html="html(props)"></span>
+<!--                                                     <i :class="'fa ' + props.option.name"></i>-->
+                                                     <span class="option__title">{{ props.option.source ? props.option.source : props.option.$groupLabel}}</span>
                                                  </template>
                                             </multiselect>
                                     </div>
@@ -78,25 +83,37 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import faIconsList from "../../../core/utils/FontAwesomIconsCodes"
     import Multiselect from "vue-multiselect";
 
     export default {
         data() {
             return {
-                category: {},
-                icons: faIconsList
+                category: {
+                    name: null,
+                    icon: null,
+                    category_id: null,
+                },
             }
         },
         computed: {
             ...mapGetters([
                 'categories',
+                'icon_types',
             ])
         },
         methods: {
             createCategory() {
                 document.getElementById('close').click();
+                this.category.icon_id = this.category.icon.id;
                 this.$store.dispatch('createCategory', this.category)
+            },
+            html(props) {
+                let icon = props.option;
+                if (icon.icon_type_id) {
+                    let icon_type = this.icon_types.find(item => item.id == icon.icon_type_id);
+                    return icon_type.template.replace('$source', icon.source);
+                }
+                return '';
             },
         },
         components: {

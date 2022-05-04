@@ -54,6 +54,7 @@
             this.$store.dispatch('getCategories').then(() => {
                 window.$('#data_table').DataTable(dataTableConfig);
             });
+            this.$store.dispatch('getIconTypes')
         },
         methods: {
             is_available_actions() {
@@ -62,3 +63,10 @@
         }
     }
 </script>
+
+<style scoped>
+    ::v-deep img {
+        width: 24px;
+        height: 24px;
+    }
+</style>
