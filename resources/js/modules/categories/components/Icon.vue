@@ -18,8 +18,10 @@
                     let icon_type = this.icon_types
                         .find(icon_type => icon_type.icons
                             .find(icon => icon.id == this.icon_id));
-                    return icon_type.template.replace('$source', icon_type.icons
-                        .find(icon => icon.id == this.icon_id).source);
+                    if (icon_type) {
+                        return icon_type.template.replace('$source', icon_type.icons
+                            .find(icon => icon.id == this.icon_id).source);
+                    }
                 }
                 if (this.icon_id === undefined) {
                     return '';

@@ -51,8 +51,10 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/configs/{config}', [ConfigController::class, 'update']);
     Route::apiResource('/doc_templates', DocTemplateController::class);
 
-    Route::apiResource('/icons', IconController::class);
+
 });
+
+Route::apiResource('/icons', IconController::class);
 
 Route::get('/configs', [ConfigController::class, 'index']);
 Route::apiResource('/guest_services', GuestServiceController::class)->except(['store', 'update', 'destroy']);
