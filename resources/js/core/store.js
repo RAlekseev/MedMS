@@ -11,12 +11,14 @@ import permissions from '../modules/permissions/store';
 import roles from '../modules/roles/store';
 import users from '../modules/users/store';
 import services from '../modules/services/store';
+import categories from '../modules/categories/store';
 import contracts from '../modules/contracts/store';
 
 import configs from '../modules/configs/store';
 import employees from '../modules/employees/store';
 import schedules from '../modules/schedules/store';
 import docTemplates from '../modules/doc_templates/store';
+import icons from '../modules/icons/store';
 
 Vue.use(Vuex);
 
@@ -100,6 +102,8 @@ export const store = new Vuex.Store({
         employees,
         schedules,
         docTemplates,
+        categories,
+        icons,
     },
     plugins: [createPersistedState()],
 });

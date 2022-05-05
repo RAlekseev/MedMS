@@ -19,8 +19,8 @@
 {{--    Custom styles for this template--}}
     <link href="{{asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
-{{--    Datatables.net--}}
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+{{--    Datatables.net href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css" --}}
+    <link href="{{asset('assets/css/jquery.dataTables.css')}}" rel="stylesheet">
 
 </head>
 <body id="page-top">

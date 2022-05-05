@@ -1,14 +1,15 @@
 <?php
 
 
-namespace App\Modules\Services\Controllers;
+namespace App\Modules\Icon\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use App\Modules\Services\Models\Category;
+use App\Modules\Icon\Models\Icon;
+use App\Modules\Icon\Models\IconType;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class IconController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::where('category_id', null)->with(['subCategories', 'icon'])->get();
+        return IconType::with('icons')->get();
     }
 
 
@@ -29,15 +30,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create([
-            'name' => $request['name'],
-            'icon_id' => $request['icon_id'],
-            'category_id' => $request['category_id'],
+        $icon = Icon::create([
+            'source' => $request['name'],
+            'icon_type_id' => $request['icon_type_id'],
         ]);
 
+        if (count($request->files)) {
+            $icon->update(['source' => $icon->storeFile($request)]);
+        }
+
         return [
-            'message' => "Категоория создана успешно",
-            'category' =>  $category,
+            'icon' => $icon,
+            'message' => 'Иконка успешно добавлена'
         ];
     }
 
@@ -49,7 +53,7 @@ class CategoryController extends Controller
      */
     public function show(int $id)
     {
-        //
+
     }
 
 
@@ -62,17 +66,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
-        $category->update([
-            'name' => $request['name'],
-            'icon_id' => $request['icon_id'],
-            'category_id' => $request['category_id'],
-        ]);
 
-        return [
-            'message' => "Категоория изменена успешно",
-            'category' =>  $category,
-        ];
     }
 
     /**
@@ -84,7 +78,6 @@ class CategoryController extends Controller
      */
     public function destroy(int $id)
     {
-        //
-    }
 
+    }
 }
