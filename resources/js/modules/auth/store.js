@@ -9,13 +9,13 @@ export default {
     mutations: {
         setUserData(state, userData) {
             state.user = userData;
-            localassets/img.setItem('user', JSON.stringify(userData));
+            localStorage.setItem('user', JSON.stringify(userData));
             axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`
         },
 
         clearUserData(state) {
             state.user = null;
-            localassets/img.removeItem('user');
+            localStorage.removeItem('user');
             location.reload()
         },
     },

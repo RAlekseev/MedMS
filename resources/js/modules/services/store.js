@@ -41,15 +41,6 @@ export default {
                     commit('addError', error.response.data.message || error.message);
                 });
         },
-        getCategories({commit}) {
-            return axios
-                .get('/api/categories')
-                .then(response => {
-                    commit('setCategories', response.data);
-                }).catch(error => {
-                    commit('addError', error.response.data.message || error.message);
-                });
-        },
         createService({commit}, credential) {
             commit('startLoading');
             return axios
@@ -97,6 +88,5 @@ export default {
     getters: {
         services: state => state.services,
         service: state => state.service,
-        categories: state => state.categories,
     }
 };

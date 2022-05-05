@@ -69,6 +69,14 @@
         </li>
 
         <li class="nav-item">
+            <router-link class="nav-link" to="/categories">
+<!--                <i class="fa-fw fa-duotone fa-layer-group"></i>-->
+                <i class="fas fa-fw fa-layer-group"></i>
+                <span>Категории услуг</span>
+            </router-link>
+        </li>
+
+        <li class="nav-item">
             <router-link class="nav-link" to="/contracts/create">
                 <i class="fas fa-fw fa-check-square"></i>
                 <span>Корзина клиента</span>
@@ -143,6 +151,12 @@
             <router-link class="nav-link" to="/doc_templates">
                 <i class="fas fa-fw fa-file"></i>
                 <span>Шаблоны документов</span>
+            </router-link>
+        </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/icons">
+                <i class="fas fa-fw fa-image"></i>
+                <span>Иконки</span>
             </router-link>
         </li>
 

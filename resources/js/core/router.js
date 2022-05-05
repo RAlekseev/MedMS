@@ -12,10 +12,13 @@ import users from '../modules/users/routes'
 import roles from '../modules/roles/routes'
 import permissions from '../modules/permissions/routes'
 import services from '../modules/services/routes'
+import categories from '../modules/categories/routes'
+
 import schedules from '../modules/schedules/routes'
 import contracts from '../modules/contracts/routes'
 import configs from '../modules/configs/routes'
 import doc_templates from '../modules/doc_templates/routes'
+import icons from '../modules/icons/routes'
 
 Vue.use(VueRouter);
 
@@ -39,6 +42,8 @@ const router = new VueRouter({
                 ...contracts,
                 ...configs,
                 ...doc_templates,
+                ...categories,
+                ...icons,
             ],
 
         },

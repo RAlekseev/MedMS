@@ -13,7 +13,7 @@
                 </router-link>
             </div>
         </div>
-        <Categories class="my-3"/>
+        <Categories/>
         <Employees/>
         <Gallery/>
         <Partners/>
@@ -47,6 +47,9 @@
             Partners,
             ChiefDoctor,
             Contacts
+        },
+        mounted() {
+            this.$store.dispatch('getIconTypes');
         }
     }
 </script>

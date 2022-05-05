@@ -2,11 +2,14 @@
 
 namespace App\Modules\Services\Models;
 
+use App\Modules\Icon\Traits\HasIcon;
 use Illuminate\Database\Eloquent\Model;
 
 
 class Category extends Model
 {
+    use HasIcon;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -16,6 +19,7 @@ class Category extends Model
         'name',
         'is_public',
         'category_id',
+        'icon_id',
     ];
 
     public function services()
@@ -32,7 +36,8 @@ class Category extends Model
 
     public function subCategories()
     {
-        return $this->hasMany(Category::class, 'category_id');
+        return $this->hasMany(Category::class, 'category_id')->with(['subCategories', 'icon']);
     }
 
+    public $timestamps = false;
 }
