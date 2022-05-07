@@ -33,7 +33,8 @@
                                 </div>
                             </div>
 
-                            <vue-pdf-embed v-if="document.base64" :source="document.base64" width="466"/>
+                            <vue-pdf-embed v-if="contract_media" :source="contract_media" width="466"/>
+<!--                            <vue-pdf-embed v-if="document.base64" :source="document.base64" width="466"/>-->
 
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Загрузить</button>
@@ -55,6 +56,7 @@
     import VuePdfEmbed from 'vue-pdf-embed/dist/vue2-pdf-embed'
     import PictureInput from 'vue-picture-input';
     import {getBase64} from '../../../core/utils/FileUtil'
+    import {mapGetters} from "vuex";
 
     export default {
         data() {
@@ -64,33 +66,35 @@
                     file: null,
                     base64: null,
                 },
+                uploaded_document: null,
             }
         },
-        props: ['doc_template'],
+        props: ['doc_template', 'contract_id'],
+        computed: {
+            ...mapGetters([
+                'contract_media',
+            ])
+        },
         methods: {
             storeDocument() {
-
+                document.getElementById('close' + this.doc_template.id).click();
+                let formData = new FormData();
+                formData.append('file', this.document.file);
+                formData.append('doc_template_id', this.doc_template.id);
+                this.$store.dispatch('storeContractDoc', formData)
             },
             onChange(event) {
-                console.log(event.target.files);
                 let file = event.target.files[0];
-                this.image.file = file;
-                getBase64(file).then(data => {this.image.file = data})
-            },
-            storeIcon() {
-                let formData = new FormData();
-                formData.append('name', this.image.name);
-
-                if (this.image.file) {
-                    formData.append('icon', this.image.file);
-                }
-
-                this.$store.dispatch('storeIcon', formData)
+                this.document.file = file;
+                getBase64(file).then(data => {this.document.base64 = data})
             },
         },
         components: {
             PictureInput,
             VuePdfEmbed,
+        },
+        mounted() {
+            this.uploaded_document = this.contract_media[this.doc_template.id]
         }
     }
 </script>

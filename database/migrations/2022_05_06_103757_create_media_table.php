@@ -25,7 +25,8 @@ class CreateMediaTable extends Migration
             $table->json('generated_conversions');
             $table->json('responsive_images');
             $table->unsignedInteger('order_column')->nullable();
-
+            $table->unsignedBigInteger('doc_template_id')->nullable();
+            $table->foreign('doc_template_id')->on('doc_templates')->references('id')->onDelete('SET NULL');
             $table->nullableTimestamps();
         });
     }

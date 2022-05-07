@@ -76,6 +76,7 @@
         },
         mounted() {
             this.$store.dispatch('getContract', this.$route.params.id);
+            this.$store.dispatch('getContractMedia');
         },
         computed: {
             ...mapGetters([
