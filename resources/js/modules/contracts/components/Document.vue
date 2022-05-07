@@ -1,13 +1,14 @@
 <template>
     <li class="list-group-item d-flex justify-content-between align-items-center  border-0 px-0 pb-0">
-        <div style="max-width: 70%">
+        <div :class="{'text-success': uploaded_document}" style="max-width: 70%">
             {{doc_template.name}}
         </div>
         <button class="btn btn-warning">
             <i class="fa fa-print"></i>
         </button>
         <button class="btn btn-success btn-round" data-toggle="modal" :data-target="'#uploadModal' + doc_template.id">
-            <i class="fa fa-upload"></i>
+            <i class="fa fa-eye" v-if="uploaded_document"></i>
+            <i class="fa fa-upload" v-else></i>
         </button>
         <div class="modal fade font-weight-bold text-primary text-left" :id="'uploadModal' + doc_template.id"
              tabindex="-1"
@@ -33,7 +34,13 @@
                                 </div>
                             </div>
 
-                            <vue-pdf-embed v-if="contract_media" :source="contract_media" width="466"/>
+                            <vue-pdf-embed v-if="document.base64" :source="document.base64" width="466"/>
+
+                            <div v-if="uploaded_document">
+                                <h5>Загруженный документ</h5>
+                                <vue-pdf-embed :source="uploaded_document" width="466"/>
+                            </div>
+
 <!--                            <vue-pdf-embed v-if="document.base64" :source="document.base64" width="466"/>-->
 
                             <div class="modal-footer">
