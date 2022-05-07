@@ -28,8 +28,6 @@ export default {
                 });
         },
         storeIcon({commit}, formData) {
-
-
             return axios
                 .post('/api/icons', formData, {headers: {
                         'content-type': 'multipart/form-data'

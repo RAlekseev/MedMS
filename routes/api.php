@@ -3,6 +3,7 @@
 use App\Modules\Common\Controllers\SearchController;
 use App\Modules\Configs\Controllers\ConfigController;
 use App\Modules\Icon\Controllers\IconController;
+use App\Modules\Media\Controllers\MediaController;
 use App\Modules\Services\Controllers\CategoryController;
 use App\Modules\Contracts\Controllers\ContractController;
 use App\Modules\Contracts\Controllers\PatientContractController;
@@ -51,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/configs/{config}', [ConfigController::class, 'update']);
     Route::apiResource('/doc_templates', DocTemplateController::class);
 
+    Route::post('media/store', [MediaController::class, 'store']);
+    Route::get('media/get', [MediaController::class, 'get']);
 
 });
 

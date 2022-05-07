@@ -53,42 +53,9 @@
                             <div class="card-header py-3">
                                 <h5 class="mb-0">Документы</h5>
                             </div>
-
                             <div class="card-body">
                                 <ul class="list-group list-group-flush">
-<!--                                    <li v-for="service in basketServices" :key="service.id"-->
-<!--                                        class="list-group-item d-flex justify-content-between align-items-center  border-0 px-0 pb-0">-->
-<!--                                        <div style="max-width: 70%">-->
-<!--                                            {{service.name}}-->
-<!--                                        </div>-->
-<!--                                        <span>{{service.price}} ₽</span>-->
-<!--                                    </li>-->
-                                    <li
-                                        class="list-group-item d-flex justify-content-between align-items-center  border-0 px-0 pb-0">
-                                        <div style="max-width: 70%">
-                                            Согласие на обработку данных
-                                        </div>
-                                        <button class="btn btn-warning">
-                                            <i class="fa fa-print"></i>
-                                        </button>
-                                        <button class="btn btn-success">
-                                            <i class="fa fa-upload"></i>
-                                        </button>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                    </li>
-                                    <li
-                                        class="list-group-item d-flex justify-content-between align-items-center  border-0 px-0 pb-0">
-                                        <div style="max-width: 70%">
-                                            Договор об оказании платных мед услуг
-                                        </div>
-                                        <button class="btn btn-warning">
-                                            <i class="fa fa-print"></i>
-                                        </button>
-                                        <button class="btn btn-success">
-                                            <i class="fa fa-upload"></i>
-                                        </button>
-                                    </li>
+                                    <Document v-for="doc_template in doc_templates" :doc_template="doc_template" :key="doc_template.id"/>
                                 </ul>
                             </div>
                         </div>
@@ -101,30 +68,25 @@
 
 <script>
     import {mapGetters} from "vuex";
+    import Document from "./Document"
 
     export default {
         metaInfo: {
             title: 'Просмотр заказа'
         },
-        data() {
-            return {
-
-            }
-        },
         mounted() {
             this.$store.dispatch('getContract', this.$route.params.id);
+            this.$store.dispatch('getContractMedia');
         },
         computed: {
             ...mapGetters([
                 'contract',
+                'doc_templates',
             ])
         },
         components: {
-
+            Document,
         },
-        methods: {
-
-        }
     }
 
 </script>
