@@ -28,6 +28,7 @@
                                     <th>Название</th>
                                     <th>Ед.</th>
                                     <th>Количество</th>
+                                    <th>Передвижения</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -47,6 +48,29 @@
                                     <td>
                                         {{inventory.amount}}
                                     </td>
+                                    <td>
+                                        {{inventory.movements.length}}
+                                        <button class="btn btn-success btn-round" data-toggle="modal" :data-target="'#movements'+inventory.id">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+
+                                        <div class="modal fade" :id="'movements'+inventory.id" tabindex="-1" role="dialog" aria-labelledby="movementsLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Передвижения <b>{{inventory.name}}</b></h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <MovementsTable :movements="inventory.movements" :id="inventory.id"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -65,6 +89,7 @@
     import dataTableConfig from "../../../core/utils/DataTablesConfig";
     import Income from "./Income";
     import Outcome from "./Outcome";
+    import MovementsTable from "./MovementsTable";
 
     export default {
         data() {
@@ -75,12 +100,34 @@
                         name: 'Адреналин',
                         unit: 'ml',
                         amount: 50,
+                        movements: [
+                            {
+                                contractor: "КДО СМП",
+                                amount: -20,
+                                inventory_id: 1,
+                                date: '18.04.2022',
+                            },
+                            {
+                                contractor: "КДО СМП",
+                                amount: -3,
+                                inventory_id: 1,
+                                date: '19.04.2022',
+                            },
+                        ],
                     },
                     {
                         id: 2,
                         name: 'Бинт стерильный 10м.',
                         unit: 'Шт',
                         amount: 13,
+                        movements: [
+                            {
+                                contractor: "ОсОО Радуга",
+                                amount: 25,
+                                inventory_id: 2,
+                                date: '15.04.2022',
+                            },
+                        ],
                     },
                 ]
             }
@@ -107,6 +154,7 @@
         components: {
             Income,
             Outcome,
+            MovementsTable,
         }
     }
 </script>

@@ -20,7 +20,7 @@
                         </h6>
                     </div>
                     <div class="card-body">
-
+                        <MovementsTable :movements="movements"/>
                     </div>
                 </div>
             </div>
@@ -32,26 +32,47 @@
 
 <script>
     import {mapGetters} from "vuex";
+    import MovementsTable from "./MovementsTable";
 
     export default {
+        data() {
+            return {
+                movements: [
+                    {
+                        contractor: "КДО СМП",
+                        amount: -20,
+                        inventory_id: 1,
+                        date: '18.04.2022',
+                    },
+                    {
+                        contractor: "КДО СМП",
+                        amount: -3,
+                        inventory_id: 1,
+                        date: '19.04.2022',
+                    },
+                    {
+                        contractor: "ОсОО Радуга",
+                        amount: 25,
+                        inventory_id: 2,
+                        date: '15.04.2022',
+                    },
+                ],
+            }
+        },
         metaInfo: {
-            title: 'Оформленные заказы'
+            title: 'Передвижения'
         },
         mounted() {
-            this.$store.dispatch('getContracts')
+            // this.$store.dispatch('getInventories')
+            // this.$store.dispatch('getMovements')
         },
         computed: {
-            ...mapGetters([
-                'contracts',
-                'can',
-            ])
+            // ...mapGetters([
+            //     'movements',
+            // ])
         },
-        methods: {
-            price(contract) {
-                return contract.services.reduce(function (sum, service) {
-                    return sum + service.price;
-                }, 0);
-            }
+        components: {
+            MovementsTable
         }
     }
 </script>
