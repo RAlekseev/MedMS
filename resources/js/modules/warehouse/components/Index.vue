@@ -18,6 +18,8 @@
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
                             Аптечный склад
+                            <Income/>
+                            <Outcome/>
                         </h6>
                     </div>
                     <div class="card-body">
@@ -33,14 +35,8 @@
                                 </thead>
                                 <tbody>
                                 <tr v-for="inventory in inventories">
-                                    <td class="text-center">
-                                        <router-link :to="{ name: 'inventoryShow', params: { id: inventory.id } }"
-                                                     v-if="can('warehouse-show')">
-                                            {{inventory.name}}
-                                        </router-link>
-                                        <span v-else>
-                                            {{inventory.name}}
-                                        </span>
+                                    <td>
+                                        {{inventory.name}}
                                     </td>
                                     <td>
                                         {{inventory.unit}}

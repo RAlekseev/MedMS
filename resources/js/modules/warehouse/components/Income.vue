@@ -1,141 +1,177 @@
 <template>
-    <div>
-        <section class="">
-            <nav aria-label="breadcrumb" class="main-breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><router-link to="/">Главная</router-link></li>
-                    <li class="breadcrumb-item"><router-link to="/services/index">Услуги</router-link></li>
-                    <li class="breadcrumb-item active" aria-current="page">Корзина клиента</li>
-                </ol>
-            </nav>
-            <div class="container">
-                <div class="row d-flex justify-content-center my-4">
-                    <div class="col-lg-8">
-                        <div class="card mb-4">
-                            <div class="card-header py-3">
-                                <h5 class="mb-0">Корзина</h5>
-                            </div>
-                            <div class="card-body">
-                                <!-- Single item -->
-                                <div  v-if="basketServices.length">
-                                <div v-for="service in basketServices" :key="service.id">
-                                    <Service :service="service"></Service>
-                                </div>
-                                </div>
-                                <div class="m-auto" v-else>
-                                    <h3>Корзина пуста...</h3>
-                                </div>
-                            </div>
-                        </div>
+    <span>
+        <button class="ml-3 btn btn-success btn-round" data-toggle="modal" data-target="#createModal">
+            <i class="fa fa-plus"></i> Приход
+        </button>
+
+        <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Создание Прихода</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="fa fa-times"></i>
+                        </button>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="card mb-4">
-                            <div class="card-header py-3">
-                                <h5 class="mb-0">К оплате</h5>
+                    <div class="modal-body">
+                        <form @submit.prevent="createIncome()" method="post">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Контрагент<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" v-model="movement.contractor" required>
+                                    </div>
+                                </div>
+                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Дата<span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" v-model="movement.date" required>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <ul class="list-group list-group-flush">
-                                    <li v-for="service in basketServices" :key="service.id"
-                                        class="list-group-item d-flex justify-content-between align-items-center  border-0 px-0 pb-0">
-                                        <div style="max-width: 70%">
-                                            {{service.name}}
-                                        </div>
-                                        <span>{{service.price}} ₽</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                        <div>
-                                            <strong>Общая цена</strong>
-                                        </div>
-                                        <span><strong>{{basketSum}} ₽</strong></span>
-                                    </li>
-                                </ul>
-
-                                <p class="text-gray-400 text-center" v-if="!isLogged">
-                                    Для оформления заказа необходимо
-                                    <router-link :to="{name: 'login', query: { redirect: '/basket' }}">
-                                        Авторизоваться
-                                    </router-link>
-                                    <br>
-                                    <router-link :to="{name: 'registration'}">
-                                        Нет аккаунта?
-                                    </router-link>
-                                </p>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="typo__label">Пациент</label>
-                                            <multiselect v-model="user" :options="users"
-                                                         :close-on-select="true"
-                                                         placeholder="Выберите клиента" track-by="full_name" label="full_name">
-                                                <span slot="noResult">Ни одного клиента не найдено</span>
-                                            </multiselect>
-
-                                        </div>
+                            <div class="row" v-for="(inventory, i) in movement.inventories">
+                                <div class="col-md-4" v-if="inventory.is_new">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Название</label>
+                                        <input type="text" class="form-control" v-model="movement.inventories[i].new_name" required
+                                        @focus="clrInventoryName(i)">
+                                    </div>
+                                </div>
+                                <div class="col-md-4" v-if="inventory.is_new">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Ед.</label>
+                                        <input type="text" class="form-control" v-model="movement.inventories[i].unit" required>
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-primary btn-lg btn-block" :disabled="!isEnabled()" @click="createContract()">
-                                    Оформить заказ
+                                <div class="col-md-8" v-else>
+                                    <div class="form-group">
+                                        <label class="typo__label">Выберите объект прихода</label>
+                                        <Multiselect v-model="movement.inventories[i]"
+                                                     :options="income_inventories"
+                                                     :close-on-select="true"
+                                                     placeholder="Выберите объект прихода"
+                                                     :aria-multiline="true"
+                                                     track-by="name"
+                                                     @input="movement.inventories[i] = Object.assign({}, $event, {new_name: ''})">
+
+                                            <span slot="noResult">Ни одного объекта не обнаружено</span>
+                                            <template slot="singleLabel" slot-scope="props">
+                                                <span class="option__title">
+                                                    {{ props.option.name + (props.option.unit ? '  Ед. ' + props.option.unit : "")}}
+                                                </span>
+                                            </template>
+                                            <template slot="option" slot-scope="props">
+                                                <span class="option__title">
+                                                    {{ props.option.name + (props.option.unit ? '  Ед. ' + props.option.unit : "")}}
+                                                </span>
+                                            </template>
+
+                                        </Multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Количество</label>
+                                        <input type="number" class="form-control" v-model="movement.inventories[i].amount" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="m-auto">
+                                     <i class="fa fa-minus text-danger" v-if="movement.inventories.length > 1"
+                                        @click="delInventory()"></i>
+                                <i class="fa fa-plus text-success" @click="addInventory()"></i>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Создать</button>
+                                <button id="close" type="button" class="btn btn-danger" data-dismiss="modal">Закрыть
                                 </button>
                             </div>
-                        </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </span>
 </template>
 
 <script>
-    import {mapGetters} from "vuex";
-    import Service from "../../common/components/Service";
-    import Multiselect from "vue-multiselect";
+    import {Multiselect} from "vue-multiselect";
 
     export default {
-        metaInfo: {
-            title: 'Корзина Пациента'
-        },
         data() {
             return {
-                user: null,
+                movement: {
+                    contractor: null,
+                    date: null,
+                    inventories: [
+                        {
+                            id: 1,
+                            name: "Не выбрано",
+                            unit: null,
+                            amount: null,
+                        }
+                    ],
+                },
+                inventories: [
+                    {
+                        id: 1,
+                        name: 'Адреналин',
+                        unit: 'ml',
+                        amount: 50,
+                    },
+                    {
+                        id: 2,
+                        name: 'Бинт стерильный 10м.',
+                        unit: 'Шт',
+                        amount: 13,
+                    },
+                ]
             }
-        },
-        mounted() {
-            this.$store.dispatch('getUsers');
-
-            if (this.$route.params.id) {
-                this.user = this.users.find(user => user.id === this.$route.params.id)
-            }
-        },
-        computed: {
-            ...mapGetters([
-                'basketServices',
-                'basketSum',
-                'isLogged',
-                'users',
-            ])
         },
         components: {
-            Service,
-            Multiselect
+            Multiselect,
+        },
+        computed: {
+            income_inventories: function () {
+                const inventories = this.inventories;
+                let result = [...inventories];
+                result.unshift({
+                    name: 'Создать новый объект',
+                    is_new: true,
+                    unit: '',
+                });
+                return [...result]
+            },
         },
         methods: {
-            createContract() {
-                if (this.isLogged) {
-                    let basket = {
-                        services: this.basketServices,
-                        user_id: this.user.id
-                    };
-                    this.$store.dispatch('createContract', basket);
-                }
+            createIncome() {
+                document.getElementById('close').click();
+                console.log(this.movement)
+                // this.$store.dispatch('createIncome', this.income)
             },
-            isEnabled() {
-                return this.isLogged && this.basketServices.length
+            addInventory() {
+                this.movement.inventories.push({
+                    name: "Не выбранно",
+                    new_name: null,
+                })
+            },
+            delInventory() {
+                this.movement.inventories.pop()
+            },
+            clrInventoryName(i) {
+                console.log(i);
+                this.movement.inventories[i].new_name = '';
+                console.log(this.movement.inventories[i]);
             }
         }
     }
-
 </script>
