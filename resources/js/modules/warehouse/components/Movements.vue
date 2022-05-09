@@ -35,41 +35,16 @@
     import MovementsTable from "./MovementsTable";
 
     export default {
-        data() {
-            return {
-                movements: [
-                    {
-                        contractor: "КДО СМП",
-                        amount: -20,
-                        inventory_id: 1,
-                        date: '18.04.2022',
-                    },
-                    {
-                        contractor: "КДО СМП",
-                        amount: -3,
-                        inventory_id: 1,
-                        date: '19.04.2022',
-                    },
-                    {
-                        contractor: "ОсОО Радуга",
-                        amount: 25,
-                        inventory_id: 2,
-                        date: '15.04.2022',
-                    },
-                ],
-            }
-        },
         metaInfo: {
             title: 'Передвижения'
         },
         mounted() {
-            // this.$store.dispatch('getInventories')
-            // this.$store.dispatch('getMovements')
+            this.$store.dispatch('getMovements')
         },
         computed: {
-            // ...mapGetters([
-            //     'movements',
-            // ])
+            ...mapGetters([
+                'movements',
+            ])
         },
         components: {
             MovementsTable

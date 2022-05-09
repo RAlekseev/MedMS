@@ -88,64 +88,18 @@
     import MovementsTable from "./MovementsTable";
 
     export default {
-        data() {
-            return {
-                inventories: [
-                    {
-                        id: 1,
-                        name: 'Адреналин',
-                        unit: 'ml',
-                        amount: 50,
-                        movements: [
-                            {
-                                contractor: "КДО СМП",
-                                amount: -20,
-                                inventory_id: 1,
-                                date: '18.04.2022',
-                            },
-                            {
-                                contractor: "КДО СМП",
-                                amount: -3,
-                                inventory_id: 1,
-                                date: '19.04.2022',
-                            },
-                        ],
-                    },
-                    {
-                        id: 2,
-                        name: 'Бинт стерильный 10м.',
-                        unit: 'Шт',
-                        amount: 13,
-                        movements: [
-                            {
-                                contractor: "ОсОО Радуга",
-                                amount: 25,
-                                inventory_id: 2,
-                                date: '15.04.2022',
-                            },
-                        ],
-                    },
-                ]
-            }
-        },
         metaInfo: {
             title: 'Аптечный склад'
         },
         mounted() {
-            window.$('#data_table').DataTable(dataTableConfig);
+            this.$store.dispatch('getInventories')
+                .then(() => {window.$('#data_table').DataTable(dataTableConfig)});
         },
         computed: {
             ...mapGetters([
-                'contracts',
+                'inventories',
                 'can',
-            ])
-        },
-        methods: {
-            price(contract) {
-                return contract.services.reduce(function (sum, service) {
-                    return sum + service.price;
-                }, 0);
-            }
+            ]),
         },
         components: {
             Income,

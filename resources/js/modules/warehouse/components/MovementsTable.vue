@@ -2,33 +2,36 @@
     <table :id="'movementsTable' + id" class="display table-bordered" style="width:100%!important;">
         <thead>
         <tr>
-            <th>Название</th>
-            <th>Ед.</th>
-            <th>Количество</th>
+            <th>Ответственный</th>
+            <th>Объекты</th>
             <th>Контрагент</th>
             <th>Дата</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="movement in movements" :title="movement.amount > 0 ? 'Приход' : 'Расход'">
-            <td class>
-                {{inventory(movement.inventory_id).name}}
-            </td>
-            <td class>
-                {{inventory(movement.inventory_id).unit}}
+        <tr v-for="movement in movements">
+            <td>
+                {{movement.creator.full_name}}
             </td>
             <td>
-                <i :class="{'fa': true,
-                'text-success fa-plus': movement.amount > 0,
-                'text-danger fa-minus': movement.amount < 0}"
-                />
-                {{Math.abs(movement.amount)}}
+                <div v-for="inventory in movement.inventories" class="">
+                    {{inventory.name}}
+                    <b :class="{
+                    'text-success': inventory.pivot.amount > 0,
+                    'text-danger': inventory.pivot.amount < 0
+                    }">
+                    {{Math.abs(inventory.pivot.amount)}}
+                    {{inventory.unit}}
+                    </b>
+                    <hr>
+                </div>
+
             </td>
             <td>
                 {{movement.contractor}}
             </td>
             <td>
-                {{movement.date}}
+                {{movement.created_at}}
             </td>
         </tr>
         </tbody>
@@ -40,37 +43,14 @@
     import dataTableConfig from "../../../core/utils/DataTablesConfig";
 
     export default {
-        data() {
-            return {
-                inventories: [
-                    {
-                        id: 1,
-                        name: 'Адреналин',
-                        unit: 'ml',
-                        amount: 50,
-                    },
-                    {
-                        id: 2,
-                        name: 'Бинт стерильный 10м.',
-                        unit: 'Шт',
-                        amount: 13,
-                    },
-                ]
-            }
-        },
         props: ['movements', 'id'],
         mounted() {
             window.$('#movementsTable' + this.id).DataTable(dataTableConfig);
         },
         computed: {
             ...mapGetters([
-                // 'inventories',
+                'inventories',
             ])
-        },
-        methods: {
-            inventory(inventory_id) {
-                return this.inventories.find(inventory => inventory.id === inventory_id)
-            }
         },
     }
 </script>
