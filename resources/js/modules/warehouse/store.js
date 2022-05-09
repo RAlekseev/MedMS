@@ -36,6 +36,16 @@ export default {
                     commit('addError', error.response.data.message || error.message)
                 }).finally(() => commit('stopLoading'));
         },
+        createMovement({commit}, movement) {
+            commit('startLoading');
+            return axios
+                .post('/api/warehouse/movements', movement)
+                .then(response => {
+                    // commit('setMovements', response.data);
+                }).catch(error => {
+                    commit('addError', error.response.data.message || error.message)
+                }).finally(() => commit('stopLoading'));
+        }
     },
 
     getters: {

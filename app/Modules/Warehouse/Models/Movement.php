@@ -16,7 +16,9 @@ class Movement extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-//        'patient_id',
+        'contractor',
+        'creator_id',
+        'created_at',
     ];
 
     public function creator()

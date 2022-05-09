@@ -14,7 +14,9 @@ class Inventory extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-//        'patient_id',
+        'name',
+        'amount',
+        'unit',
     ];
 
 //    public function getMovementsAttribute()

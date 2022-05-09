@@ -105,6 +105,7 @@
 
 <script>
     import {Multiselect} from "vue-multiselect";
+    import {mapGetters} from "vuex";
 
     export default {
         data() {
@@ -112,6 +113,7 @@
                 movement: {
                     contractor: null,
                     date: null,
+                    factor: 1,
                     inventories: [
                         {
                             id: 1,
@@ -121,26 +123,15 @@
                         }
                     ],
                 },
-                inventories: [
-                    {
-                        id: 1,
-                        name: 'Адреналин',
-                        unit: 'ml',
-                        amount: 50,
-                    },
-                    {
-                        id: 2,
-                        name: 'Бинт стерильный 10м.',
-                        unit: 'Шт',
-                        amount: 13,
-                    },
-                ]
             }
         },
         components: {
             Multiselect,
         },
         computed: {
+            ...mapGetters([
+                'inventories',
+            ]),
             income_inventories: function () {
                 const inventories = this.inventories;
                 let result = [...inventories];
@@ -155,8 +146,7 @@
         methods: {
             createIncome() {
                 document.getElementById('close').click();
-                console.log(this.movement)
-                // this.$store.dispatch('createIncome', this.income)
+                this.$store.dispatch('createMovement', this.movement)
             },
             addInventory() {
                 this.movement.inventories.push({

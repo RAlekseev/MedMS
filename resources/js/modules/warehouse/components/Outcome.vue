@@ -15,7 +15,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form @submit.prevent="deleteIncome()" method="post">
+                        <form @submit.prevent="createOutcome()" method="post">
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group">
@@ -89,6 +89,7 @@
 
 <script>
     import {Multiselect} from "vue-multiselect";
+    import {mapGetters} from "vuex";
 
     export default {
         data() {
@@ -103,30 +104,20 @@
                             amount: null,
                         }
                     ],
+                    factor: -1,
                 },
-                inventories: [
-                    {
-                        id: 1,
-                        name: 'Адреналин',
-                        unit: 'ml',
-                        amount: 50,
-                    },
-                    {
-                        id: 2,
-                        name: 'Бинт стерильный 10м.',
-                        unit: 'Шт',
-                        amount: 13,
-                    },
-                ]
             }
+        },
+        computed: {
+            ...mapGetters(['inventories'])
         },
         components: {
             Multiselect,
         },
         methods: {
-            deleteIncome() {
+            createOutcome() {
                 document.getElementById('close').click();
-                // this.$store.dispatch('createIncome', this.income)
+                this.$store.dispatch('createMovement', this.movement)
             },
             addInventory() {
                 this.movement.inventories.push({
