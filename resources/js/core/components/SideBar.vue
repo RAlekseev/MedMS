@@ -155,8 +155,24 @@
         </li>
         <li class="nav-item">
             <router-link class="nav-link" to="/icons">
-                <i class="fas fa-fw fa-image"></i>
+                <i class="fas fa-fw fa-images"></i>
                 <span>Иконки</span>
+            </router-link>
+        </li>
+
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <div class="sidebar-heading">
+            Склад
+        </div>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/warehouse">
+                <i class="fas fa-fw fa-pills"></i>
+                <span>Аптечный склад</span>
+            </router-link>
+            <router-link class="nav-link" to="/warehouse/movements">
+                <i class="fas fa-fw fa-share-square"></i>
+                <span>Передвижения</span>
             </router-link>
         </li>
 

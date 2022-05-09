@@ -4,22 +4,36 @@
             info: false,
             items: 'cell',
         },
-        autoFill: true,//
+        autoFill: true,
         colReorder: true,
-        keys: true,//
+        keys: true,
         buttons: [
-            'excel', 'pdf',
+            {
+                extend: 'excel',
+                className: 'btn',
+                titleAttr: 'Скачать таблицу в формате Excel'
+            },
+            {
+                extend: 'pdf',
+                className: 'btn',
+                titleAttr: 'Скачать таблицу в формате PDF'
+            },
+            {
+                extend: 'print',
+                className: 'btn',
+                titleAttr: 'Распечатать таблицу'
+            },
         ],
         searchPanes: {
             collapse: true,
             columns: [4]
 
         },
-        dom: "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'<'pull-right'B>>>" +
-            "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-12'<'pull-center'p>>>" +
-            "<'row'<'col-sm-12 col-md-6'P><'col-sm-12 col-md-6'Q>>",
+        searchBuilder: true,
+        dom: "<'row m-0'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'<'text-right'B>>>" +
+            "<'row m-0'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+            "<'row m-0'<'col-sm-12'tr>>" +
+            "<'row m-0'<'col-sm-12'<'pull-center'p>>>",
 
         stateSave: true,
         language: {

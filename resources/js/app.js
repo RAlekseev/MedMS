@@ -25,6 +25,13 @@ import VueViewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
 Vue.use(VueViewer);
 
+window.JSZip = require("jszip");
+import 'datatables.net'
+import 'datatables.net-searchbuilder'
+import 'datatables.net-buttons/js/dataTables.buttons.js'
+import 'datatables.net-buttons/js/buttons.html5.js'
+import 'datatables.net-buttons/js/buttons.print.js'
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

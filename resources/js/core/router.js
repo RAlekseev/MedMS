@@ -19,6 +19,7 @@ import contracts from '../modules/contracts/routes'
 import configs from '../modules/configs/routes'
 import doc_templates from '../modules/doc_templates/routes'
 import icons from '../modules/icons/routes'
+import warehouse from '../modules/warehouse/routes'
 
 Vue.use(VueRouter);
 
@@ -44,6 +45,7 @@ const router = new VueRouter({
                 ...doc_templates,
                 ...categories,
                 ...icons,
+                ...warehouse,
             ],
 
         },

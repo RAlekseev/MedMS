@@ -2,6 +2,7 @@
 
 use App\Modules\Common\Controllers\SearchController;
 use App\Modules\Configs\Controllers\ConfigController;
+use App\Modules\Warehouse\Controllers\MovementController;
 use App\Modules\Icon\Controllers\IconController;
 use App\Modules\Media\Controllers\MediaController;
 use App\Modules\Services\Controllers\CategoryController;
@@ -9,6 +10,7 @@ use App\Modules\Contracts\Controllers\ContractController;
 use App\Modules\Contracts\Controllers\PatientContractController;
 use App\Modules\Services\Controllers\GuestServiceController;
 use App\Modules\Services\Controllers\ServiceController;
+use App\Modules\Warehouse\Controllers\InventoryController;
 use App\Modules\WorkingHour\Controllers\WorkingHourController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +56,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('media/store', [MediaController::class, 'store']);
     Route::get('media/get', [MediaController::class, 'get']);
+
+    Route::get('warehouse/inventories', [InventoryController::class, 'index']);
+    Route::get('warehouse/movements', [MovementController::class, 'index']);
+    Route::post('warehouse/movements', [MovementController::class, 'store']);
+
 
 });
 
