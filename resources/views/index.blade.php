@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Medical management system">
     <meta name="author" content="Roman Alekseev">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon.ico') }}">
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="{{ asset('assets/img/favicon.ico') }}">
+    <meta name="description" content="MedMS – Medical Management System // CRM system for managing a medical organization">
 
     <title>MedMS</title>
 
