@@ -1,9 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Layout from './components/Layout'
-import NotFound from './components/NotFound'
-
 import auth from '../modules/auth/routes'
 import common from '../modules/common/routes'
 import profile from '../modules/profile/routes'
@@ -23,41 +20,44 @@ import warehouse from '../modules/warehouse/routes'
 
 Vue.use(VueRouter);
 
+export const routes = [
+    ...common,
+    ...auth,
+    {
+        path: '/',
+        component: () => import('./components/Layout'),
+        meta: { requiresAuth: true },
+        children: [
+            ...users,
+            ...roles,
+            ...permissions,
+            ...schedules,
+            ...services,
+            ...profile,
+            ...contracts,
+            ...configs,
+            ...doc_templates,
+            ...categories,
+            ...icons,
+            ...warehouse,
+        ],
+
+    },
+    {
+        path: '*',
+        name: 'not_found',
+        component: () => import('./components/NotFound'),
+    }
+];
+
 const router = new VueRouter({
     mode: 'history',
     linkExactActiveClass: 'active',
-    routes: [
-        ...common,
-        ...auth,
-        {
-            path: '/',
-            component: Layout,
-            meta: { requiresAuth: true },
-            children: [
-                ...users,
-                ...roles,
-                ...permissions,
-                ...schedules,
-                ...services,
-                ...profile,
-                ...contracts,
-                ...configs,
-                ...doc_templates,
-                ...categories,
-                ...icons,
-                ...warehouse,
-            ],
-
-        },
-        {
-            path: '*',
-            name: 'not_found',
-            component: NotFound,
-        }
-    ]
+    routes,
 });
 
 router.beforeEach((to, from, next) => {
+
     let user = JSON.parse(localStorage.getItem('user'))?.user;
 
     //Auth check
