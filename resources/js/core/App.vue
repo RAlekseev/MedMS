@@ -1,5 +1,6 @@
 <template>
     <div>
+        <YandexMetrika v-if="config_value('yandex_metrika_key')" :key="config_value('yandex_metrika_key')"/>
         <div id="wrapper">
             <SideBar v-if="isLogged"></SideBar>
 
@@ -29,6 +30,7 @@
         import Message from './components/Message';
         import Error from './components/Error';
         import Loading from './components/Loading';
+        import YandexMetrika from './components/YandexMetrika'
 
         import { mapGetters } from 'vuex'
 
@@ -40,6 +42,7 @@
                     'errors',
                     'messages',
                     'loading',
+                    'config_value',
                 ])
             },
             mounted() {
@@ -103,6 +106,7 @@
                 Message,
                 Error,
                 Loading,
+                YandexMetrika,
             },
         }
     </script>
