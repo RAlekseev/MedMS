@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'login', 'logout'],
+    'paths' => ['api/*', 'login', 'logout', 'https://mc.yandex.ru/metrika/tag.js'],
 
     'allowed_methods' => ['*'],
 

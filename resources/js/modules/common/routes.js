@@ -1,33 +1,34 @@
-import Cookies from "./components/Cookies";
-import About from "./components/About";
-import Services from "./components/Services";
-import Basket from "./components/Basket";
-import Home from "./components/home/Index";
-
 export default [
     {
         path: '/',
         name: 'home',
-        component: Home,
+        component: () => import('./components/home/Index'),
     },
     {
         path: '/cookies',
         name: 'cookies',
-        component: Cookies,
+        component: () => import('./components/Cookies'),
     },
     {
         path: '/services/:id?',
         name: 'services',
-        component: Services,
+        component: () => import('./components/Services'),
+        meta: {
+            sitemap: {
+                slugs: [{
+                    id: 'category-id',
+                }]
+            }
+        }
     },
     {
         path: '/about',
         name: 'about',
-        component: About,
+        component: () => import('./components/About'),
     },
     {
         path: '/basket',
         name: 'basket',
-        component: Basket,
+        component: () => import('./components/Basket'),
     },
 ]

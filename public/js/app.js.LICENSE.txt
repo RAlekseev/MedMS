@@ -17,12 +17,6 @@ https://github.com/nodeca/pako/blob/master/LICENSE
   */
 
 /*!
- * Glide.js v3.4.1
- * (c) 2013-2019 Jędrzej Chałubek <jedrzej.chalubek@gmail.com> (http://jedrzejchalubek.com/)
- * Released under the MIT License.
- */
-
-/*!
  * HTML5 export buttons for Buttons and DataTables.
  * 2016 SpryMedia Ltd - datatables.net/license
  *

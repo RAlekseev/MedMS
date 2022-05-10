@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[694],{7694:(e,t,l)=>{l.r(t),l.d(t,{default:()=>u});const u=(0,l(1900).Z)({},(function(){var e=this,t=e.$createElement,l=e._self._c||t;return l("div",{staticClass:"container-fluid"},[l("router-view",{key:e.$route.fullPath})],1)}),[],!1,null,null,null).exports}}]);
