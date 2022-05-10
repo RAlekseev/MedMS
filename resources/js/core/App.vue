@@ -1,6 +1,7 @@
 <template>
     <div>
-        <YandexMetrika v-if="config_value('yandex_metrika_key')" :key="config_value('yandex_metrika_key')"/>
+        <YandexMetrika v-if="config_value('yandex_metrika_key')"
+                       :yandex_key="config_value('yandex_metrika_key')"/>
         <div id="wrapper">
             <SideBar v-if="isLogged"></SideBar>
 
