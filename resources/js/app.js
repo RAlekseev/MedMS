@@ -24,8 +24,10 @@ Vue.use(VueMask);
 import VueViewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
 Vue.use(VueViewer);
-
+import scss from './core/scss/sb-admin-2.scss'
 window.JSZip = require("jszip");
+
+import 'datatables.net-dt/css/jquery.dataTables.css'
 import 'datatables.net'
 import 'datatables.net-searchbuilder'
 import 'datatables.net-buttons/js/dataTables.buttons.js'
