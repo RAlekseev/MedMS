@@ -3,7 +3,7 @@
         <div class="main-section shadow">
             <div class="image"><img src="assets/img/home-page/doc.png"></div>
             <div class="textBox">
-                <h2>«{{config_value('org_name')}}»</h2>
+                <h2 class="text-primary">«{{config_value('org_name')}}»</h2>
                 <span>Многопрофильная клиника</span>
                 <br/>
                 <span>Индивидуальный подход к лечению</span>
@@ -67,7 +67,6 @@
     }
 
     .textBox h2 {
-        color: #0a58ca;
         font-weight: bold;
     }
 

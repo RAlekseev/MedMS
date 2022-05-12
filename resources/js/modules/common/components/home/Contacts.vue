@@ -80,13 +80,35 @@
 </script>
 
 <style scoped>
+    @keyframes gradient {
+        0% {
+            background-position: 0% 25%;
+        }
+        25% {
+            background-position: 25% 50%;
+        }
+        50% {
+            background-position: 50% 75%;
+        }
+        75% {
+            background-position: 100% 75%;
+        }
+        100% {
+            background-position: 0% 25%;
+        }
+    }
+
     .contacts {
         color: white !important;
         padding: 1rem;
         height: 100%;
-        background: linear-gradient(rgba(135, 60, 255, 0.4), rgba(135, 60, 255, 0.0) 80%),
-        linear-gradient(-45deg, rgba(120, 155, 255, 0.9) 25%, rgba(255, 160, 65, 0.9) 75%);
+        background: linear-gradient(-45deg, #01411C, #00703C, #043927, #006432 60%);
+        background-size: 400% 400%;
+        animation: gradient 10s ease-in-out infinite;
+        /*background: linear-gradient(rgba(135, 60, 255, 0.4), rgba(135, 60, 255, 0.0) 80%),*/
+        /*linear-gradient(-45deg, rgba(120, 155, 255, 0.9) 25%, rgba(255, 160, 65, 0.9) 75%);*/
     }
+
 
     img {
         width: 3rem;
