@@ -5,9 +5,14 @@
         <router-link class="bg-secondary sidebar-brand d-flex align-items-center justify-content-center" :to="{ name: 'home' }">
 
             <div class="sidebar-brand-icon">
-                <i class="fas fa-heartbeat"></i>
+                <img src="/storage/light_logo.png" alt="alt" height="50"
+                     onError="this.onerror=null;this.src='/assets/img/light_logo.png';"/>
+<!--                <i class="fas fa-heartbeat"></i>-->
             </div>
-            <div class="sidebar-brand-text mx-3">MedMS<sup>1</sup></div>
+            <div class="sidebar-brand-text mx-3">
+<!--                MedMS<sup>1</sup>-->
+                {{config_value('org_name')}}
+            </div>
         </router-link>
 
 
@@ -183,6 +188,15 @@
 
     </ul>
 </template>
+
+<script>
+    import {mapGetters} from "vuex"
+    export default {
+        computed: {
+            ...mapGetters(['config_value'])
+        }
+    }
+</script>
 
 <style scoped>
     .sidebar .sidebar-brand {

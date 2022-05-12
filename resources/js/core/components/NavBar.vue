@@ -63,7 +63,11 @@
                          v-else>
 
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-heartbeat fa-2x"></i>
+
+
+                    <img src="/storage/primary_logo.png" alt="alt" height="50"
+                         onError="this.onerror=null;this.src='/assets/img/primary_logo.png';"/>
+
                 </div>
                 <div class="sidebar-brand-text mx-1">
 <!--                    MedMS<sup>1</sup>-->
@@ -158,7 +162,8 @@
     export default {
         data() {
             return {
-                searchStyle: null
+                searchStyle: null,
+                is_custom_logo: true,
             }
         },
         components: {
@@ -170,7 +175,11 @@
                 'authUser',
                 'basketSum',
                 'config_value',
-            ])
+            ]),
+
+            // logo: function () {
+            //
+            // }
         },
         mounted() {
             this.$store.dispatch('getConfigs')
