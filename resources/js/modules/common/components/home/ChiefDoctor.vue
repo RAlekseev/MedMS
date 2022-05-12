@@ -4,15 +4,24 @@
             <div class="col"></div>
             <div class="col">
                 <div class="card text-left ">
-                    <h2 class="">Фамилия Имя Отчество</h2>
+                    <h2 class="">{{config_value('chief_doctor_name')}}</h2>
                     <h3 class=""><b>Главный Врач</b></h3>
-                    <h4 class="">"Если у вас остались вопросы, то оставьте свой номер ниже и мы вам перезвоним и
-                        ответим на все ваши вопросы."</h4>
+                    <h4 class="">"{{config_value('chief_doctor_speech')}}</h4>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+    import {mapGetters} from "vuex";
+
+    export default {
+        computed: {
+            ...mapGetters(['config_value'])
+        }
+    }
+</script>
 
 <style scoped>
     .chief-doctor {

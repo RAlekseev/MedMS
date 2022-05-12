@@ -1,7 +1,7 @@
 <template>
     <div class="categories">
         <div class="py-5 text-center">
-            <h2 class="mx-auto"><b>Наши врачи</b></h2>
+            <h2 class="mx-auto text-primary"><b>Наши врачи</b></h2>
 
             <h4 class="mx-auto">
                 Наша команда состоит из квалифицированных врачей.
@@ -80,9 +80,5 @@
 <style scoped>
     .categories {
         background-color: #f5f0ed;
-    }
-
-    h2 {
-        color: #0a58ca;
     }
 </style>

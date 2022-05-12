@@ -65,7 +65,10 @@
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-heartbeat fa-2x"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">MedMS<sup>1</sup></div>
+                <div class="sidebar-brand-text mx-1">
+<!--                    MedMS<sup>1</sup>-->
+                    {{config_value('org_name')}}
+                </div>
             </router-link>
 
             <!-- Topbar Search -->

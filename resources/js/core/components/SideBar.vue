@@ -2,7 +2,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <router-link class="sidebar-brand d-flex align-items-center justify-content-center" :to="{ name: 'home' }">
+        <router-link class="bg-secondary sidebar-brand d-flex align-items-center justify-content-center" :to="{ name: 'home' }">
 
             <div class="sidebar-brand-icon">
                 <i class="fas fa-heartbeat"></i>
@@ -12,7 +12,7 @@
 
 
         <!-- Divider -->
-        <hr class="sidebar-divider my-0">
+<!--        <hr class="sidebar-divider my-0">-->
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">

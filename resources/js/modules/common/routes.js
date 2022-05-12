@@ -24,7 +24,7 @@ export default [
     {
         path: '/about',
         name: 'about',
-        component: () => import('./components/About'),
+        component: () => import('./components/about/Index'),
     },
     {
         path: '/basket',
