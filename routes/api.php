@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::apiResource('/contracts', ContractController::class);
 
     Route::apiResource('/working_hours', WorkingHourController::class);
-    Route::apiResource('/patient/contracts', PatientContractController::class)->except(['destroy']);
+    Route::apiResource('/patient/contracts', PatientContractController::class)->except(['destroy', 'store']);
     Route::patch('/configs/{config}', [ConfigController::class, 'update']);
     Route::apiResource('/doc_templates', DocTemplateController::class);
 
@@ -64,12 +64,15 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+Route::post('/patient/contracts', [PatientContractController::class, 'store']);
+
 Route::apiResource('/icons', IconController::class);
 
 Route::get('/configs', [ConfigController::class, 'index']);
 Route::apiResource('/guest_services', GuestServiceController::class)->except(['store', 'update', 'destroy']);
 Route::post('search', [SearchController::class, 'index']);
 
+Route::post('logout', [LoginController::class, 'logout']);
 Route::post('login', [LoginController::class, 'login']);
 Route::post('registration', [RegistrationController::class, 'register']);
 

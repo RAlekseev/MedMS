@@ -6,6 +6,7 @@ namespace App\Modules\Auth\Controllers;
 
 use App\Models\User;
 use App\Modules\Auth\Requests\LoginUserRequest;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -51,5 +52,9 @@ class LoginController
             'message' => 'Ошибка авторизации',
             'status' => 422
         ], Response::HTTP_UNAUTHORIZED);
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
     }
 }
