@@ -6,6 +6,9 @@
         <Hospital/>
         <FullHospital/>
         <Ambulance/>
+        <Operations/>
+        <Resuscitation/>
+        <Lab/>
         <Carousel/>
         <Contacts/>
 
@@ -24,6 +27,9 @@
     import Contacts from "../home/Contacts";
     import FullHospital from "./FullHospital";
     import Ambulance from "./Ambulance";
+    import Operations from "./Operations";
+    import Resuscitation from "./Resuscitation";
+    import Lab from "./Lab";
 
     export default {
         metaInfo: {
@@ -43,6 +49,9 @@
             Contacts,
             FullHospital,
             Ambulance,
+            Operations,
+            Resuscitation,
+            Lab,
         }
     };
 </script>
