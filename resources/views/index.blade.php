@@ -12,7 +12,7 @@
         <link rel="icon" type="image/x-icon" sizes="32x32" href="{{ asset('assets/img/favicon.ico') }}">
     @endif
 
-    <meta name="description" content="MedMS – Medical Management System // CRM system for managing a medical organization">
+{{--    <meta data-vue-meta="1" name="description" content="MedMS – Medical Management System // CRM system for managing a medical organization">--}}
 
     <title>MedMS</title>
 

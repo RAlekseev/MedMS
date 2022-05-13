@@ -3,9 +3,12 @@
         <div class="row p-1">
             <div class="col-10">
                 <h6>
-                    <router-link :to="{name: 'serviceShow', params: {id: service.id}}" class="service-link">
+                    <a href="#" class="service-link">
                         {{service.name}}
-                    </router-link>
+                    </a>
+<!--                    <router-link :to="{name: 'serviceShow', params: {id: service.id}}" class="service-link">-->
+<!--                        {{service.name}}-->
+<!--                    </router-link>-->
                 </h6>
                 <p class="text-gray-400 m-0">
                     {{service.category.name}} / Cоздано: {{service.created_at}}

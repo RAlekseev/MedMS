@@ -32,8 +32,16 @@
     import Contacts from "./Contacts";
 
     export default {
-        metaInfo: {
-            title: 'Главная'
+        data() {
+            return {
+                description: 'Главная'
+            }
+        },
+        metaInfo() {
+            return {
+                title: "Главная",
+                meta: [{vmid: 'description', name: 'description', content: this.description}],
+            }
         },
         computed: {
             ...mapGetters([
@@ -50,6 +58,7 @@
         },
         mounted() {
             this.$store.dispatch('getIconTypes');
+            this.description = this.config_value('home_description')
         }
     }
 </script>

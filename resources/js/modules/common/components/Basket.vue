@@ -48,7 +48,7 @@
                                         <div style="max-width: 70%">
                                             {{service.name}}
                                         </div>
-                                        <span>{{service.price}} ₽</span>
+                                        <span>{{service.price}} {{config_value('currency')}}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                     </li>
@@ -56,12 +56,45 @@
                                         <div>
                                             <strong>Общая цена</strong>
                                         </div>
-                                        <span><strong>{{basketSum}} ₽</strong></span>
+                                        <span><strong>{{basketSum}} {{config_value('currency')}}</strong></span>
                                     </li>
                                 </ul>
 
-                                <p class="text-gray-400 text-center" v-if="!isLogged">
-                                    Для оформления заказа необходимо
+<!--                                <p class="text-gray-400 text-center" v-if="!isLogged">-->
+                                <form @submit.prevent="" class="user text-gray-400 text-center" v-if="!isLogged">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <input type="text" v-model="form.last_name" class="form-control form-control-user"
+                                                       aria-describedby="emailHelp"
+                                                       placeholder="Фамилия..." required>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input type="text" v-model="form.first_name" class="form-control form-control-user"
+                                                       aria-describedby="emailHelp"
+                                                       placeholder="Имя..." required>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input type="text" v-model="form.middle_name" class="form-control form-control-user"
+                                                       aria-describedby="emailHelp"
+                                                       placeholder="Отчество...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input type="email" v-model="form.email" class="form-control form-control-user"
+                                                       aria-describedby="emailHelp"
+                                                       placeholder="Email Address..." required>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input placeholder="+996(XXX)XXX-XXXX" type="tel" class="form-control form-control-user"
+                                                       required v-model="form.phone" v-mask="'+996(###)###-####'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    Для оформления заказа необходимо заплнить данные или
                                     <router-link :to="{name: 'login', query: { redirect: '/basket' }}">
                                         Авторизоваться
                                     </router-link>
@@ -69,8 +102,9 @@
                                     <router-link :to="{name: 'registration'}">
                                         Нет аккаунта?
                                     </router-link>
-                                </p>
-                                <button type="button" class="btn btn-primary btn-lg btn-block" :disabled="!isEnabled()" @click="createContract()">
+                                </form>
+
+                                <button type="button" class="btn btn-primary btn-lg btn-block mt-4" :disabled="!isEnabled()" @click="createContract()">
                                     Оформить заказ
                                 </button>
                             </div>
@@ -87,14 +121,23 @@
     import Service from "./Service";
 
     export default {
+        data() {
+            return {
+                form: {
+                    email: null,
+                    password: null,
+                },
+            }
+        },
         metaInfo: {
-            title: 'Корзина'
+            title: 'Корзина',
         },
         computed: {
             ...mapGetters([
                 'basketServices',
                 'basketSum',
                 'isLogged',
+                'config_value',
             ])
         },
         components: {

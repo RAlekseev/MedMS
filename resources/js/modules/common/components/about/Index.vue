@@ -32,8 +32,16 @@
     import Lab from "./Lab";
 
     export default {
-        metaInfo: {
-            title: 'О нас'
+        data() {
+            return {
+                description: 'О нас'
+            }
+        },
+        metaInfo() {
+            return {
+                title: "О нас",
+                meta: [{vmid: 'description', name: 'description', content: this.description}],
+            }
         },
         computed: {
             ...mapGetters([
@@ -52,6 +60,9 @@
             Operations,
             Resuscitation,
             Lab,
+        },
+        mounted() {
+            this.description = this.config_value('about_description')
         }
     };
 </script>
