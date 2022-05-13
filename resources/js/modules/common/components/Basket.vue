@@ -104,7 +104,7 @@
                                     </router-link>
                                 </form>
 
-                                <button type="button" class="btn btn-primary btn-lg btn-block mt-4" :disabled="!isEnabled()" @click="createContract()">
+                                <button type="button" class="btn btn-primary btn-lg btn-block mt-4" :disabled="!isEnabled" @click="createContract()">
                                     Оформить заказ
                                 </button>
                             </div>
@@ -138,24 +138,30 @@
                 'basketSum',
                 'isLogged',
                 'config_value',
-            ])
+            ]),
+            formValidate: function () {
+                return this.form.email && this.form.phone && this.form.first_name && this.form.last_name
+            },
+            isEnabled: function () {
+                return this.basketServices.length && (this.isLogged || this.formValidate)
+            }
         },
         components: {
             Service
         },
         methods: {
             createContract() {
-                if (this.isLogged) {
+                if (this.isEnabled) {
                     let basket = {
                         services: this.basketServices,
                     };
+                    if (this.formValidate) {
+                        basket['user'] = this.form
+                    }
                     this.$store.dispatch('createMyContract', basket);
                 }
             },
-            isEnabled() {
-                return this.isLogged && this.basketServices.length
-            }
-        }
+        },
     }
 
 </script>
