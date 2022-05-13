@@ -56,15 +56,18 @@
                 selected_category: {
                     id: this.$route.params.id ?? 1
                 },
+                description: 'Услуги'
             }
         },
         mounted() {
             this.$store.dispatch('getGuestServicesCategories');
+            this.description = this.config_value('services_description')
         },
         computed: {
             ...mapGetters([
                 'services',
                 'categories',
+                'config_value'
             ])
         },
         components: {

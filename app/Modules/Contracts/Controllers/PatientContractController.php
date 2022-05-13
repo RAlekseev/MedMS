@@ -5,10 +5,12 @@ namespace App\Modules\Contracts\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Modules\Contracts\Models\Contract;
 use App\Modules\Services\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PatientContractController extends Controller
 {
@@ -19,7 +21,6 @@ class PatientContractController extends Controller
      */
     public function index()
     {
-
         return Auth::user()->contracts()->with(['services'])->get();
     }
 
@@ -32,8 +33,25 @@ class PatientContractController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::check()) {
+            $user_id = Auth::user()->id;
+        } else {
+            $user = User::where('email', $request['user']['email'])->first();
+            if (!$user) {
+                $user = User::create([
+                    'first_name' => $request['user']['first_name'],
+                    'last_name' => $request['user']['last_name'],
+                    'middle_name' => $request['user']['middle_name'],
+                    'email' => $request['user']['email'],
+                    'phone' => $request['user']['phone'],
+                    'password' => bcrypt(strtolower(Str::random(4))),
+                ]);
+            }
+            $user_id = $user->id;
+        }
+
         $contract = Contract::create([
-            'patient_id' => Auth::user()->id,
+            'patient_id' => $user_id,
         ]);
 
         $contract->services()->attach(array_column($request['services'], 'id'));

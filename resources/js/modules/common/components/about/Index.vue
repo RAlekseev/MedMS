@@ -6,6 +6,9 @@
         <Hospital/>
         <FullHospital/>
         <Ambulance/>
+        <Operations/>
+        <Resuscitation/>
+        <Lab/>
         <Carousel/>
         <Contacts/>
 
@@ -24,10 +27,21 @@
     import Contacts from "../home/Contacts";
     import FullHospital from "./FullHospital";
     import Ambulance from "./Ambulance";
+    import Operations from "./Operations";
+    import Resuscitation from "./Resuscitation";
+    import Lab from "./Lab";
 
     export default {
-        metaInfo: {
-            title: 'О нас'
+        data() {
+            return {
+                description: 'О нас'
+            }
+        },
+        metaInfo() {
+            return {
+                title: "О нас",
+                meta: [{vmid: 'description', name: 'description', content: this.description}],
+            }
         },
         computed: {
             ...mapGetters([
@@ -43,6 +57,12 @@
             Contacts,
             FullHospital,
             Ambulance,
+            Operations,
+            Resuscitation,
+            Lab,
+        },
+        mounted() {
+            this.description = this.config_value('about_description')
         }
     };
 </script>

@@ -47,7 +47,14 @@ export default {
                 });
         },
         logout({commit}) {
-            commit('clearUserData')
+            axios
+                .post(`api/logout`)
+                .then(response => {
+                    commit('clearUserData')
+                })
+                .catch(error => {
+                    commit('addError', error.response.data.message || error.message)
+                });
         }
     },
 
