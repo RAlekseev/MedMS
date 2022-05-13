@@ -61,6 +61,6 @@ export default {
     getters: {
         isLogged: state => !!state.user,
         authUser: state => state.user.user,
-        can: state => perm => state.user.user && state.user.user.permissions.includes(perm),
+        can: state => (...perms) => state.user.user && state.user.user.permissions.filter(x => perms.includes(x)).length,
     }
 }
