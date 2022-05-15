@@ -11,7 +11,7 @@
                 <i class="fa fa-times"></i>
             </div>
             <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary text-white" type="button">
                     <i class="fas fa-search fa-sm"></i>
                 </button>
             </div>

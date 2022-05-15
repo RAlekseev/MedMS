@@ -53,7 +53,7 @@
     .partners {
         padding: 1rem;
         height: 100%;
-        background: linear-gradient(-45deg, #01411C, #00703C, #043927, #006432 60%);
+        background: linear-gradient(-45deg, #01411C, #00703C, #043927, var(--primary-color) 60%);
         background-size: 400% 400%;
         animation: gradient 10s ease-in-out infinite;
         /*background: linear-gradient(135deg, #e55d87 0%, #5fc3e4 100%);*/
