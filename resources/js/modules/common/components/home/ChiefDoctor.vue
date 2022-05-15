@@ -25,7 +25,7 @@
 
 <style scoped>
     .chief-doctor {
-        background-image: url("/assets/img/chief_doctor.jpg");
+        background-image: url("/assets/img/chief_doctor.webp");
         background-repeat: no-repeat;
         background-size: 100% auto;
     }

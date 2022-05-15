@@ -18,8 +18,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Значение</label>
-                                        <input type="text" class="form-control" v-model="config.value"
-                                               required>
+                                        <input type="text" class="form-control" v-model="config.value">
                                     </div>
                                 </div>
                             </div>
@@ -46,6 +45,9 @@
         props: ['config'],
         methods: {
             updateConfig() {
+                if (!this.config.value) {
+                    this.config.value = '';
+                }
                 document.getElementById('close' + this.config.id).click();
                 this.$store.dispatch('updateConfig', this.config);
             },
