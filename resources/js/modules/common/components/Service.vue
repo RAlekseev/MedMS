@@ -18,12 +18,16 @@
             <div class="col-2 text-right m-auto p-0 mr-1">
                 <button class="btn btn-danger" v-if="isServiceInBasket(service)"
                         @click.prevent="deleteServiceFromBasket(service)">
-                    {{service.price}}
+                    <span class="text-white">
+                        {{service.price}}
                     <i class="fa fa-shopping-bag"></i>
+                    </span>
                 </button>
                 <button class="btn btn-success" v-else @click.prevent="addServiceInBasket(service)">
+                    <span class="text-white">
                     {{service.price}}
                     <i class="fa fa-shopping-bag"></i>
+                    </span>
                 </button>
             </div>
         </div>

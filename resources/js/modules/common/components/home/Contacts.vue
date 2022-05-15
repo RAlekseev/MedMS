@@ -102,7 +102,7 @@
         color: white !important;
         padding: 1rem;
         height: 100%;
-        background: linear-gradient(-45deg, #01411C, #00703C, #043927, #006432 60%);
+        background: linear-gradient(-45deg, #01411C, #00703C, #043927, var(--primary-color) 60%);
         background-size: 400% 400%;
         animation: gradient 10s ease-in-out infinite;
         /*background: linear-gradient(rgba(135, 60, 255, 0.4), rgba(135, 60, 255, 0.0) 80%),*/

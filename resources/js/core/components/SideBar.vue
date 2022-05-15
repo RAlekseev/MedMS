@@ -2,7 +2,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <router-link class="bg-secondary sidebar-brand d-flex align-items-center justify-content-center"
+        <router-link class="sidebar-brand d-flex align-items-center justify-content-center"
                      :to="{ name: 'home' }">
 
             <div class="sidebar-brand-icon">
