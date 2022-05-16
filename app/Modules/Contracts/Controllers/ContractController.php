@@ -18,7 +18,7 @@ class ContractController extends Controller
      */
     public function index()
     {
-        return Contract::with(['services', 'patient'])->get();
+        return Contract::with(['services', 'patient'])->orderBy('created_at', 'desc')->get();
     }
 
 
