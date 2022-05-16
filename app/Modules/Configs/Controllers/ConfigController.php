@@ -31,7 +31,7 @@ class ConfigController extends Controller
     {
         $config = Config::findOrFail($id);
 
-        $config->fill($request->all())->save();
+        $config->update(['value' => $request['value'] ?? ""]);
 
         return ['config' => $config,
             'message' => "Параметр {$config->name} успешно изменен"];

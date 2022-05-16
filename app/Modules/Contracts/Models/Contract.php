@@ -28,7 +28,7 @@ class Contract extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'created_at' => 'datetime:d.m.Y H:i',
+        'created_at' => 'datetime:Y-m-d H:i',
     ];
 
     public function services()

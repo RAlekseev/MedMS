@@ -116,12 +116,12 @@
                 <span>Мои заказы</span>
             </router-link>
         </li>
-        <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'profileBonusCard' }">
-                <i class="fas fa-fw  fa-credit-card"></i>
-                <span>Мои бонусы</span>
-            </router-link>
-        </li>
+<!--        <li class="nav-item">-->
+<!--            <router-link class="nav-link" :to="{ name: 'profileBonusCard' }">-->
+<!--                <i class="fas fa-fw  fa-credit-card"></i>-->
+<!--                <span>Мои бонусы</span>-->
+<!--            </router-link>-->
+<!--        </li>-->
 
         <div v-if="can('schedules-create')">
             <hr class="sidebar-divider d-none d-md-block">
