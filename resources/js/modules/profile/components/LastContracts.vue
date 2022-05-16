@@ -7,24 +7,45 @@
                 </h6>
             </div>
             <div class="card-body">
-                <div v-for="contract in myContracts" :key="contract.id" v-if="myContracts.length">
-                    <div class="row">
-                        <div class="col-sm-3 pl-4">
-                            <h6 class="mb-0">
-                                № {{contract.id}}
-                            </h6>
-                        </div>
-                        <div class="col-sm-3 text-secondary">
-                            {{contract.created_at}}
-                        </div>
-                        <div class="col-sm-3 text-secondary text-success">
-                            Оплачено
-                        </div>
-                        <div class="col-sm-3 text-secondary">
-                            {{price(contract)}}
-                        </div>
-                    </div>
-                    <hr>
+                    <div class="table-responsive">
+                        <table id="data_table" class="table table-bordered" style="width:100%;">
+                            <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Создан</th>
+                                <th>Название услуги</th>
+                                <th>Статус</th>
+                                <th>Стоимость</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <template v-for="(contract, contract_i) in myContracts.slice(0, 5)">
+                                <tr v-for="(service, i) in contract.services" :class="{even: contract_i % 2 === 0}">
+                                    <td :rowspan="contract.services.length" v-if="i === 0">
+                                        <router-link :hidden="i !== 0" :to="'/contracts/show/' + contract.id">
+                                            № {{contract.id}}
+                                        </router-link>
+                                    </td>
+
+                                    <td :rowspan="contract.services.length" v-if="i === 0">
+                                        {{contract.created_at}}
+                                    </td>
+
+                                    <td>
+                                        {{service.name}}
+                                    </td>
+                                    <td>
+                                        <div class="text-warning">
+                                            Оформлено
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{service.price}} {{config_value('currency')}}
+                                    </td>
+                                </tr>
+                            </template>
+                            </tbody>
+                        </table>
                 </div>
 
             </div>
@@ -41,7 +62,8 @@
         },
         computed: {
             ...mapGetters([
-                'myContracts'
+                'myContracts',
+                'config_value',
             ])
         },
         methods: {
@@ -53,3 +75,9 @@
         }
     }
 </script>
+
+<style scoped>
+    .even {
+        background-color: #f2f2f2;
+    }
+</style>

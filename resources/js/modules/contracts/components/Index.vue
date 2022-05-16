@@ -37,23 +37,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <template v-for="contract in contracts" v-if="contracts.length">
-                                    <tr v-for="(service, i) in contract.services">
+                                <template v-for="(contract, contract_i) in contracts" v-if="contracts.length">
+                                    <tr v-for="(service, i) in contract.services" :class="contract_i % 2 === 0 ? 'even-contract' : 'odd-contract'">
                                         <td>
-                                            <router-link :hidden="i !== 0" :to="'/contracts/show/' + contract.id">
+                                            <router-link :hidden="i !== 0" :to="'/contracts/show/' + contract.id" :data-order="+contract.id">
                                                 № {{contract.id}}
                                             </router-link>
-
-                                            <!--                                            <br>-->
-                                            <!--                                            <span>-->
-                                            <!--                                            {{contract.patient.phone}}-->
-                                            <!--                                        </span>-->
-                                            <!--                                            <br>-->
-                                            <!--                                            <span class>-->
-                                            <!--                                            {{contract.patient.email}}-->
-                                            <!--                                        </span>-->
-                                            <!--                                            <br>-->
-
                                         <td>
                                             <router-link :hidden="i !== 0"
                                                     :to="{path: `users/show/${contract.patient.id}`}"
@@ -78,8 +67,8 @@
                                             {{service.name}}
                                         </td>
                                         <td>
-                                            <div class="text-success">
-                                                Пройдено
+                                            <div class="text-warning">
+                                                Оформлено
                                             </div>
                                         </td>
                                         <td>
@@ -91,50 +80,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!--                        <div v-for="contract in contracts" :key="contract.id" v-if="contracts.length">-->
-                        <!--                            <div class="row">-->
-                        <!--                                <div class="col-sm-3 pl-4">-->
-                        <!--                                    <h6 class="mb-0">-->
-                        <!--                                        <router-link :to="'/contracts/show/' + contract.id">-->
-                        <!--                                            № {{contract.id}}-->
-                        <!--                                        </router-link>-->
-                        <!--                                    </h6>-->
-                        <!--                                </div>-->
-                        <!--                                <div class="col-sm-3 text-secondary">-->
-                        <!--                                    <router-link :to="{path: `users/show/${contract.patient.id}`}"-->
-                        <!--                                                 v-if="can('users-show')">-->
-                        <!--                                        {{contract.patient.full_name}}-->
-                        <!--                                    </router-link>-->
-                        <!--                                    <span v-else>-->
-                        <!--                                    {{contract.patient.full_name}}-->
-                        <!--                                    </span>-->
-                        <!--                                </div>-->
-                        <!--                                <div class="col-sm-3 text-secondary text-success">-->
-                        <!--                                    Оплачено-->
-                        <!--                                </div>-->
-                        <!--                                <div class="col-sm-3 text-secondary">-->
-                        <!--                                    {{price(contract)}}-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-
-                        <!--                            <div class="row" v-for="service in contract.services" :key="service.id"-->
-                        <!--                                 v-if="contract.services.length">-->
-                        <!--                                <div class="col-sm-3 pl-4">-->
-
-                        <!--                                </div>-->
-                        <!--                                <div class="col-sm-3 text-secondary">-->
-                        <!--                                    {{service.name}}-->
-                        <!--                                </div>-->
-                        <!--                                <div class="col-sm-3 text-secondary text-success">-->
-                        <!--                                    Пройдено-->
-                        <!--                                </div>-->
-                        <!--                                <div class="col-sm-3 text-secondary">-->
-                        <!--                                    {{service.price}}-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-                        <!--                            <hr>-->
-                        <!--                        </div>-->
-
                     </div>
                 </div>
             </div>
@@ -153,25 +98,9 @@
             title: 'Оформленные заказы'
         },
         mounted() {
-
-
-
             this.$store.dispatch('getContracts')
-                .then(() => {
-                    window.$('#data_table').DataTable({
-                        ...dataTableConfig,
-                        "aoColumns": [
-                            null,
-                            null,
-                            {"sType": "ruDate"},
-                            null,
-                            null,
-                            null,
-                        ],
-                    });
-                });
-
-
+                .then(() => {window.$('#data_table').DataTable(dataTableConfig);});
+            window.$("#data_table tr").removeClass( "odd even" )
         },
         computed: {
             ...mapGetters([
@@ -189,3 +118,15 @@
         }
     }
 </script>
+
+<style scoped>
+    .odd-contract {
+        background-color: #f2f2f2 !important;
+    }
+    .even-contract {
+        background-color: #fff !important;
+    }
+    .sorting_1 {
+        background-color: transparent!important;
+    }
+</style>

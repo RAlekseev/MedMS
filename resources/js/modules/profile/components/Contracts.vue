@@ -20,41 +20,50 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <div v-for="contract in myContracts" :key="contract.id" v-if="myContracts.length">
-                            <div class="row">
-                                <div class="col-sm-3 pl-4">
-                                    <h6 class="mb-0">
-                                        № {{contract.id}}
-                                    </h6>
-                                </div>
-                                <div class="col-sm-3 text-secondary">
-                                    {{contract.created_at}}
-                                </div>
-                                <div class="col-sm-3 text-secondary text-success">
-                                    Оплачено
-                                </div>
-                                <div class="col-sm-3 text-secondary">
-                                    {{price(contract)}}
-                                </div>
-                            </div>
+                        <div class="table-responsive">
+                            <table id="data_table" class="display table-bordered" style="width:100%;">
+                                <thead>
+                                <tr>
+                                    <th>Номер</th>
+                                    <th>Оформлен</th>
+                                    <th>Название услуги</th>
+                                    <th>Статус</th>
+                                    <th>Стоимость</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <template v-for="(contract, contract_i) in myContracts" v-if="myContracts.length">
+                                    <tr v-for="(service, i) in contract.services" :class="contract_i % 2 === 0 ? 'even-contract' : 'odd-contract'">
+                                        <td>
+                                            <router-link :hidden="i !== 0" :to="'/contracts/show/' + contract.id" :data-order="+contract.id">
+                                                № {{contract.id}}
+                                            </router-link>
+                                        <td>
+                                            <span :data-order="contract.created_at + '0'"  v-if="i === 0">
+                                                {{contract.created_at}}
+                                            </span>
+                                            <span :data-order="contract.created_at" hidden v-else>
+                                                {{contract.created_at}}
+                                            </span>
+                                        </td>
+                                        <td>
 
-                            <div class="row" v-for="service in contract.services" :key="service.id" v-if="contract.services.length">
-                                <div class="col-sm-3 pl-4">
+                                            {{service.name}}
+                                        </td>
+                                        <td>
+                                            <div class="text-warning">
+                                                Оформлено
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{service.price}} {{config_value('currency')}}
+                                        </td>
 
-                                </div>
-                                <div class="col-sm-3 text-secondary">
-                                    {{service.name}}
-                                </div>
-                                <div class="col-sm-3 text-secondary text-success">
-                                    Оплачено
-                                </div>
-                                <div class="col-sm-3 text-secondary">
-                                    {{service.price}}
-                                </div>
-                            </div>
-                            <hr>
+                                    </tr>
+                                </template>
+                                </tbody>
+                            </table>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -66,17 +75,25 @@
 
 <script>
     import {mapGetters} from "vuex";
+    import dataTableConfig from "../../../core/utils/DataTablesConfig";
 
     export default {
         metaInfo: {
             title: 'Мои заказы'
         },
         mounted() {
+
+
+
             this.$store.dispatch('getMyContracts')
+                .then(() => {window.$('#data_table').DataTable(dataTableConfig);});
+            window.$("#data_table tr").removeClass( "odd even" )
         },
         computed: {
             ...mapGetters([
-                'myContracts'
+                'myContracts',
+                'can',
+                'config_value',
             ])
         },
         methods: {
@@ -88,3 +105,15 @@
         }
     }
 </script>
+
+<style scoped>
+    .odd-contract {
+        background-color: #f2f2f2 !important;
+    }
+    .even-contract {
+        background-color: #fff !important;
+    }
+    .sorting_1 {
+        background-color: transparent!important;
+    }
+</style>

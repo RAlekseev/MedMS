@@ -14,9 +14,9 @@
                         <router-link to="/profile/contracts">
                             <button class="btn btn-primary">Заказы</button>
                         </router-link>
-                        <router-link to="/profile/bonus_cards">
-                            <button class="btn btn-outline-primary">Бонусы</button>
-                        </router-link>
+<!--                        <router-link to="/profile/bonus_cards">-->
+<!--                            <button class="btn btn-outline-primary">Бонусы</button>-->
+<!--                        </router-link>-->
                     </div>
                 </div>
             </div>
