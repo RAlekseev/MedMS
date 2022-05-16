@@ -75,6 +75,7 @@
             title: 'Просмотр заказа'
         },
         mounted() {
+            this.$store.dispatch('getDocTemplates');
             this.$store.dispatch('getContract', this.$route.params.id);
             this.$store.dispatch('getContractMedia');
         },
