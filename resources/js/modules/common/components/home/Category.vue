@@ -20,10 +20,10 @@
         <a href="#" class="col-xs-12 col-sm-6 col-lg-4 my-3" @click.prevent="toggleCategory">
             <div class="card p-3  h-100">
                 <div class="row h-100">
-                    <div class="col-3 m-auto">
+                    <div class="col-3 my-auto">
                         <i :class="'icon fa text-primary ' + (opened ? 'fa-minus' : 'fa-plus')"></i>
                     </div>
-                    <div class="col-7 m-auto">
+                    <div class="col-7 my-auto">
                         <h5 v-if="opened">
                             Скрыть
                         </h5>

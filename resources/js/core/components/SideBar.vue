@@ -123,7 +123,7 @@
 <!--            </router-link>-->
 <!--        </li>-->
 
-        <div v-if="can('schedules-create')">
+        <div v-if="can('schedules-index')">
             <hr class="sidebar-divider d-none d-md-block">
             <div class="sidebar-heading">
                 Сотрудники

@@ -49,7 +49,8 @@
                                 <div class="col-md-8" v-else>
                                     <div class="form-group">
                                         <label class="typo__label">Выберите объект прихода</label>
-                                        <Multiselect v-model="movement.inventories[i]"
+                                        <Multiselect v-if="income_inventories"
+                                                     v-model="movement.inventories[i]"
                                                      :options="income_inventories"
                                                      :close-on-select="true"
                                                      placeholder="Выберите объект прихода"
