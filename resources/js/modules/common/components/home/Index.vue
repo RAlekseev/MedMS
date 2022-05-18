@@ -16,7 +16,7 @@
         <Categories/>
         <Employees/>
         <Gallery/>
-        <Partners/>
+<!--        <Partners/>-->
         <ChiefDoctor/>
         <Contacts/>
     </div>
