@@ -26,7 +26,7 @@
         text-align: center;
         margin: 5px;
         border-radius: 50%;
-        border: 4px solid #4e73df;
+        border: 4px solid var(--primary);
         display: flex;
         flex-flow: column wrap;
         justify-content: center;

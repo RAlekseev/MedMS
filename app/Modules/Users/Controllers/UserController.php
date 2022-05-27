@@ -4,7 +4,7 @@ namespace App\Modules\Users\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Modules\Users\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 

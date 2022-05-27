@@ -6,7 +6,7 @@
                      :to="{ name: 'home' }">
 
             <div class="sidebar-brand-icon">
-                <img src="/storage/light_logo.png" alt="alt" height="50"
+                <img src="/storage/light_logo.webp" alt="alt" height="50"
                      onError="this.onerror=null;this.src='/assets/img/light_logo.png';"/>
                 <!--                <i class="fas fa-heartbeat"></i>-->
             </div>
@@ -56,6 +56,13 @@
                 <router-link v-if="can('users-index')" class="nav-link" :to="{ name: 'usersIndex' }">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Пользователи</span>
+                </router-link>
+            </li>
+
+            <li class="nav-item">
+                <router-link v-if="can('departments-index')" class="nav-link" to="/departments">
+                    <i class="fas fa-fw fa-hospital"></i>
+                    <span>Отделения</span>
                 </router-link>
             </li>
         </div>

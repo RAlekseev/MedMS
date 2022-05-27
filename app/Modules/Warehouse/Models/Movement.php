@@ -2,7 +2,7 @@
 
 namespace App\Modules\Warehouse\Models;
 
-use App\Models\User;
+use App\Modules\Users\Models\User;
 use App\Modules\Services\Models\Service;
 use Illuminate\Database\Eloquent\Model;
 

@@ -4,7 +4,7 @@
 namespace App\Modules\Auth\Controllers;
 
 
-use App\Models\User;
+use App\Modules\Users\Models\User;
 use App\Modules\Auth\Requests\RegisterUserRequest;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;

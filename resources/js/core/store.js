@@ -21,6 +21,7 @@ import schedules from '../modules/schedules/store';
 import docTemplates from '../modules/doc_templates/store';
 import icons from '../modules/icons/store';
 import warehouse from '../modules/warehouse/store';
+import departments from '../modules/departments/store';
 
 Vue.use(Vuex);
 
@@ -107,6 +108,7 @@ export const store = new Vuex.Store({
         categories,
         icons,
         warehouse,
+        departments,
     },
     plugins: [createPersistedState()],
 });

@@ -65,7 +65,7 @@
                 <div class="sidebar-brand-icon">
 
 
-                    <img src="/storage/primary_logo.png" alt="alt" height="50"
+                    <img src="/storage/primary_logo.webp" alt="alt" height="50"
                          onError="this.onerror=null;this.src='/assets/img/primary_logo.png';"/>
 
                 </div>
