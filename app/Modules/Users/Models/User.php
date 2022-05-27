@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Users\Models;
 
 use App\Modules\Contracts\Traits\HasContracts;
 use App\Modules\Access\Traits\HasRolesAndPermissions;

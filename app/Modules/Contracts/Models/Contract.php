@@ -2,7 +2,7 @@
 
 namespace App\Modules\Contracts\Models;
 
-use App\Models\User;
+use App\Modules\Users\Models\User;
 use App\Modules\Services\Models\Service;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;

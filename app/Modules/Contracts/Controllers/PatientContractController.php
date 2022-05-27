@@ -5,7 +5,7 @@ namespace App\Modules\Contracts\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Modules\Users\Models\User;
 use App\Modules\Contracts\Models\Contract;
 use App\Modules\Services\Models\Category;
 use Illuminate\Http\Request;

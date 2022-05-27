@@ -2,7 +2,7 @@
 
 namespace App\Modules\Access\Models;
 
-use App\Models\User;
+use App\Modules\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 
