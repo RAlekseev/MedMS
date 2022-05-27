@@ -5,7 +5,7 @@ namespace App\Modules\Departments\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\Department;
+use App\Modules\Departments\Models\Department;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -17,7 +17,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return Department::with(['employees'])->get();
+        return Department::with(['users', 'icon'])->get();
     }
 
 
@@ -35,10 +35,12 @@ class DepartmentController extends Controller
             'icon_id' => $request['icon_id'],
         ]);
 
-        $department->users()->attach(array_column($request['employees'], 'id'));
+        $department->attach_users($request['employees']);
+        $department->users;
+        $department->icon;
 
         return response()->json([
-            'service' => $department,
+            'department' => $department,
             'message' => "Отделение успешно создано"
         ]);
     }
@@ -66,9 +68,9 @@ class DepartmentController extends Controller
     {
         $department = Department::findOrFail($id);
 
-        if ($department->users->toArray() != $request['employees']) {
-            $department->users()->detach();
-            $department->users()->attach(array_column($request['employees'], 'id'));
+        if ($department->users->toArray() != $request['users']) {
+            $department->detach_users();
+            $department->attach_users($request['users']);
         }
 
         $department->fill($request->all())->save();

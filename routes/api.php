@@ -2,6 +2,7 @@
 
 use App\Modules\Common\Controllers\SearchController;
 use App\Modules\Configs\Controllers\ConfigController;
+use App\Modules\Departments\Controllers\DepartmentController;
 use App\Modules\Warehouse\Controllers\MovementController;
 use App\Modules\Icon\Controllers\IconController;
 use App\Modules\Media\Controllers\MediaController;
@@ -61,7 +62,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('warehouse/movements', [MovementController::class, 'index']);
     Route::post('warehouse/movements', [MovementController::class, 'store']);
 
-
+    Route::apiResource('/departments', DepartmentController::class);
 });
 
 Route::post('/patient/contracts', [PatientContractController::class, 'store']);

@@ -113,6 +113,7 @@
         },
         methods: {
             createDepartment() {
+                this.form.icon_id = this.form.icon.id;
                 document.getElementById('close').click();
                 this.$store.dispatch('createDepartment', this.form)
             },

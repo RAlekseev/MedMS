@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Departmeents\Models;
+namespace App\Modules\Departments\Models;
 
 use App\Modules\Icon\Traits\HasIcon;
 use App\Modules\Users\Models\User;
@@ -25,5 +25,18 @@ class Department extends Model
     public function users()
     {
         return $this->hasMany(User::class, 'department_id');
+    }
+
+    public function attach_users($users) {
+        foreach ($users as $user) {
+            $user = User::findOrFail($user['id']);
+            $user->update(['department_id' => $this->id]);
+        }
+    }
+
+    public function detach_users() {
+        foreach ($this->users as $user) {
+            $user->update(['department_id' => null]);
+        }
     }
 }

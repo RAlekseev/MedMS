@@ -51,12 +51,12 @@
                                             </b>
                                         </td>
                                         <td>
-                                            <Icon :icon_id="department.icon.id"></Icon>
+                                            <Icon :icon_id="department.icon_id"></Icon>
                                         </td>
 
                                         <td>{{department.description}}</td>
-                                        <td>{{department.employees.length}}</td>
-                                        <td>{{department.employees.length}}</td>
+                                        <td>{{department.users.length}}</td>
+                                        <td>{{department.users.length}}</td>
 
                                         <td class="text-right" v-if="can('departments-update', 'departments-delete')">
                                             <div>

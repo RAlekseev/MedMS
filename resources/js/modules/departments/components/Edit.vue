@@ -62,7 +62,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Сотрудники</label>
-                                    <multiselect v-model="department.employees"
+                                    <multiselect v-model="department.users"
                                                  :options="employees"
                                                  :multiple="true"
                                                  :close-on-select="false"
@@ -108,6 +108,7 @@
         },
         methods: {
             updateDepartment() {
+                this.department.icon_id = this.department.icon.id
                 document.getElementById('close' + this.department.id).click();
                 this.$store.dispatch('updateDepartment', this.department)
             },
