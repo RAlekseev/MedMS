@@ -17,6 +17,7 @@ import configs from '../modules/configs/routes'
 import doc_templates from '../modules/doc_templates/routes'
 import icons from '../modules/icons/routes'
 import warehouse from '../modules/warehouse/routes'
+import departments from '../modules/departments/routes'
 
 Vue.use(VueRouter);
 
@@ -40,6 +41,7 @@ export const routes = [
             ...categories,
             ...icons,
             ...warehouse,
+            ...departments,
         ],
 
     },

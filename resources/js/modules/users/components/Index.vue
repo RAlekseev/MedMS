@@ -18,7 +18,7 @@
                         <th>Почта</th>
                         <th>Телефон</th>
                         <th>Дата рождения</th>
-                        <th class="text-right" v-if="is_available_actions()">Действия</th>
+                        <th class="text-right" v-if="can('users-update', 'users-delete', 'contracts-create')">Действия</th>
                     </tr>
                     </thead>
                     <tbody v-if="users">
@@ -36,7 +36,7 @@
                         <td>{{user.phone}}</td>
                         <td>{{user.birthday}}</td>
 
-                        <td class="text-right" v-if="is_available_actions()">
+                        <td class="text-right" v-if="can('users-update', 'users-delete', 'contracts-create')">
                             <div>
                                 <router-link :to="{name: `contractsCreate`, params: {id: user.id}}" v-if="can('contracts-create')">
                                     <button class="btn btn-success btn-round"  title="Оформить заказ">
@@ -83,11 +83,6 @@
                 window.$('#data_table').DataTable(dataTableConfig);
             });
         },
-        methods: {
-            is_available_actions() {
-                return this.can('users-update') || this.can('users-delete');
-            }
-        }
     }
 </script>
 

@@ -58,6 +58,13 @@
                     <span>Пользователи</span>
                 </router-link>
             </li>
+
+            <li class="nav-item">
+                <router-link v-if="can('departments-index')" class="nav-link" to="/departments">
+                    <i class="fas fa-fw fa-hospital"></i>
+                    <span>Отделения</span>
+                </router-link>
+            </li>
         </div>
 
 
