@@ -22,6 +22,7 @@ class RegistrationController
                 'phone' => $request->phone,
                 'password' => bcrypt($request->password)
             ]);
+
             return response()->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
             Log::error($e->getMessage(), ['trace' => $e->getTraceAsString()]);

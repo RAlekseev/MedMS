@@ -9,8 +9,10 @@
         <Operations/>
         <Resuscitation/>
         <Lab/>
+        <Physiotherapy/>
         <Carousel/>
         <Contacts/>
+
 
         <iframe :src="config_value('map_href')" v-if="config_value('map_href')"
                 width="100%" height="500" frameborder="0"></iframe>
@@ -30,6 +32,7 @@
     import Operations from "./Operations";
     import Resuscitation from "./Resuscitation";
     import Lab from "./Lab";
+    import Physiotherapy from "./Physiotherapy";
 
     export default {
         data() {
@@ -60,6 +63,7 @@
             Operations,
             Resuscitation,
             Lab,
+            Physiotherapy,
         },
         mounted() {
             this.description = this.config_value('about_description')

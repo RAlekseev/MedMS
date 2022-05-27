@@ -14,7 +14,7 @@
                     <div class="card card-profile">
                         <div class="card-avatar">
                             <a href="#">
-                                <img src="/ddsd" alt="Photo">
+                                <img src="/" alt="Photo">
                             </a>
                         </div>
                         <div class="card-body">

@@ -12,6 +12,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "sendpulse/rest-api": "^1.0",
         "spatie/laravel-medialibrary": "9"
     },
     "require-dev": {
