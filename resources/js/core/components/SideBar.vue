@@ -6,7 +6,7 @@
                      :to="{ name: 'home' }">
 
             <div class="sidebar-brand-icon">
-                <img src="/storage/light_logo.png" alt="alt" height="50"
+                <img src="/storage/light_logo.webp" alt="alt" height="50"
                      onError="this.onerror=null;this.src='/assets/img/light_logo.png';"/>
                 <!--                <i class="fas fa-heartbeat"></i>-->
             </div>
