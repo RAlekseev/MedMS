@@ -1,5 +1,7 @@
 import Index from './components/Index'
 import Movements from './components/Movements'
+import Requests from './components/Requests'
+import MyRequests from './components/MyRequests'
 
 export default [
     {
@@ -13,5 +15,17 @@ export default [
         component: Movements,
         name: 'warehouseShow',
         meta: {permission: 'warehouse-movements'},
+    },
+    {
+        path: '/warehouse/requests',
+        component: Requests,
+        name: 'warehouseRequests',
+        meta: {permission: 'warehouse-requests'},
+    },
+    {
+        path: '/warehouse/my_requests',
+        component: MyRequests,
+        name: 'warehouseMyRequests',
+        meta: {permission: 'warehouse-my-requests'},
     },
 ]

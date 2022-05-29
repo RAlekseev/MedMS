@@ -1,5 +1,6 @@
 <template>
     <div class="text-center">
+        <div class="cursor"></div>
         <div class="preloader">
         <div class="loader loader-inner-1">
             <div class="loader loader-inner-2">
@@ -11,7 +12,14 @@
     </div>
 </template>
 
-<style>
+<style scoped>
+    .cursor {
+        position: absolute;
+        height: 100vh;
+        width: 100vh;
+        cursor: progress;
+        z-index: 10;
+    }
     .preloader{
         height: 500%;
         width: 100%;
