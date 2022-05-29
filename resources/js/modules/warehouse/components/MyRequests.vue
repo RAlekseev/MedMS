@@ -20,7 +20,8 @@
                 <div class="card mb-3">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
-                            Запросы
+                            Мои запросы
+                            <RequestCreate/>
                         </h6>
                     </div>
                     <div class="card-body">
@@ -37,6 +38,7 @@
 <script>
     import {mapGetters} from "vuex";
     import RequestsTable from "./RequestsTable";
+    import RequestCreate from "./RequestCreate"
 
     export default {
         metaInfo: {
@@ -53,6 +55,7 @@
         },
         components: {
             RequestsTable,
+            RequestCreate,
         }
     }
 </script>
