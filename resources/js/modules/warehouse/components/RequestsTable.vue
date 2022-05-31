@@ -7,7 +7,9 @@
             <th>Статус</th>
             <th>Комментарий</th>
             <th>Создано</th>
-<!--            <th>Действия</th>-->
+            <th v-if="can('warehouse-requests-reject', 'warehouse-requests-apply', 'warehouse-requests-delete')">
+                Действия
+            </th>
         </tr>
         </thead>
         <tbody>
@@ -23,8 +25,8 @@
                 </ul>
             </td>
             <td>
-                <b :class="status(warehouse_request.status_id).text_class">
-                    {{status(warehouse_request.status_id).text}}
+                <b :class="statuses[warehouse_request.status_id].text_class">
+                    {{statuses[warehouse_request.status_id].text}}
                 </b>
             </td>
             <td>
@@ -35,6 +37,9 @@
                     {{format_date(warehouse_request.created_at)}}
                 </span>
             </td>
+            <td v-if="can('warehouse-requests-reject', 'warehouse-requests-apply', 'warehouse-requests-delete')">
+                <RequestActions :warehouse_request="warehouse_request"/>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -43,31 +48,39 @@
 <script>
     import dataTableConfig from "../../../core/utils/DataTablesConfig";
     import moment from 'moment'
+    import {mapGetters} from "vuex";
+    import RequestActions from "./RequestActions";
 
 
     export default {
         data() {
             return {
-                statuses: [
-                    {id: 1, text: 'Создано', text_class: 'text-warning'},
-                    {id: 2, text: 'Одобрено', text_class: 'text-success'},
-                    {id: 3, text: 'Отклонено', text_class: 'text-danger'},
-                ]
+                statuses: {
+                    1: {text: 'Создано', text_class: 'text-warning'},
+                    2: {text: 'Одобрено', text_class: 'text-success'},
+                    3: {text: 'Отклонено', text_class: 'text-danger'},
+                }
             }
         },
         props: ['warehouse_requests'],
+        computed: {
+            ...mapGetters([
+                'can'
+            ]),
+
+        },
         mounted() {
             window.$('#warehouse_requests').DataTable(dataTableConfig);
         },
         methods: {
-            status(status_id) {
-                return this.statuses.find(status => status.id == status_id)
-            },
-            format_date(value){
+            format_date(value) {
                 if (value) {
                     return moment(String(value)).format('DD.MM.YY HH:MM')
                 }
             },
-        }
+        },
+        components: {
+            RequestActions,
+        },
     }
 </script>

@@ -28,7 +28,15 @@ export default {
         },
         addWarehouseRequest(state, item) {
             state.my_warehouse_requests.push(item)
-        }
+        },
+        updateWarehouseRequest(state, request) {
+            let index = state.warehouse_requests.findIndex(item => item.id === request.id);
+            state.warehouse_requests[index] = request;
+        },
+        deleteWarehouseRequest(state, id) {
+            let index = state.warehouse_requests.findIndex(item => item.id === id);
+            state.warehouse_requests.splice(index, 1);
+        },
     },
 
     actions: {
@@ -70,24 +78,6 @@ export default {
                 .then(response => {
                     commit('setWarehouseRequests',
                         response.data
-                        // [
-                        //     {
-                        //         id: 1,
-                        //         creator: {
-                        //             id: 1,
-                        //             full_name: "Роман Алексеее",
-                        //         },
-                        //         created_at: '12.02.2022',
-                        //         inventories: [
-                        //             {
-                        //                 id: 1,
-                        //                 name: "adrenaline",
-                        //                 amount: 20,
-                        //             }
-                        //         ],
-                        //         status_id: 1,
-                        //     },
-                        // ]
                     );
                 }).catch(error => {
                     commit('addError', error.response.data.message || error.message)
@@ -100,24 +90,6 @@ export default {
                 .then(response => {
                     commit('setMyWarehouseRequests',
                         response.data
-                        // [
-                        //     {
-                        //         id: 1,
-                        //         creator: {
-                        //             id: 1,
-                        //             full_name: "Роман Алексеее",
-                        //         },
-                        //         created_at: '12.02.2022',
-                        //         inventories: [
-                        //             {
-                        //                 id: 1,
-                        //                 name: "adrenaline",
-                        //                 amount: 20,
-                        //             }
-                        //         ],
-                        //         status_id: 1,
-                        //     },
-                        // ]
                     );
                 }).catch(error => {
                     commit('addError', error.response.data.message || error.message)
@@ -133,7 +105,26 @@ export default {
                     commit('addError', error.response.data.message || error.message)
                 }).finally(() => commit('stopLoading'));
         },
-
+        updateWarehouseRequest({commit}, item) {
+            commit('startLoading');
+            return axios
+                .patch(`/api/warehouse/requests/${item.id}`, item)
+                .then(response => {
+                    commit('updateWarehouseRequest', response.data);
+                }).catch(error => {
+                    commit('addError', error.response.data.message || error.message)
+                }).finally(() => commit('stopLoading'));
+        },
+        deleteWarehouseRequest({commit}, id) {
+            commit('startLoading');
+            return axios
+                .delete(`/api/warehouse/requests/${id}`)
+                .then(() => {
+                    commit('deleteWarehouseRequest', id);
+                }).catch(error => {
+                    commit('addError', error.response.data.message || error.message)
+                }).finally(() => commit('stopLoading'));
+        },
         deleteWarehouseInventory({commit}, id) {
             commit('startLoading');
             return axios

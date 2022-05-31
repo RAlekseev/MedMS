@@ -84,19 +84,20 @@ class WarehouseRequestController extends Controller
 
         if ($request['status_id'] == 2) {
             $movement = Movement::create([
-                'contractor' => $warehouse_request->user->full_name,
+                'contractor' => $warehouse_request->creator->full_name,
                 'creator_id' => Auth::user()->id,
             ]);
 
-            $movement->inventories()->attach($warehouse_request->inventories->column('id'),
-                ['amount' => $warehouse_request->inventories->map(function ($inventory) {
-                    return -1 * $inventory->amount;
-                })]);
+            foreach ($warehouse_request->inventories as $inventory) {
+                $movement->inventories()->attach($inventory->id, ['amount' => -1 * $inventory->pivot->amount]);
+                $inventory->update(['amount' => $inventory->amount - $inventory->pivot->amount]);
+            }
         }
 
-        $action = $warehouse_request->status_id == 2 ? "Одобрена" : "Отклонена";
-        return ['warehouse_request' => $warehouse_request,
-            'message' => "Заявка {$warehouse_request->id} успешно {$action}"];
+        $warehouse_request->creator;
+        $warehouse_request->inventories;
+
+        return $warehouse_request;
     }
 
     /**
