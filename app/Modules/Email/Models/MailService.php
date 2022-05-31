@@ -2,20 +2,24 @@
 
 namespace App\Modules\Icon\Models;
 
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
+use App\Modules\Email\MailServices\SendPulse;
 
 
-class MailService extends Model
+class MailService
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'icon_type_id',
-    ];
+    private $mail_service;
 
+    public function __construct()
+    {
+        if (env('SENDPULSE_API_USER_ID')) {
+            $this->mail_service = new SendPulse();
+        } else {
+            $this->mail_service = new SendPulse();
+        }
+    }
+
+    public function sendEmail($params)
+    {
+        return $this->mail_service->sendEmail(...$params);
+    }
 }
