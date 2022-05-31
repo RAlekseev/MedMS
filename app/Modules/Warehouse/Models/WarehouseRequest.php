@@ -19,7 +19,7 @@ class WarehouseRequest extends Model
      */
     protected $fillable = [
         'creator_id',
-        'commented',
+        'comment',
         'status_id',
     ];
 

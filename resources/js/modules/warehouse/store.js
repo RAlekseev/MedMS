@@ -16,6 +16,7 @@ export default {
             state.movements = items;
         },
         setWarehouseRequests(state, items) {
+
             state.warehouse_requests = items;
         },
         setMyWarehouseRequests(state, items) {
@@ -24,6 +25,9 @@ export default {
         deleteWarehouseInventory(state, id) {
             let index = state.inventories.findIndex(item => item.id === id);
             state.inventories.splice(index, 1);
+        },
+        addWarehouseRequest(state, item) {
+            state.my_warehouse_requests.push(item)
         }
     },
 
@@ -65,25 +69,25 @@ export default {
                 .get('/api/warehouse/requests')
                 .then(response => {
                     commit('setWarehouseRequests',
-                        // response.data
-                        [
-                            {
-                                id: 1,
-                                creator: {
-                                    id: 1,
-                                    full_name: "Роман Алексеее",
-                                },
-                                created_at: '12.02.2022',
-                                inventories: [
-                                    {
-                                        id: 1,
-                                        name: "adrenaline",
-                                        amount: 20,
-                                    }
-                                ],
-                                status_id: 1,
-                            },
-                        ]
+                        response.data
+                        // [
+                        //     {
+                        //         id: 1,
+                        //         creator: {
+                        //             id: 1,
+                        //             full_name: "Роман Алексеее",
+                        //         },
+                        //         created_at: '12.02.2022',
+                        //         inventories: [
+                        //             {
+                        //                 id: 1,
+                        //                 name: "adrenaline",
+                        //                 amount: 20,
+                        //             }
+                        //         ],
+                        //         status_id: 1,
+                        //     },
+                        // ]
                     );
                 }).catch(error => {
                     commit('addError', error.response.data.message || error.message)
@@ -95,30 +99,41 @@ export default {
                 .get('/api/warehouse/my_requests')
                 .then(response => {
                     commit('setMyWarehouseRequests',
-                        // response.data
-                        [
-                            {
-                                id: 1,
-                                creator: {
-                                    id: 1,
-                                    full_name: "Роман Алексеее",
-                                },
-                                created_at: '12.02.2022',
-                                inventories: [
-                                    {
-                                        id: 1,
-                                        name: "adrenaline",
-                                        amount: 20,
-                                    }
-                                ],
-                                status_id: 1,
-                            },
-                        ]
+                        response.data
+                        // [
+                        //     {
+                        //         id: 1,
+                        //         creator: {
+                        //             id: 1,
+                        //             full_name: "Роман Алексеее",
+                        //         },
+                        //         created_at: '12.02.2022',
+                        //         inventories: [
+                        //             {
+                        //                 id: 1,
+                        //                 name: "adrenaline",
+                        //                 amount: 20,
+                        //             }
+                        //         ],
+                        //         status_id: 1,
+                        //     },
+                        // ]
                     );
                 }).catch(error => {
                     commit('addError', error.response.data.message || error.message)
                 }).finally(() => commit('stopLoading'));
         },
+        createWarehouseRequest({commit}, item) {
+            commit('startLoading');
+            return axios
+                .post('/api/warehouse/requests', item)
+                .then(response => {
+                    commit('addWarehouseRequest', response.data);
+                }).catch(error => {
+                    commit('addError', error.response.data.message || error.message)
+                }).finally(() => commit('stopLoading'));
+        },
+
         deleteWarehouseInventory({commit}, id) {
             commit('startLoading');
             return axios

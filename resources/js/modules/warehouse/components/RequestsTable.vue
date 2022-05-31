@@ -5,7 +5,8 @@
             <th>Создатель</th>
             <th>Запрашивает</th>
             <th>Статус</th>
-            <th>Дата создания</th>
+            <th>Комментарий</th>
+            <th>Создано</th>
 <!--            <th>Действия</th>-->
         </tr>
         </thead>
@@ -17,7 +18,7 @@
             <td>
                 <ul>
                     <li v-for="inventory in warehouse_request.inventories">
-                        {{inventory.name}}: <b>{{inventory.amount}}</b>
+                        {{inventory.name}}: <b>{{inventory.pivot.amount}}</b>
                     </li>
                 </ul>
             </td>
@@ -27,7 +28,12 @@
                 </b>
             </td>
             <td>
-                {{warehouse_request.created_at}}
+                {{warehouse_request.comment}}
+            </td>
+            <td>
+                <span :data-order="warehouse_request.created_at">
+                    {{format_date(warehouse_request.created_at)}}
+                </span>
             </td>
         </tr>
         </tbody>
@@ -35,8 +41,9 @@
 </template>
 
 <script>
-    // import {mapGetters} from "vuex";
     import dataTableConfig from "../../../core/utils/DataTablesConfig";
+    import moment from 'moment'
+
 
     export default {
         data() {
@@ -54,14 +61,13 @@
         },
         methods: {
             status(status_id) {
-                console.log(this.statuses.find(status => status.id == status_id))
                 return this.statuses.find(status => status.id == status_id)
-            }
+            },
+            format_date(value){
+                if (value) {
+                    return moment(String(value)).format('DD.MM.YY HH:MM')
+                }
+            },
         }
-        // computed: {
-        //     ...mapGetters([
-        //         'inventories',
-        //     ])
-        // },
     }
 </script>

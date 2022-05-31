@@ -9,7 +9,7 @@ Trait HasInventories
 {
     public function inventories()
     {
-        return $this->belongsToMany(Inventory::class, 'inventory_movement')->withPivot(['amount']);
+        return $this->belongsToMany(Inventory::class)->withPivot('amount');
     }
 
 }

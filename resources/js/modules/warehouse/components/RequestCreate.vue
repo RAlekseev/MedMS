@@ -93,14 +93,12 @@
             return {
                 request: {
                     comment: null,
-                    date: null,
-                    factor: 1,
                     inventories: [
                         {
                             id: 0,
                             name: "Не выбрано",
                             unit: null,
-                            amount: null,
+                            selected_amount: null,
                         }
                     ],
                 },
@@ -119,8 +117,9 @@
         },
         methods: {
             createRequest() {
+                this.request.inventories = this.request.inventories.filter(inventory => inventory != 0);
                 document.getElementById('close').click();
-                this.$store.dispatch('createMovement', this.request)
+                this.$store.dispatch('createWarehouseRequest', this.request)
             },
             addInventory() {
                 this.request.inventories.push({

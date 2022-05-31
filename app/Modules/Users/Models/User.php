@@ -6,6 +6,7 @@ use App\Modules\Configs\Models\Config;
 use App\Modules\Contracts\Traits\HasContracts;
 use App\Modules\Access\Traits\HasRolesAndPermissions;
 use App\Modules\Icon\Models\MailService;
+use App\Modules\Warehouse\Traits\HasWarehouseRequest;
 use App\Modules\WorkingHour\Models\WorkingHour;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +17,7 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRolesAndPermissions, HasContracts;
+    use HasApiTokens, HasFactory, Notifiable, HasRolesAndPermissions, HasContracts, HasWarehouseRequest;
 
     /**
      * The attributes that are mass assignable.
