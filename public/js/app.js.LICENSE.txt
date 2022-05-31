@@ -115,3 +115,7 @@ Docs & License: https://fullcalendar.io/
  * http://jaywcjlove.github.io/hotkeys 
  * Licensed under the MIT license 
  */
+
+//! moment.js
+
+//! moment.js locale configuration

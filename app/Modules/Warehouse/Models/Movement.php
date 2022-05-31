@@ -2,13 +2,15 @@
 
 namespace App\Modules\Warehouse\Models;
 
-use App\Modules\Users\Models\User;
-use App\Modules\Services\Models\Service;
+use App\Modules\Warehouse\Traits\HasCreator;
+use App\Modules\Warehouse\Traits\HasInventories;
 use Illuminate\Database\Eloquent\Model;
 
 
 class Movement extends Model
 {
+    use HasInventories;
+    use HasCreator;
 
     /**
      * The attributes that are mass assignable.
@@ -20,15 +22,5 @@ class Movement extends Model
         'creator_id',
         'created_at',
     ];
-
-    public function creator()
-    {
-        return $this->belongsTo(User::class, 'creator_id');
-    }
-
-    public function inventories()
-    {
-        return $this->belongsToMany(Inventory::class, 'inventory_movement')->withPivot(['amount']);
-    }
 
 }

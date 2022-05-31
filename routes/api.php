@@ -12,6 +12,7 @@ use App\Modules\Contracts\Controllers\PatientContractController;
 use App\Modules\Services\Controllers\GuestServiceController;
 use App\Modules\Services\Controllers\ServiceController;
 use App\Modules\Warehouse\Controllers\InventoryController;
+use App\Modules\Warehouse\Controllers\WarehouseRequestController;
 use App\Modules\WorkingHour\Controllers\WorkingHourController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -59,8 +60,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('media/get', [MediaController::class, 'get']);
 
     Route::get('warehouse/inventories', [InventoryController::class, 'index']);
+    Route::delete('warehouse/inventories/{id}', [InventoryController::class, 'destroy']);
     Route::get('warehouse/movements', [MovementController::class, 'index']);
     Route::post('warehouse/movements', [MovementController::class, 'store']);
+
+    Route::get('warehouse/my_requests', [WarehouseRequestController::class, 'auth_user_index']);
+    Route::apiResource('warehouse/requests', WarehouseRequestController::class);
 
     Route::apiResource('/departments', DepartmentController::class);
 });

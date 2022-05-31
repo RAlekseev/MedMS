@@ -9,7 +9,6 @@ use App\Modules\Warehouse\Models\Inventory;
 use App\Modules\Warehouse\Models\Movement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\In;
 
 class MovementController extends Controller
 {

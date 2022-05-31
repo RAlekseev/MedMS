@@ -190,6 +190,14 @@
                     <i class="fas fa-fw fa-share-square"></i>
                     <span>Передвижения</span>
                 </router-link>
+                <router-link v-if="can('warehouse-requests')" class="nav-link" to="/warehouse/requests">
+                    <i class="fas fa-fw fa-list-alt"></i>
+                    <span>Заявки</span>
+                </router-link>
+                <router-link v-if="can('warehouse-my-requests')" class="nav-link" to="/warehouse/my_requests">
+                    <i class="fas fa-fw fa-paper-plane"></i>
+                    <span>Мои заявки</span>
+                </router-link>
             </li>
         </div>
 

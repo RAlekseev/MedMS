@@ -38,14 +38,7 @@ class PatientContractController extends Controller
         } else {
             $user = User::where('email', $request['user']['email'])->first();
             if (!$user) {
-                $user = User::create([
-                    'first_name' => $request['user']['first_name'],
-                    'last_name' => $request['user']['last_name'],
-                    'middle_name' => $request['user']['middle_name'],
-                    'email' => $request['user']['email'],
-                    'phone' => $request['user']['phone'],
-                    'password' => bcrypt(strtolower(Str::random(4))),
-                ]);
+                $user = User::create_from_request($request['user']);
             }
             $user_id = $user->id;
         }

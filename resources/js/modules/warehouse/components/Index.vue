@@ -31,6 +31,7 @@
                                     <th>Ед.</th>
                                     <th>Количество</th>
                                     <th>Передвижения</th>
+                                    <th v-if="can('warehouse-inventory-delete')">Действия</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -67,6 +68,9 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <td v-if="can('warehouse-inventory-delete')">
+                                        <Delete :inventory="inventory"/>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -86,6 +90,7 @@
     import Income from "./Income";
     import Outcome from "./Outcome";
     import MovementsTable from "./MovementsTable";
+    import Delete from "./Delete";
 
     export default {
         metaInfo: {
@@ -105,6 +110,7 @@
             Income,
             Outcome,
             MovementsTable,
+            Delete
         }
     }
 </script>
