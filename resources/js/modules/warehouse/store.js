@@ -21,6 +21,10 @@ export default {
         setMyWarehouseRequests(state, items) {
             state.my_warehouse_requests = items;
         },
+        deleteWarehouseInventory(state, id) {
+            let index = state.inventories.findIndex(item => item.id === id);
+            state.inventories.splice(index, 1);
+        }
     },
 
     actions: {
@@ -111,6 +115,16 @@ export default {
                             },
                         ]
                     );
+                }).catch(error => {
+                    commit('addError', error.response.data.message || error.message)
+                }).finally(() => commit('stopLoading'));
+        },
+        deleteWarehouseInventory({commit}, id) {
+            commit('startLoading');
+            return axios
+                .delete(`/api/warehouse/inventories/${id}`)
+                .then(() => {
+                    commit('deleteWarehouseInventory', id);
                 }).catch(error => {
                     commit('addError', error.response.data.message || error.message)
                 }).finally(() => commit('stopLoading'));

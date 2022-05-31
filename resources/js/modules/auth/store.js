@@ -48,7 +48,7 @@ export default {
         },
         logout({commit}) {
             axios
-                .post(`api/logout`)
+                .post(`/api/logout`)
                 .then(response => {
                     commit('clearUserData')
                 })
