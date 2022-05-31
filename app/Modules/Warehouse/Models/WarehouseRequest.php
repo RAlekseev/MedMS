@@ -7,7 +7,7 @@ use App\Modules\Warehouse\Traits\HasInventories;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Movement extends Model
+class WarehouseRequest extends Model
 {
     use HasInventories;
     use HasCreator;
@@ -18,9 +18,9 @@ class Movement extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'contractor',
         'creator_id',
-        'created_at',
+        'commented',
+        'status_id',
     ];
 
 }
