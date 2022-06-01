@@ -8,27 +8,18 @@ use Sendpulse\RestApi\Storage\FileStorage;
 
 class SendPulse implements MailService
 {
-    public function sendEmail(string $text, string $subject, Array $to)
+    public function sendEmail($html, string $text, string $subject, Array $to)
     {
         $SPApiClient = new ApiClient(env('SENDPULSE_API_USER_ID'), env('SENDPULSE_API_SECRET'), new FileStorage());
         $email = array(
-            'html' => `<p>{$text}</p>`,
+            'html' => $html,
             'text' => $text,
             'subject' => $subject,
             'from' => array(
-                'name' => 'John',
-                'email' => 'sender@example.com',
+                'name' => 'IMU Clinic',
+                'email' => 'admin@medms.org',
             ),
             'to' => $to,
-            'bcc' => array(
-                array(
-                    'name' => 'Manager',
-                    'email' => 'manager@example.com',
-                ),
-            ),
-            'attachments' => array(
-                'file.txt' => file_get_contents(PATH_TO_ATTACH_FILE),
-            ),
         );
 
         return $SPApiClient->smtpSendMail($email);

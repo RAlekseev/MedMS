@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Icon\Models;
+namespace App\Modules\Email\Models;
 
 use App\Modules\Email\MailServices\SendPulse;
 

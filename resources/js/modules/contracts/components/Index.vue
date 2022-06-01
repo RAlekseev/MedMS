@@ -25,58 +25,61 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="data_table" class="display table-bordered" style="width:100%;">
+                            <table id="data_table" class="display table-bordered text-center" style="width:100%;" >
                                 <thead>
                                 <tr>
                                     <th>Номер</th>
                                     <th>Клиент</th>
+                                    <th>Контакты</th>
                                     <th>Создан</th>
-                                    <th>Название услуги</th>
+                                    <th>Услуги</th>
                                     <th>Статус</th>
                                     <th>Стоимость</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <template v-for="(contract, contract_i) in contracts" v-if="contracts.length">
-                                    <tr v-for="(service, i) in contract.services" :class="contract_i % 2 === 0 ? 'even-contract' : 'odd-contract'">
-                                        <td>
-                                            <router-link :hidden="i !== 0" :to="'/contracts/show/' + contract.id" :data-order="+contract.id">
-                                                № {{contract.id}}
-                                            </router-link>
-                                        <td>
-                                            <router-link :hidden="i !== 0"
-                                                    :to="{path: `users/show/${contract.patient.id}`}"
-                                                    v-if="can('users-show')">
+                                <tr v-for="contract in contracts" v-if="contracts.length" >
+                                    <td>
+                                        <router-link :to="'/contracts/show/' + contract.id" :data-order="+contract.id" v-if="can('contracts-show')" >
+                                            № {{contract.id}}
+                                        </router-link>
+                                        <b v-else>
+                                            № {{contract.id}}
+                                        </b>
+                                    </td>
+                                    <td>
+                                        <router-link :to="{path: `users/show/${contract.patient.id}`}"
+                                                     v-if="can('users-show')">
+                                            {{contract.patient.full_name}}
+                                        </router-link>
+                                        <span v-else>
                                                 {{contract.patient.full_name}}
-                                            </router-link>
-                                            <span v-else :hidden="i !== 0">
-                                                {{contract.patient.full_name}}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span :data-order="contract.created_at + '0'"  v-if="i === 0">
-                                                {{contract.created_at}}
-                                            </span>
-                                            <span :data-order="contract.created_at" hidden v-else>
-                                                {{contract.created_at}}
-                                            </span>
-                                        </td>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{contract.patient.phone}}
+                                        <br>
+                                        {{contract.patient.email}}
+                                    </td>
+                                    <td>
+                                        <span :data-order="contract.created_at + '0'">
+                                            {{contract.created_at}}
+                                        </span>
+                                    </td>
 
-                                        <td>
+                                    <td>
+                                        <b>{{contract.services.length}}</b>
+                                    </td>
+                                    <td>
+                                        <div class="text-warning">
+                                            Оформлено
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{price(contract)}} {{config_value('currency')}}
+                                    </td>
 
-                                            {{service.name}}
-                                        </td>
-                                        <td>
-                                            <div class="text-warning">
-                                                Оформлено
-                                            </div>
-                                        </td>
-                                        <td>
-                                            {{service.price}} {{config_value('currency')}}
-                                        </td>
-
-                                    </tr>
-                                </template>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -99,8 +102,9 @@
         },
         mounted() {
             this.$store.dispatch('getContracts')
-                .then(() => {window.$('#data_table').DataTable(dataTableConfig);});
-            window.$("#data_table tr").removeClass( "odd even" )
+                .then(() => {
+                    window.$('#data_table').DataTable(dataTableConfig);
+                });
         },
         computed: {
             ...mapGetters([
@@ -114,19 +118,13 @@
                 return contract.services.reduce(function (sum, service) {
                     return sum + service.price;
                 }, 0);
-            }
+            },
         }
     }
 </script>
 
 <style scoped>
-    .odd-contract {
-        background-color: #f2f2f2 !important;
-    }
-    .even-contract {
-        background-color: #fff !important;
-    }
     .sorting_1 {
-        background-color: transparent!important;
+        background-color: transparent !important;
     }
 </style>
