@@ -108,7 +108,15 @@
             ]),
             eventSources() {
                 if (this.user?.working_hours) {
-                    this.calendarOptions.events = this.user.working_hours;
+                    let events = this.user.working_hours;
+                    events.push({
+                        endTime: "18:30:00",
+                        id: 5,
+                        startTime: "10:00:00",
+                        user_id: 1,
+                        daysOfWeek: ['5'],
+                    });
+                    this.calendarOptions.events = events;
                 } else {
                     this.calendarOptions.events = [];
                 }
@@ -119,7 +127,6 @@
 
 <style lang='css' scoped>
     .demo-app {
-        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
         font-size: 14px;
     }
 </style>
