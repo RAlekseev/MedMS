@@ -49,6 +49,8 @@ class PatientContractController extends Controller
 
         $contract->services()->attach(array_column($request['services'], 'id'));
 
+        $contract->send_email();
+
         return [
             'contract' => $contract,
             'message' => 'Услуги успешно оформлены',
