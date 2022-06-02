@@ -14,7 +14,7 @@ class UpdateWorkingHoursTableReccuring extends Migration
     public function up()
     {
         Schema::table('working_hours', function (Blueprint $table) {
-            $table->json('days_of_weak')->nullable();
+            $table->json('days_of_week')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class UpdateWorkingHoursTableReccuring extends Migration
     public function down()
     {
         Schema::table('working_hours', function (Blueprint $table) {
-            $table->dropColumn('days_of_weak');
+            $table->dropColumn('days_of_week');
         });
     }
 }

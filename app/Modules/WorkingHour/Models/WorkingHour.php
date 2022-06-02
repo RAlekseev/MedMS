@@ -16,12 +16,14 @@ class WorkingHour extends Model
         'start',
         'end',
         'user_id',
+        'days_of_week',
     ];
 
 
     protected $casts = [
         'start' => 'datetime:Y-m-d\TH:i:s',
         'end'  => 'datetime:Y-m-d\TH:i:s',
+        'days_of_week' => 'array',
     ];
 
     public $timestamps = false;
