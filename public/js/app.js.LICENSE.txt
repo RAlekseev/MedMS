@@ -17,6 +17,17 @@ https://github.com/nodeca/pako/blob/master/LICENSE
   */
 
 /*!
+ *  Vuedals plugin v1.8.0
+ * 
+ *  Multiple event based modal windows, with a single component
+ * 
+ *  This is a plugin to open any number of modal windows without having to attach them to the DOM
+ *  @author Javis Perez <javisperez@gmail.com>
+ *  https://github.com/javisperez/vuedals
+ *  Released under the MIT License.
+ */
+
+/*!
  * HTML5 export buttons for Buttons and DataTables.
  * 2016 SpryMedia Ltd - datatables.net/license
  *

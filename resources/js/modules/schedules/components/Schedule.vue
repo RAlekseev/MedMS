@@ -1,5 +1,6 @@
 <template>
     <div class='demo-app' id="schedule">
+        <vuedal></vuedal>
         <div class='demo-app-main'>
             <FullCalendar
                     class='demo-app-calendar'
@@ -22,10 +23,14 @@
     import ruLocale from '@fullcalendar/core/locales/ru';
     import {mapGetters} from "vuex";
     import Print from "../../../core/utils/print";
+    import moment from "moment";
+    import {Component as Vuedal, Bus} from 'vuedals';
+    import DaysOfWeekModal from "./DaysOfWeekModal";
 
     export default {
         components: {
-            FullCalendar // make the <FullCalendar> tag available
+            FullCalendar,
+            Vuedal,
         },
         props: ['user'],
         data() {
@@ -41,7 +46,7 @@
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
-                    contentHeight:"auto",
+                    contentHeight: "auto",
                     initialView: 'timeGridWeek',
                     editable: true,
                     selectable: true,
@@ -67,31 +72,51 @@
             }
         },
         methods: {
-            handleDateSelect(selectInfo) {
-                let title = prompt('Please enter a new title for your event');
+            createWorkingHour(selectInfo, data) {
                 let calendarApi = selectInfo.view.calendar;
-                calendarApi.unselect() // clear date selection
-                if (title) {
-                    this.calendarOptions.events.push({
-                        title,
-                        start: selectInfo.startStr,
-                        end: selectInfo.endStr,
-                        allDay: selectInfo.allDay,
-                        color: 'green',
-                        user_id: this.user.id
-                    })
+                calendarApi.unselect(); // clear date selection
+                let new_wh = {
+                    start: selectInfo.startStr,
+                    end: selectInfo.endStr,
+                    allDay: selectInfo.allDay,
+                    color: 'green',
+                    user_id: this.user.id,
+                };
+                if (data.length) {
+                    new_wh['daysOfWeek'] = data;
+                    new_wh['startTime'] = moment(selectInfo.startStr).format('HH:mm:ss');
+                    new_wh['endTime'] = moment(selectInfo.endStr).format('HH:mm:ss');
                 }
+                this.calendarOptions.events.push(new_wh)
+            },
+            handleDateSelect(selectInfo) {
+                let create = this.createWorkingHour;
+                Bus.$emit('new', {
+                    name: 'days-of-week-select',
+                    component: DaysOfWeekModal,
+                    title: 'Выберите дни недели',
+                    size: 'xs',
+                    props: {selectInfo},
+                    onClose(data){
+                        create(selectInfo, data)
+                    }
+                });
             },
             handleEventClick(clickInfo) {
-                if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-                    clickInfo.event.remove()
+                if (confirm(`Вы действительно хотите удалить событие?`)) {
+                    this.$store.dispatch('deleteWorkingHouse', clickInfo.event.id)
+                    .then(() => clickInfo.event.remove());
                 }
             },
             handleEventChange(changeInfo) {
-                let event = this.calendarOptions.events.find(item => item.id == changeInfo.event.id);
+                var event = this.calendarOptions.events.find(item => item.id == changeInfo.event.id);
                 event.color = 'green';
                 event.start = changeInfo.event.startStr;
                 event.end = changeInfo.event.endStr;
+                if (event.daysOfWeek?.length) {
+                    event.startTime = moment(changeInfo.event.startStr).format('HH:mm:ss');
+                    event.endTime = moment(changeInfo.event.endStr).format('HH:mm:ss');
+                }
             },
             handleUpdate() {
                 this.$store.dispatch('updateWorkingHours', {events: this.calendarOptions.events})
@@ -108,7 +133,20 @@
             ]),
             eventSources() {
                 if (this.user?.working_hours) {
-                    this.calendarOptions.events = this.user.working_hours;
+                    let events = this.user.working_hours.map(function (working_hours) {
+                        if (working_hours.days_of_week) {
+                            return {
+                                endTime: moment(working_hours.end).format('HH:mm:ss'),
+                                id: working_hours.id,
+                                startTime: moment(working_hours.start).format('HH:mm:ss'),
+                                user_id: working_hours.user_id,
+                                daysOfWeek: working_hours.days_of_week,
+                            }
+                        } else {
+                            return working_hours;
+                        }
+                    });
+                    this.calendarOptions.events = events;
                 } else {
                     this.calendarOptions.events = [];
                 }
@@ -119,7 +157,6 @@
 
 <style lang='css' scoped>
     .demo-app {
-        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
         font-size: 14px;
     }
 </style>
@@ -135,7 +172,7 @@
         }
 
         .fc-save-button {
-            display: none!important;
+            display: none !important;
         }
     }
 

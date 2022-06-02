@@ -7,6 +7,7 @@ namespace App\Modules\WorkingHour\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\WorkingHour\Models\WorkingHour;
 use Carbon\Carbon;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 
 class WorkingHourController extends Controller
@@ -41,7 +42,8 @@ class WorkingHourController extends Controller
                     WorkingHour::create([
                         'start' => Carbon::parse($event['start']),
                         'end' => Carbon::parse($event['end']),
-                        'user_id' => $event['user_id']
+                        'user_id' => $event['user_id'],
+                        'days_of_week' => array_key_exists('daysOfWeek', $event) ? $event['daysOfWeek'] : null,
                     ]);
                 }
             }
@@ -83,6 +85,7 @@ class WorkingHourController extends Controller
      */
     public function destroy(int $id)
     {
-
+        WorkingHour::findOrFail($id)->delete();
+        return response('OK', 200);
     }
 }
